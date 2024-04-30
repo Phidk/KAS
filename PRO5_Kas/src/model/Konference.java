@@ -55,15 +55,15 @@ public class Konference {
 //    public void setRegistration(){
 //        this.registration = registration;
 //    }
-    public Arraylist<Registration> getRegistration(){
-        return new ArrayList<>(registrationer);
-    }
-    public void addRegistration(Registration registration){
-        registrationer.add(registration);
-    }
-    public void removeRegistration(Registration registration){
-        registrationer.remove(registration);
-    }
-    
+//    public Arraylist<Registration> getRegistration(){
+//        return new ArrayList<>(registrationer);
+//    }
+//    public void addRegistration(Registration registration){
+//        registrationer.add(registration);
+//    }
+//    public void removeRegistration(Registration registration){
+//        registrationer.remove(registration);
+//    }
+//
 
 }
