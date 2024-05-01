@@ -7,6 +7,7 @@ public class Ledsager {
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private Deltager deltager;
 
+
     public Ledsager(String navn) {
         this.navn = navn;
     }

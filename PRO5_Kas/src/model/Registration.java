@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Registration {
@@ -9,19 +10,19 @@ public class Registration {
     private LocalDate ankomstDato;
     private LocalDate afstedsDato;
     boolean foredragsholder;
-    private Hotelværelse hotelværelse;
+   // private Hotelværelse hotelværelse;
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
-    private ArrayList<Tillæg> tillægger = new Arraylist<>();
+    private ArrayList<Tillæg> tillægger = new ArrayList<>();
 
-    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder, Hotelværelse hotelværelse, Deltager deltager, Konference konference) {
+    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder,  Deltager deltager, Konference konference) {
         this.firmaTlfNr = firmaTlfNr;
         this.firmaNavn = firmaNavn;
         this.ankomstDato = ankomstDato;
         this.afstedsDato = afstedsDato;
         this.foredragsholder = foredragsholder;
-        this.hotelværelse = hotelværelse;
+        //this.hotelværelse = hotelværelse;
         this.deltager = deltager;
         this.setkonference(konference);
         this.ledsager = ledsager;
@@ -42,7 +43,6 @@ public class Registration {
     public void setFirmaNavn(String firmaNavn) {
         this.firmaNavn = firmaNavn;
     }
-
 
     public LocalDate getAnkomstDato() {
         return ankomstDato;
@@ -83,20 +83,47 @@ public class Registration {
     public Konference getKonference() {
         return konference;
     }
+//________________
 
-
-
-    public Hotelværelse getHotelværelse() {
-        return hotelværelse;
+    public Ledsager createLedsager(String navn){
+Ledsager ledsager = new Ledsager(navn);
+this.ledsager = ledsager;
+return ledsager;
     }
+
+    public ArrayList<Tillæg> getTillægger(){
+        return new ArrayList<>(tillægger);
+    }
+    public void addTillæg(Tillæg tillæg){
+        tillægger.add(tillæg);
+    }
+    public void removeTillæg(Tillæg tillæg){
+     this.tillægger.remove(tillæg);
+    }
+    public double calculateTillægsPris(){
+        double sum = 0.0;
+        for (Tillæg tillæg : this.tillægger){
+            sum += tillæg.getPris();
+        }
+        return sum;
+    }
+
+//    public void calculateTotalPris(){
+//     int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
+//     int sum = 0;
+//     if(!this.isForedragsholder()){
+//         sum = this.konference.get
+//
+//     }
+//    }
+
+//    public Hotelværelse getHotelværelse() {
+//        return hotelværelse;
+//    }
 
     public Deltager getDeltager() {
         return deltager;
     }
 
-
-    public ArrayList<Tillæg> getTillægger() {
-        return tillægger;
-    }
 
 }

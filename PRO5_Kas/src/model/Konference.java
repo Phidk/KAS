@@ -82,21 +82,21 @@ public class Konference {
         public void addHotel(Hotel hotel){
         if(!this.hoteller.contains(hotel)){
             this.hoteller.add(hotel);
-            hotel.addKonference(this);
+           // hotel.addKonference(this);
         }
         }
         public void addHoteller(Hotel...hoteller){
         for(Hotel hotel : hoteller){
             if(!this.hoteller.contains(hotel)){
                 this.hoteller.add(hotel);
-                hotel.addKonference(this);
+                //hotel.addKonference(this);
             }
         }
         }
         public void removeHotel(Hotel hotel){
         if(this.hoteller.contains(hotel)){
             this.hoteller.remove(hotel);
-            hotel.removeKonference(this);
+            //hotel.removeKonference(this);
         }
         }
         public ArrayList<Hotel> getHoteller(){

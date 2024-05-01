@@ -35,9 +35,9 @@ public class Deltager {
         return adresse;
     }
 
-    public boolean isForedragsholder() {
-        return foredragsholder;
-    }
+//    public boolean isForedragsholder() {
+//       // return foredragsholder;
+//    }
 
     public String getLand() {
         return land;
@@ -61,7 +61,7 @@ public class Deltager {
         return "Deltager{" +
                 "navn='" + navn + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", foredragsholder=" + foredragsholder +
+                ", foredragsholder=" + //foredragsholder +
                 ", land='" + land + '\'' +
                 ", by='" + by + '\'' +
                 ", tlfNr='" + tlfNr + '\'' +
