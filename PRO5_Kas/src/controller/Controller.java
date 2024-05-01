@@ -37,8 +37,8 @@ public abstract class Controller {
     /**
      * Returnerer en liste af konferencer fra storage
      */
-    public static ArrayList<Conference> getConferences () {
-        return Storage.getConferences();
+    public static ArrayList<Konference> getConferences () {
+        return Storage.getKonferencer();
     }
 
     // ----------------------------- Hoteller -----------------------------
@@ -63,8 +63,8 @@ public abstract class Controller {
     /**
      * Returnerer en liste af hoteller fra storage
      */
-    public static ArrayList<Hotel> getHotels() {
-         return Storage.getHotels();
+    public static ArrayList<Hotel> getHoteller() {
+         return Storage.getHoteller();
     }
 
     // ----------------------------- Udflugter -----------------------------
@@ -141,8 +141,52 @@ public abstract class Controller {
     /**
      * Returnerer en liste af registrationer fra storage
      */
-    public static ArrayList<Registration> getRegistrations() {
-        return Storage.getRegistrations();
+    public static ArrayList<Registration> getRegistrationer() {
+        return Storage.getRegistrationer();
     }
+
+//    // ----------------------------- Tillæg -----------------------------
+//    public static Tillæg createTillæg(String navn, double pris) {
+//        Tillæg tillæg = new Tillæg(navn, pris);
+//        Storage.addTillæg(tillæg);
+//        return tillæg;
+//    }
+//
+//    public static void removeTillæg(Tillæg tillæg) {
+//        Storage.removeTillæg(tillæg);
+//    }
+//
+//    public static ArrayList<Tillæg> getTillæg() {
+//        return Storage.getTillæg();
+//    }
+//    // ----------------------------- Ledsagere -----------------------------
+//    public static Ledsager createLedsager(String navn, int alder, String tlfNr) {
+//        Ledsager ledsager = new Ledsager(navn, alder, tlfNr);
+//        Storage.addLedsager(ledsager);
+//        return ledsager;
+//    }
+//
+//    public static void removeLedsager(Ledsager ledsager) {
+//        Storage.removeLedsager(ledsager);
+//    }
+//
+//    public static ArrayList<Ledsager> getLedsagere() {
+//        return Storage.getLedsagere();
+//    }
+//
+//    // ----------------------------- HotelVærelser -----------------------------
+//    public static HotelVærelse createHotelVærelse(int værelsesNr, int antalSenge, int pris) {
+//        HotelVærelse hotelVærelse = new HotelVærelse(værelsesNr, antalSenge, pris);
+//        Storage.addHotelVærelse(hotelVærelse);
+//        return hotelVærelse;
+//    }
+//
+//    public static void removeHotelVærelse(HotelVærelse hotelVærelse) {
+//        Storage.removeHotelVærelse(hotelVærelse);
+//    }
+//
+//    public static ArrayList<HotelVærelse> getHotelVærelser() {
+//        return Storage.getHotelVærelser();
+//    }
 }
 
