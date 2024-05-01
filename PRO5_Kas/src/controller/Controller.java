@@ -73,11 +73,21 @@ public abstract class Controller {
      * Opretter en udflugt og tilføjer den til storage
      * Pre: Pris >= 0
      */
-    public static Udflugt createUdflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost) {
-         Udflugt udflugt = new Udflugt(navn, destination, dato, tid, pris, frokost);
+    // Association: Konference 1 --> Udflugt 0..*
+    public static Udflugt createUdflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
+         Udflugt udflugt = new Udflugt(navn, destination, dato, tid, pris, frokost, konference);
+         Konference.addUdflugt(udflugt);
          Storage.addUdflugt(udflugt);
          return udflugt;
     }
+
+    public void moveUdflugtToNewKonfernece(Konference konference, Udflugt udflugt, Konference newKonference) {
+        if (konference.getUdflugter().contains(udflugt)) {
+             konference.removeUdflugt(udflugt);
+             newKonference.addUdflugt(udflugt);
+        }
+    }
+
 
     /**
      * Fjerner en udflugt fra storage
@@ -125,10 +135,19 @@ public abstract class Controller {
      * Opretter en registrering og gemmer den i storage
      * Pre: ankomstDato >= afrejseDato && ankomstDato <= konference.getSlutDato() && afrejseDato >= konference.getStartDato()
      */
+    // Association: Konference 1 --> Registration 0..*
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, Deltager deltager, Konference konference) {
-        Registration registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, deltager, konference);
+        var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, deltager, konference);
+        konference.addRegistration(registration);
         Storage.addRegistration(registration);
         return registration;
+    }
+
+    public static void addRegistrationToKonference(Konference konference, Registration registration) {
+        var oldKonference = registration.getKonference();
+        oldKonference.removeRegistration(registration);
+        registration.setKonference(konference);
+        konference.addRegistration(registration);
     }
 
     /**
@@ -149,7 +168,7 @@ public abstract class Controller {
 
     /**
      * Opretter et hotelværelse og gemmer det i storage
-     * værelsesNr > 0 && antalSenge > 0 && pris >= 0
+     * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
      */
     public static HotelVærelse createHotelVærelse(int værelsesNr, int antalSenge, int pris) {
         HotelVærelse hotelVærelse = new HotelVærelse(værelsesNr, antalSenge, pris);
@@ -171,20 +190,31 @@ public abstract class Controller {
         return Storage.getHotelVærelser();
     }
 
-//    // ----------------------------- Tillæg -----------------------------
-//    public static Tillæg createTillæg(String navn, double pris) {
-//        Tillæg tillæg = new Tillæg(navn, pris);
-//        Storage.addTillæg(tillæg);
-//        return tillæg;
-//    }
-//
-//    public static void removeTillæg(Tillæg tillæg) {
-//        Storage.removeTillæg(tillæg);
-//    }
-//
-//    public static ArrayList<Tillæg> getTillæg() {
-//        return Storage.getTillæg();
-//    }
+    // ----------------------------- Tillæg -----------------------------
+
+    /**
+     * Opretter et tillæg og gemmer det i storage
+     * Pre: pris >= 0
+     */
+    public static Tillæg createTillæg(String navn, double pris) {
+        Tillæg tillæg = new Tillæg(navn, pris);
+        Storage.addTillæg(tillæg);
+        return tillæg;
+    }
+
+    /**
+     * Sletter et tillæg fra storage
+     */
+    public static void removeTillæg(Tillæg tillæg) {
+        Storage.removeTillæg(tillæg);
+    }
+
+    /**
+     * Returnerer en liste af tillæg fra storage
+     */
+    public static ArrayList<Tillæg> getTillæg() {
+        return Storage.getTillæg();
+    }
 //    // ----------------------------- Ledsagere -----------------------------
 //    public static Ledsager createLedsager(String navn, int alder, String tlfNr) {
 //        Ledsager ledsager = new Ledsager(navn, alder, tlfNr);

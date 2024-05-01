@@ -19,7 +19,7 @@ public class Udflugt {
     // private ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
 
-    public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost) {
+    public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
         this.navn = navn;
         this.destination = destination;
         this.dato = dato;
