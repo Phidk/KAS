@@ -12,9 +12,8 @@ public class Udflugt {
     private LocalDateTime tid;
     private int pris;
     private Boolean frokost;
-
+    // Setup association to Ledsager
     // private ArrayList<Ledsager> ledsagere = new ArrayList<>();
-
 
     public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost) {
         this.navn = navn;
