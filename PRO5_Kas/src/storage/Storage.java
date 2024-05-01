@@ -10,10 +10,10 @@ public abstract class Storage {
     private static final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private static final ArrayList<Deltager> deltagere = new ArrayList<>();
     private static final ArrayList<Registration> registrationer = new ArrayList<>();
+    private static final ArrayList<HotelVærelse> hotelVærelser = new ArrayList<>();
 
     //private static final ArrayList<Tillæg> tillæg = new ArrayList<>();
     //private static final ArrayList<Ledsager> ledsagere = new ArrayList<>();
-    //private static final ArrayList<HotelVærelse> hotelVærelser = new ArrayList<>();
 
     // ---------------------- Konferencer ----------------------
     public static void addKonference(Konference konference) {
@@ -80,6 +80,19 @@ public abstract class Storage {
         return new ArrayList<>(registrationer);
     }
 
+        // ---------------------- HotelVærelser ----------------------
+    public static void addHotelVærelse(HotelVærelse hotelværelse) {
+        Storage.hotelværelser.add(hotelværelse);
+    }
+
+    public static void removeHotelVærelse(HotelVærelse hotelværelse) {
+        Storage.hotelværelser.remove(hotelværelse);
+    }
+
+    public static ArrayList<HotelVærelse> getHotelværelser() {
+        return new ArrayList<>(hotelværelser);
+    }
+
 //    // ---------------------- Tillæg ----------------------
 //    public static void addTillæg(Tillæg tillæg) {
 //        Storage.tillæg.add(tillæg);
@@ -104,18 +117,5 @@ public abstract class Storage {
 //
 //    public static ArrayList<Ledsager> getLedsagere() {
 //        return new ArrayList<>(ledsagere);
-//    }
-//
-//    // ---------------------- HotelVærelser ----------------------
-//    public static void addHotelVærelse(HotelVærelse hotelværelse) {
-//        Storage.hotelværelser.add(hotelværelse);
-//    }
-//
-//    public static void removeHotelVærelse(HotelVærelse hotelværelse) {
-//        Storage.hotelværelser.remove(hotelværelse);
-//    }
-//
-//    public static ArrayList<HotelVærelse> getHotelværelser() {
-//        return new ArrayList<>(hotelværelser);
 //    }
 }

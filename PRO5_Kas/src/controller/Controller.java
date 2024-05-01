@@ -145,6 +145,32 @@ public abstract class Controller {
         return Storage.getRegistrationer();
     }
 
+    // ----------------------------- HotelVærelser -----------------------------
+
+    /**
+     * Opretter et hotelværelse og gemmer det i storage
+     * værelsesNr > 0 && antalSenge > 0 && pris >= 0
+     */
+    public static HotelVærelse createHotelVærelse(int værelsesNr, int antalSenge, int pris) {
+        HotelVærelse hotelVærelse = new HotelVærelse(værelsesNr, antalSenge, pris);
+        Storage.addHotelVærelse(hotelVærelse);
+        return hotelVærelse;
+    }
+
+    /**
+     * Sletter et hotelværelse fra storage
+     */
+    public static void removeHotelVærelse(HotelVærelse hotelVærelse) {
+        Storage.removeHotelVærelse(hotelVærelse);
+    }
+
+    /**
+     * Returnerer en liste af hotelværelser fra storage
+     */
+    public static ArrayList<HotelVærelse> getHotelVærelser() {
+        return Storage.getHotelVærelser();
+    }
+
 //    // ----------------------------- Tillæg -----------------------------
 //    public static Tillæg createTillæg(String navn, double pris) {
 //        Tillæg tillæg = new Tillæg(navn, pris);
@@ -174,19 +200,6 @@ public abstract class Controller {
 //        return Storage.getLedsagere();
 //    }
 //
-//    // ----------------------------- HotelVærelser -----------------------------
-//    public static HotelVærelse createHotelVærelse(int værelsesNr, int antalSenge, int pris) {
-//        HotelVærelse hotelVærelse = new HotelVærelse(værelsesNr, antalSenge, pris);
-//        Storage.addHotelVærelse(hotelVærelse);
-//        return hotelVærelse;
-//    }
-//
-//    public static void removeHotelVærelse(HotelVærelse hotelVærelse) {
-//        Storage.removeHotelVærelse(hotelVærelse);
-//    }
-//
-//    public static ArrayList<HotelVærelse> getHotelVærelser() {
-//        return Storage.getHotelVærelser();
-//    }
+
 }
 
