@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+//Færdig
 public class Udflugt {
 
     private String navn;
@@ -13,7 +13,7 @@ public class Udflugt {
     private int pris;
     private Boolean frokost;
 
-    // private ArrayList<Ledsager> ledsagere = new ArrayList<>();
+    private ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
 
     public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost) {
@@ -71,5 +71,14 @@ public class Udflugt {
 
     public void setFrokost(Boolean frokost) {
         this.frokost = frokost;
+    }
+    public ArrayList<Ledsager> getLedsagere(){
+        return new ArrayList<>(ledsagere);
+    }
+    public void addLedsager(Ledsager ledsager){
+        ledsagere.add(ledsager);
+    }
+    public void removeLedsager(Ledsager ledsager){
+        ledsagere.remove(ledsager);
     }
 }
