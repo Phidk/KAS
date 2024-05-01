@@ -9,7 +9,6 @@ public class Deltager {
 
     private String adresse;
 
-    boolean foredragsholder;
 
     private String land;
 
@@ -22,7 +21,6 @@ public class Deltager {
     public Deltager(String navn, String adresse, boolean foredragsholder, String land, String by, String tlfNr) {
         this.navn = navn;
         this.adresse = adresse;
-        this.foredragsholder = foredragsholder;
         this.land = land;
         this.by = by;
         this.tlfNr = tlfNr;
