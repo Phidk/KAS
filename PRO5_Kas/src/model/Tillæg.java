@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Tillæg {
     private String name;
     private int pris;

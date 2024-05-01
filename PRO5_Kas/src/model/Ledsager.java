@@ -2,8 +2,7 @@ package model;
 
 import java.util.ArrayList;
 //Færdig
-public class Ledsager {
-    private String navn;
+public class Ledsager extends Person {
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private Deltager deltager;
 

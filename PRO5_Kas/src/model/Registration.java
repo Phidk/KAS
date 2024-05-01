@@ -10,7 +10,7 @@ public class Registration {
     private LocalDate ankomstDato;
     private LocalDate afstedsDato;
     boolean foredragsholder;
-   // private Hotelværelse hotelværelse;
+    private Hotelværelse hotelværelse;
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
@@ -22,7 +22,7 @@ public class Registration {
         this.ankomstDato = ankomstDato;
         this.afstedsDato = afstedsDato;
         this.foredragsholder = foredragsholder;
-        //this.hotelværelse = hotelværelse;
+        this.hotelværelse = hotelværelse;
         this.deltager = deltager;
         this.setkonference(konference);
         this.ledsager = ledsager;
@@ -94,12 +94,15 @@ return ledsager;
     public ArrayList<Tillæg> getTillægger(){
         return new ArrayList<>(tillægger);
     }
+
     public void addTillæg(Tillæg tillæg){
         tillægger.add(tillæg);
     }
+
     public void removeTillæg(Tillæg tillæg){
      this.tillægger.remove(tillæg);
     }
+
     public double calculateTillægsPris(){
         double sum = 0.0;
         for (Tillæg tillæg : this.tillægger){
@@ -117,9 +120,9 @@ return ledsager;
 //     }
 //    }
 
-//    public Hotelværelse getHotelværelse() {
-//        return hotelværelse;
-//    }
+    public Hotelværelse getHotelværelse() {
+       return hotelværelse;
+   }
 
     public Deltager getDeltager() {
         return deltager;
