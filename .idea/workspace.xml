@@ -22,13 +22,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
+<<<<<<< Updated upstream
 =======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -41,16 +45,25 @@
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "editor.preferences.completion"
 >>>>>>> 7969a0b19aca347ebc863e5513570a0a420bf23f
+=======
+>>>>>>> Stashed changes
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="920a5b38-c145-4489-b231-35b5f77f23cf" name="Changes" comment="" />
+<<<<<<< Updated upstream
       <created>1714474820220</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714474820220</updated>
+=======
+      <created>1714475607744</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714475607744</updated>
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
