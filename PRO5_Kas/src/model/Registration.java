@@ -111,14 +111,14 @@ return ledsager;
         return sum;
     }
 
-//    public void calculateTotalPris(){
-//     int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
-//     int sum = 0;
-//     if(!this.isForedragsholder()){
-//         sum = this.konference.get
-//
-//     }
-//    }
+    public void calculateTotalPris(){
+     int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
+     int sum = 0;
+     if(!this.isForedragsholder()){
+         sum = (int) (this.konference.getKonferenceAfgift() + this.getHotelværelse().calculateTillægsPris()) * totalDage;
+
+     }
+    }
 
     public Hotelværelse getHotelværelse() {
        return hotelværelse;

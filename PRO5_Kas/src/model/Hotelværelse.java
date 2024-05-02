@@ -13,6 +13,8 @@ public class Hotelværelse {
     private Hotel hotel;
 
     private final ArrayList<Registration> registrationer = new ArrayList<>();
+    private final ArrayList<Tillæg> tilægger = new ArrayList<>();
+
 
 
     public Hotelværelse(int nummer, int pris, EnumVærelser værelser, Hotel hotel) {
@@ -40,5 +42,14 @@ public class Hotelværelse {
 
     public ArrayList<Registration> getRegistrationer() {
         return registrationer;
+    }
+
+    public double calculateTillægsPris() {
+        double tillægPris = 0.0;
+        for (Tillæg tillæg : this.tilægger){
+            tillægPris += tillæg.getPris();
+
+        }
+        return tillægPris;
     }
 }
