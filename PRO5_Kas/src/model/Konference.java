@@ -103,7 +103,7 @@ public class Konference {
         return new ArrayList<>(this.hoteller);
         }
         //____________Udflugt
-        public void addUdflugt(Udflugt udflugt){
+        public static void addUdflugt(Udflugt udflugt){
         if(!this.udflugter.contains(udflugt)){
             this.udflugter.add(udflugt);
         }

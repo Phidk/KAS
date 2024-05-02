@@ -109,8 +109,8 @@ public abstract class Controller {
      * Opretter en deltager og tilføjer den til storage
      * Pre: none
      */
-    public static Deltager createDeltager(String navn, Boolean foredragsholder, String adresse, String land, String by, String tlfNr) {
-        Deltager deltager = new Deltager(navn, foredragsholder, adresse, land, by, tlfNr);
+    public static Deltager createDeltager(String navn, String adresse, boolean foredragsholder, String land, String by, String tlfNr) {
+        Deltager deltager = new Deltager(navn, adresse, foredragsholder, land, by, tlfNr);
         Storage.addDeltager(deltager);
         return deltager;
     }
@@ -136,8 +136,8 @@ public abstract class Controller {
      * Pre: ankomstDato >= afrejseDato && ankomstDato <= konference.getSlutDato() && afrejseDato >= konference.getStartDato()
      */
     // Association: Konference 1 --> Registration 0..*
-    public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, Deltager deltager, Konference konference) {
-        var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, deltager, konference);
+    public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
+        var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
         konference.addRegistration(registration);
         Storage.addRegistration(registration);
         return registration;
@@ -146,7 +146,7 @@ public abstract class Controller {
     public static void addRegistrationToKonference(Konference konference, Registration registration) {
         var oldKonference = registration.getKonference();
         oldKonference.removeRegistration(registration);
-        registration.setKonference(konference);
+        registration.setkonference(konference);
         konference.addRegistration(registration);
     }
 
@@ -170,24 +170,24 @@ public abstract class Controller {
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
      */
-    public static HotelVærelse createHotelVærelse(int værelsesNr, int antalSenge, int pris) {
-        HotelVærelse hotelVærelse = new HotelVærelse(værelsesNr, antalSenge, pris);
-        Storage.addHotelVærelse(hotelVærelse);
-        return hotelVærelse;
+    public static Hotelværelse createHotelværelse(int værelsesNr, int pris, EnumVærelser værelser, Hotel hotel) {
+        Hotelværelse hotelværelse = new Hotelværelse(værelsesNr, pris, værelser,hotel);
+        Storage.addHotelværelse(hotelværelse);
+        return hotelværelse;
     }
 
     /**
      * Sletter et hotelværelse fra storage
      */
-    public static void removeHotelVærelse(HotelVærelse hotelVærelse) {
-        Storage.removeHotelVærelse(hotelVærelse);
+    public static void removeHotelværelse(Hotelværelse hotelværelse) {
+        Storage.removeHotelværelse(hotelværelse);
     }
 
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
-    public static ArrayList<HotelVærelse> getHotelVærelser() {
-        return Storage.getHotelVærelser();
+    public static ArrayList<Hotelværelse> getHotelværelser() {
+        return Storage.getHotelværelser();
     }
 
     // ----------------------------- Tillæg -----------------------------
@@ -196,8 +196,8 @@ public abstract class Controller {
      * Opretter et tillæg og gemmer det i storage
      * Pre: pris >= 0
      */
-    public static Tillæg createTillæg(String navn, double pris) {
-        Tillæg tillæg = new Tillæg(navn, pris);
+    public static Tillæg createTillæg(String navn, double pris, Hotel hotel) {
+        Tillæg tillæg = new Tillæg(navn, pris, hotel);
         Storage.addTillæg(tillæg);
         return tillæg;
     }
@@ -215,21 +215,21 @@ public abstract class Controller {
     public static ArrayList<Tillæg> getTillæg() {
         return Storage.getTillæg();
     }
-//    // ----------------------------- Ledsagere -----------------------------
-//    public static Ledsager createLedsager(String navn, int alder, String tlfNr) {
-//        Ledsager ledsager = new Ledsager(navn, alder, tlfNr);
-//        Storage.addLedsager(ledsager);
-//        return ledsager;
-//    }
-//
-//    public static void removeLedsager(Ledsager ledsager) {
-//        Storage.removeLedsager(ledsager);
-//    }
-//
-//    public static ArrayList<Ledsager> getLedsagere() {
-//        return Storage.getLedsagere();
-//    }
-//
+    // ----------------------------- Ledsagere -----------------------------
+    public static Ledsager createLedsager(String navn) {
+        Ledsager ledsager = new Ledsager(navn);
+        Storage.addLedsager(ledsager);
+        return ledsager;
+    }
+
+    public static void removeLedsager(Ledsager ledsager) {
+        Storage.removeLedsager(ledsager);
+    }
+
+    public static ArrayList<Ledsager> getLedsagere() {
+        return Storage.getLedsagere();
+    }
+
 
 }
 

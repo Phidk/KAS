@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Deltager extends Person {
 
-
     private String adresse;
 
     boolean foredragsholder;
@@ -69,5 +68,9 @@ public class Deltager extends Person {
                 ", tlfNr='" + tlfNr + '\'' +
                 ", registrationer=" + registrationer +
                 '}';
+    }
+    //Metode til at navnene kommer i alfabetisk rækkefølge
+    public int compareTo(Deltager other){
+        return this.navn.compareTo(other.navn);
     }
 }

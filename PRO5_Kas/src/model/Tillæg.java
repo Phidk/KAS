@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Tillæg {
     private String name;
-    private int pris;
+    private double pris;
     //Tvungen assocering til Hotel
     private Hotel hotel;
 
-    public Tillæg(String name, int pris, Hotel hotel) {
+    public Tillæg(String name, double pris, Hotel hotel) {
         this.name = name;
         this.pris = pris;
         this.hotel = hotel;
@@ -22,7 +22,7 @@ public class Tillæg {
         this.name = name;
     }
 
-    public int getPris() {
+    public double getPris() {
         return pris;
     }
 

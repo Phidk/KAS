@@ -103,6 +103,7 @@ return ledsager;
      this.tillægger.remove(tillæg);
     }
 
+    //Udregner tillægspris
     public double calculateTillægsPris(){
         double sum = 0.0;
         for (Tillæg tillæg : this.tillægger){
@@ -111,15 +112,26 @@ return ledsager;
         return sum;
     }
 
-    public void calculateTotalPris(){
+    //Udregner den totale pris for opholdet
+    //Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
+    //Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
+    //Hvis personen deltager i udflugter, udregnes udflugtsprisenn
+    public int calculateTotalPris(){
      int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
      int sum = 0;
+
      if(!this.isForedragsholder()){
-         sum = (int) (this.konference.getKonferenceAfgift() + this.getHotelværelse().calculateTillægsPris()) * totalDage;
-
+         sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
      }
+     if(this.hotelværelse != null){
+         sum += (this.getHotelværelse().getPris() + this.getHotelværelse().calculateTillægsPris()) * totalDage;
+     }
+     if(this.ledsager != null){
+         sum += this.ledsager.calculateUdflugtsPris();
+     }
+     return sum;
     }
-
+    //_________________________________
     public Hotelværelse getHotelværelse() {
        return hotelværelse;
    }

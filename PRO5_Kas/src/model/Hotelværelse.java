@@ -44,6 +44,7 @@ public class Hotelværelse {
         return registrationer;
     }
 
+    //Udregner tillægspris
     public double calculateTillægsPris() {
         double tillægPris = 0.0;
         for (Tillæg tillæg : this.tilægger){

@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-//Færdig
+
 public class Ledsager extends Person {
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private Deltager deltager;
@@ -9,6 +9,8 @@ public class Ledsager extends Person {
 
     public Ledsager(String navn) {
         this.navn = navn;
+
+
     }
     //Assocering 0..* til 0..* til udflugter
     public ArrayList<Udflugt> getUdflugter(){

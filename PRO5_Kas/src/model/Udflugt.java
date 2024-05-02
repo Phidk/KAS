@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-//Færdig
+
 public class Udflugt {
 
     private String navn;
@@ -11,13 +11,11 @@ public class Udflugt {
     private LocalDate dato;
     private LocalDateTime tid;
     private int pris;
-    private Boolean frokost;
+    private boolean frokost;
 
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
     // Setup association to Ledsager
-
-
 
     public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
         this.navn = navn;
@@ -68,13 +66,14 @@ public class Udflugt {
         this.pris = pris;
     }
 
-    public Boolean getFrokost() {
-        return frokost;
+   //Boolean om frokost er inkluderet
+    public boolean frokost(){
+        return this.frokost();
     }
-
-    public void setFrokost(Boolean frokost) {
+    public void setFrokost(boolean frokost) {
         this.frokost = frokost;
     }
+
     public ArrayList<Ledsager> getLedsagere(){
         return new ArrayList<>(ledsagere);
     }
