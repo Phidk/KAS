@@ -76,18 +76,9 @@ public abstract class Controller {
     // Association: Konference 1 --> Udflugt 0..*
     public static Udflugt createUdflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(navn, destination, dato, tid, pris, frokost, konference);
-         Konference.addUdflugt(udflugt);
          Storage.addUdflugt(udflugt);
          return udflugt;
     }
-
-    public void moveUdflugtToNewKonfernece(Konference konference, Udflugt udflugt, Konference newKonference) {
-        if (konference.getUdflugter().contains(udflugt)) {
-             konference.removeUdflugt(udflugt);
-             newKonference.addUdflugt(udflugt);
-        }
-    }
-
 
     /**
      * Fjerner en udflugt fra storage
@@ -135,19 +126,11 @@ public abstract class Controller {
      * Opretter en registrering og gemmer den i storage
      * Pre: ankomstDato >= afrejseDato && ankomstDato <= konference.getSlutDato() && afrejseDato >= konference.getStartDato()
      */
-    // Association: Konference 1 --> Registration 0..*
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
         var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
         konference.addRegistration(registration);
         Storage.addRegistration(registration);
         return registration;
-    }
-
-    public static void addRegistrationToKonference(Konference konference, Registration registration) {
-        var oldKonference = registration.getKonference();
-        oldKonference.removeRegistration(registration);
-        registration.setkonference(konference);
-        konference.addRegistration(registration);
     }
 
     /**
@@ -216,20 +199,19 @@ public abstract class Controller {
         return Storage.getTillæg();
     }
     // ----------------------------- Ledsagere -----------------------------
-    public static Ledsager createLedsager(String navn) {
-        Ledsager ledsager = new Ledsager(navn);
-        Storage.addLedsager(ledsager);
-        return ledsager;
-    }
-
-    public static void removeLedsager(Ledsager ledsager) {
-        Storage.removeLedsager(ledsager);
-    }
-
-    public static ArrayList<Ledsager> getLedsagere() {
-        return Storage.getLedsagere();
-    }
-
-
+//    public static Ledsager createLedsager(String navn) {
+//        Ledsager ledsager = new Ledsager(navn);
+//        Storage.addLedsager(ledsager);
+//        return ledsager;
+//    }
+//
+//    public static void removeLedsager(Ledsager ledsager) {
+//        Storage.removeLedsager(ledsager);
+//    }
+//
+//    public static ArrayList<Ledsager> getLedsagere() {
+//        return Storage.getLedsagere();
+//    }
+//
 }
 
