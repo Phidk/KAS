@@ -32,13 +32,15 @@ public class KasTest {
             System.out.println(deltager);
 
         }
-        // Create conference 'Hav og Himmel' running from 18/5 to 20/5 2024 at Odense Universitet and 100kr afgift
+        // Create konference 'Hav og Himmel' som kører fra  18/5 to 20/5 2024 ved Odense Universitet med  1500kr daglig afgift
         Konference konference1 = new Konference("Hav og Himmel", "Odense Universitet", 1500, LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20));
 
+        // Create udflugter
         Udflugt udflugt1 = new Udflugt("Byrundtur, Odense", LocalDate.of(2024, 5, 18), 125, true, konference1);
         Udflugt udflugt2 = new Udflugt("Egeskov", LocalDate.of(2024, 5, 19), 75, false, konference1);
         Udflugt udflugt3 = new Udflugt("Trapholt Museum, Kolding", LocalDate.of(2024, 5, 20), 200, false, konference1);
 
+        // Create af hoteller og tillæg
         Hotel hotel1 = Controller.createHotel("Den Hvide Svane", 1050, 1250);
         Tillæg tillæg1 = Controller.createTillæg("WiFi", 50, hotel1);
 
@@ -49,25 +51,33 @@ public class KasTest {
         Hotel hotel3 = Controller.createHotel("Pension Tusindfryd", 500, 600);
         Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
 
+        // Tilføjer hoteller til konferencen
         konference1.addHoteller(hotel1, hotel2, hotel3);
 
-        // Registration for Finn all 3 days of konference1
+        // Registration for Finn alle 3 dage af konference1
         Registration registration1 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager1, konference1);
 
-        // Registration for Niels all 3 days of konference1
+        // Registration for Niels alle 3 dage af konference1
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
+        // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
+        Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
 
-        // Registration for Ulla for first 2 days of konference1
+        // Registration for Ulla for første 2 dage af konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
-        // Ulla's ledsager Hans Hansen who is going to the Byrundtur i Odense
         Ledsager ledsager1 = Controller.createLedsager("Hans Hansen", registration3);
         ledsager1.addUdflugt(udflugt1);
 
-        // Registration for Peter all 3 days of konference1
+        // Registration for Peter alle 3 dage af konference1
         Registration registration4 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager4, konference1);
+        Ledsager ledsager2 = Controller.createLedsager("Mie Sommer", registration4);
+        ledsager2.addUdflugt(udflugt2);
+        ledsager2.addUdflugt(udflugt3);
 
-        // Registration for Lone all 3 days of konference1
-        Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager5, konference1);
+        // Registration for Lone alle 3 dage af konference1
+        Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, deltager5, konference1);
+        Ledsager ledsager3 = Controller.createLedsager("Jan Madsen", registration5);
+        ledsager3.addUdflugt(udflugt1);
+        ledsager3.addUdflugt(udflugt2);
 
     }
 

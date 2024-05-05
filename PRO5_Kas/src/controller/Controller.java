@@ -152,8 +152,8 @@ public abstract class Controller {
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
      */
-    public static Hotelværelse createHotelværelse(int værelsesNr, int pris, EnumVærelser værelser, Hotel hotel) {
-        Hotelværelse hotelværelse = new Hotelværelse(værelsesNr, pris, værelser,hotel);
+    public static Hotelværelse createHotelVærelse(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
+        Hotelværelse hotelværelse = new Hotelværelse(værelsesNr,pris, værelseType, hotel);
         Storage.addHotelværelse(hotelværelse);
         return hotelværelse;
     }
@@ -161,7 +161,7 @@ public abstract class Controller {
     /**
      * Sletter et hotelværelse fra storage
      */
-    public static void removeHotelværelse(Hotelværelse hotelværelse) {
+    public static void removeHotelVærelse(Hotelværelse hotelværelse) {
         Storage.removeHotelværelse(hotelværelse);
     }
 

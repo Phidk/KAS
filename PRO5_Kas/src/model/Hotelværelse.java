@@ -5,22 +5,18 @@ import java.util.ArrayList;
 public class Hotelværelse {
 
     private int nummer;
-
     private int pris;
-
-    private  EnumVærelser værelser;
-
+    private EnumVærelser.Værelser værelseType; // Updated to store room type
     private Hotel hotel;
-
     private final ArrayList<Registration> registrationer = new ArrayList<>();
-    private final ArrayList<Tillæg> tilægger = new ArrayList<>();
+    private final ArrayList<Tillæg> tillæg = new ArrayList<>();
 
 
 
-    public Hotelværelse(int nummer, int pris, EnumVærelser værelser, Hotel hotel) {
+    public Hotelværelse(int nummer, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
         this.nummer = nummer;
         this.pris = pris;
-        this.værelser = værelser;
+        this.værelseType = værelseType;
         this.hotel = hotel;
     }
 
@@ -32,8 +28,8 @@ public class Hotelværelse {
         return pris;
     }
 
-    public EnumVærelser getVærelser() {
-        return værelser;
+    public EnumVærelser.Værelser getVærelseType() {
+        return værelseType;
     }
 
     public Hotel getHotel() {
@@ -44,12 +40,11 @@ public class Hotelværelse {
         return registrationer;
     }
 
-    //Udregner tillægspris
+    // Udregn tillægsprisen for værelset
     public double calculateTillægsPris() {
         double tillægPris = 0.0;
-        for (Tillæg tillæg : this.tilægger){
+        for (Tillæg tillæg : this.tillæg) {
             tillægPris += tillæg.getPris();
-
         }
         return tillægPris;
     }
