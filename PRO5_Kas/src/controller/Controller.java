@@ -47,8 +47,8 @@ public abstract class Controller {
      * Opretter et hotel og gemmer den i storage
      * Pre: singlePris >= 0 && doublePris >= 0
      */
-    public static Hotel createHotel(String navn, String adresse, int singlePris, int doublePris) {
-        Hotel hotel = new Hotel(navn, adresse, singlePris, doublePris);
+    public static Hotel createHotel(String navn, int singlePris, int doublePris) {
+        Hotel hotel = new Hotel(navn, singlePris, doublePris);
         Storage.addHotel(hotel);
         return hotel;
     }
@@ -74,8 +74,8 @@ public abstract class Controller {
      * Pre: Pris >= 0
      */
     // Association: Konference 1 --> Udflugt 0..*
-    public static Udflugt createUdflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
-         Udflugt udflugt = new Udflugt(navn, destination, dato, tid, pris, frokost, konference);
+    public static Udflugt createUdflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
+         Udflugt udflugt = new Udflugt(destination, dato, pris, frokost, konference);
          Storage.addUdflugt(udflugt);
          return udflugt;
     }
@@ -100,8 +100,8 @@ public abstract class Controller {
      * Opretter en deltager og tilføjer den til storage
      * Pre: none
      */
-    public static Deltager createDeltager(String navn, String adresse, boolean foredragsholder, String land, String by, String tlfNr) {
-        Deltager deltager = new Deltager(navn, adresse, foredragsholder, land, by, tlfNr);
+    public static Deltager createDeltager(String navn, String adresse, String land, String by, String tlfNr) {
+        Deltager deltager = new Deltager(navn, adresse, land, by, tlfNr);
         Storage.addDeltager(deltager);
         return deltager;
     }

@@ -9,7 +9,6 @@ public class Udflugt {
     private String navn;
     private String destination;
     private LocalDate dato;
-    private LocalDateTime tid;
     private int pris;
     private boolean frokost;
 
@@ -17,11 +16,9 @@ public class Udflugt {
 
     // Setup association to Ledsager
 
-    public Udflugt(String navn, String destination, LocalDate dato, LocalDateTime tid, int pris, Boolean frokost, Konference konference) {
-        this.navn = navn;
+    public Udflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
         this.destination = destination;
         this.dato = dato;
-        this.tid = tid;
         this.pris = pris;
         this.frokost = frokost;
     }
@@ -48,14 +45,6 @@ public class Udflugt {
 
     public void setDato(LocalDate dato) {
         this.dato = dato;
-    }
-
-    public LocalDateTime getTid() {
-        return tid;
-    }
-
-    public void setTid(LocalDateTime tid) {
-        this.tid = tid;
     }
 
     public int getPris() {

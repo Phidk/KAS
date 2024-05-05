@@ -7,7 +7,6 @@ public class Deltager extends Person {
 
     private String adresse;
 
-    boolean foredragsholder;
 
     private String land;
 
@@ -17,7 +16,7 @@ public class Deltager extends Person {
 
     private final ArrayList<Registration> registrationer = new ArrayList<Registration>();
 
-    public Deltager(String navn, String adresse, boolean foredragsholder, String land, String by, String tlfNr) {
+    public Deltager(String navn, String adresse, String land, String by, String tlfNr) {
         this.adresse = adresse;
         this.navn = navn;
         this.land = land;
@@ -33,12 +32,6 @@ public class Deltager extends Person {
     public String getAdresse() {
         return adresse;
     }
-
-  public boolean isForedragsholder() {
-     return foredragsholder;
-   }
-   
-  
 
     public String getLand() {
         return land;
