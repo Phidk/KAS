@@ -52,6 +52,10 @@ public abstract class Controller {
         return hotel;
     }
 
+    public static void addHotelToKonference(Hotel hotel, Konference konference) {
+        konference.addHotel(hotel);
+    }
+
     /**
      * Fjerner et hotel fra storage
      */
@@ -133,6 +137,10 @@ public abstract class Controller {
         return registration;
     }
 
+    public static void setHotelVærelseOfRegistration(Registration registration, HotelVærelse hotelVærelse) {
+        registration.setHotelVærelse(hotelVærelse);
+    }
+
     /**
      * Sletter en registrering fra storage
      */
@@ -166,6 +174,7 @@ public abstract class Controller {
         Storage.removeHotelværelse(hotelværelse);
     }
 
+
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
@@ -183,6 +192,10 @@ public abstract class Controller {
         Tillæg tillæg = new Tillæg(navn, pris, hotel);
         Storage.addTillæg(tillæg);
         return tillæg;
+    }
+
+    public static void addTillægToHotelVærelse(HotelVærelse hotelVærelse, Tillæg tillæg) {
+        hotelVærelse.addTillæg(tillæg);
     }
 
     /**
@@ -204,9 +217,13 @@ public abstract class Controller {
         return registration.getLedsager();
     }
 
-    public static void removeLedsager(Ledsager ledsager) {
-//        Storage.removeLedsager(ledsager);
+    public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
+        ledsager.addUdflugt(udflugt);
     }
+
+//    public static void removeLedsager(Ledsager ledsager) {
+//        Storage.removeLedsager(ledsager);
+//    }
 
     public static Ledsager getLedsager(Registration registration) {
         return registration.getLedsager();
