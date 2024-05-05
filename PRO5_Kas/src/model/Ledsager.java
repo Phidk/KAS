@@ -16,7 +16,7 @@ public class Ledsager extends Person {
     public ArrayList<Udflugt> getUdflugter(){
         return new ArrayList<>(udflugter);
     }
-    public void addUdflugter(Udflugt udflugt){
+    public void addUdflugt(Udflugt udflugt){
         udflugter.add(udflugt);
     }
     public void removeUdflugt(Udflugt udflugt){

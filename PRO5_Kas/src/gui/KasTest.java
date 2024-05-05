@@ -60,9 +60,15 @@ public class KasTest {
         // Registration for Ulla for first 2 days of konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
         // Ulla's ledsager Hans Hansen who is going to the Byrundtur i Odense
+        Ledsager ledsager1 = Controller.createLedsager("Hans Hansen", registration3);
+        ledsager1.addUdflugt(udflugt1);
 
         // Registration for Peter all 3 days of konference1
         Registration registration4 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager4, konference1);
+
+        // Registration for Lone all 3 days of konference1
+        Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager5, konference1);
+
     }
 
     public static void selectionSort(ArrayList<Deltager> deltagere) {

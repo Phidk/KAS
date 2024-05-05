@@ -106,15 +106,15 @@ public abstract class Storage {
     }
 
     // ---------------------- Ledsager ----------------------
-    public static void addLedsager(Ledsager ledsager) {
-        Storage.ledsagere.add(ledsager);
-    }
-
-    public static void removeLedsager(Ledsager ledsager) {
-        Storage.ledsagere.remove(ledsager);
-    }
-
-    public static ArrayList<Ledsager> getLedsagere() {
-        return new ArrayList<>(ledsagere);
-    }
+//    public static void addLedsager(Ledsager ledsager) {
+//        Storage.ledsagere.add(ledsager);
+//    }
+//
+//    public static void removeLedsager(Ledsager ledsager) {
+//        Storage.ledsagere.remove(ledsager);
+//    }
+//
+//    public static ArrayList<Ledsager> getLedsagere() {
+//        return new ArrayList<>(ledsagere);
+//    }
 }

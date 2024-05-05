@@ -85,6 +85,10 @@ public class Registration {
     }
 //________________
 
+    public Ledsager getLedsager() {
+        return ledsager;
+    }
+
     public Ledsager createLedsager(String navn){
 Ledsager ledsager = new Ledsager(navn);
 this.ledsager = ledsager;

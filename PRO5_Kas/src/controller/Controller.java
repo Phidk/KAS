@@ -4,7 +4,6 @@ import model.*;
 import storage.Storage;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class Controller {
@@ -199,19 +198,17 @@ public abstract class Controller {
         return Storage.getTillæg();
     }
     // ----------------------------- Ledsagere -----------------------------
-//    public static Ledsager createLedsager(String navn) {
-//        Ledsager ledsager = new Ledsager(navn);
-//        Storage.addLedsager(ledsager);
-//        return ledsager;
-//    }
-//
-//    public static void removeLedsager(Ledsager ledsager) {
+    public static Ledsager createLedsager(String navn, Registration registration) {
+        registration.createLedsager(navn);
+        return registration.getLedsager();
+    }
+
+    public static void removeLedsager(Ledsager ledsager) {
 //        Storage.removeLedsager(ledsager);
-//    }
-//
-//    public static ArrayList<Ledsager> getLedsagere() {
-//        return Storage.getLedsagere();
-//    }
-//
+    }
+
+    public static Ledsager getLedsager(Registration registration) {
+        return registration.getLedsager();
+    }
 }
 
