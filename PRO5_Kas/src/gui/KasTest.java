@@ -10,12 +10,17 @@ import java.util.ArrayList;
 
 public class KasTest {
     public static void main(String[] args) {
-        Deltager deltager1 = new Deltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
-        Deltager deltager2 = new Deltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
-        Deltager deltager3 = new Deltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
-        Deltager deltager4 = new Deltager("Peter Sommer", "Gågadevej 4", "Danmark", "Aarhus", "43214321");
-        Deltager deltager5 = new Deltager("Lone Jensen", "Piftervej 7", "Danmark", "Aarhus", "67896789");
+        Deltager deltager1 = Controller.createDeltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
+        Deltager deltager2 = Controller.createDeltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
+        Deltager deltager3 = Controller.createDeltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
+        Deltager deltager4 = Controller.createDeltager("Peter Sommer", "Gågadevej 4", "Danmark", "Aarhus", "43214321");
+        Deltager deltager5 = Controller.createDeltager("Lone Jensen", "Piftervej 7", "Danmark", "Aarhus", "67896789");
 
+//        Deltager deltager1 = new Deltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
+//        Deltager deltager2 = new Deltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
+//        Deltager deltager3 = new Deltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
+//        Deltager deltager4 = new Deltager("Peter Sommer", "Gågadevej 4", "Danmark", "Aarhus", "43214321");
+//        Deltager deltager5 = new Deltager("Lone Jensen", "Piftervej 7", "Danmark", "Aarhus", "67896789");
 
         ArrayList<Deltager> deltagere = new ArrayList<>();
         deltagere.add(deltager1);
@@ -24,14 +29,13 @@ public class KasTest {
         deltagere.add(deltager4);
         deltagere.add(deltager5);
 
-
         selectionSort(deltagere);
 
         System.out.println("Sorted with selection sort:");
         for (Deltager deltager : deltagere) {
             System.out.println(deltager);
-
         }
+
         // Create konference 'Hav og Himmel' som kører fra  18/5 to 20/5 2024 ved Odense Universitet med  1500kr daglig afgift
         Konference konference1 = new Konference("Hav og Himmel", "Odense Universitet", 1500, LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20));
 
@@ -60,8 +64,9 @@ public class KasTest {
         // Registration for Niels alle 3 dage af konference1
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
         // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
-        Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
-
+        HotelVærelse hotelVærelse1 = Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
+        registration2.setHotelVærelse(hotelVærelse1);
+        
         // Registration for Ulla for første 2 dage af konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
         Ledsager ledsager1 = Controller.createLedsager("Hans Hansen", registration3);
@@ -72,13 +77,53 @@ public class KasTest {
         Ledsager ledsager2 = Controller.createLedsager("Mie Sommer", registration4);
         ledsager2.addUdflugt(udflugt2);
         ledsager2.addUdflugt(udflugt3);
+        // Peter skal til hotelværelse på "Den hvide svane" med tilvalgt wifi.
+        HotelVærelse hotelVærelse2 = Controller.createHotelVærelse(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        registration4.setHotelVærelse(hotelVærelse2);
+        hotelVærelse2.addTillæg(tillæg1);
 
         // Registration for Lone alle 3 dage af konference1
         Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, deltager5, konference1);
         Ledsager ledsager3 = Controller.createLedsager("Jan Madsen", registration5);
         ledsager3.addUdflugt(udflugt1);
         ledsager3.addUdflugt(udflugt2);
+        // Lone skal på hotel "Den hvide svane" med tilvagt wifi.
+        HotelVærelse hotelVærelse3 = Controller.createHotelVærelse(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        registration5.setHotelVærelse(hotelVærelse3);
+        hotelVærelse3.addTillæg(tillæg1);
 
+        System.out.println("Konference created: " + konference1.getNavn());
+        System.out.println();
+        System.out.println("Hotel and Tillæg created: " + hotel1.getName() + ", " + tillæg1.getName());
+        System.out.println("Hotel and Tillæg created: " + hotel2.getName() + ", " + tillæg2.getName() + ", " + tillæg3.getName());
+        System.out.println("Hotel and Tillæg created: " + hotel3.getName() + ", " + tillæg4.getName());
+        System.out.println();
+
+        System.out.println("Number of deltagere: " + Controller.getDeltager().size());
+        System.out.println();
+        for (Deltager deltager : Controller.getDeltager()) {
+            System.out.println("Registration details for: " + deltager.getNavn());
+            for (Registration registration : deltager.getRegistrationer()) {
+                System.out.println("Konference: " + registration.getKonference().getNavn());
+                System.out.println("Ankomst Dato: " + registration.getAnkomstDato());
+                System.out.println("Afskeds Dato: " + registration.getAfstedsDato());
+                System.out.println("Foredragsholder: " + registration.isForedragsholder());
+                if (registration.getHotelVærelse() != null) {
+                    System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getName());
+                    System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
+                    System.out.println("Værelse Pris: " + registration.getHotelVærelse().getPris());
+                }
+                if (registration.getLedsager() != null) {
+                    System.out.println("Ledsager: " + registration.getLedsager().getNavn());
+                    System.out.println("Udflugter:");
+                    for (Udflugt udflugt : registration.getLedsager().getUdflugter()) {
+                        System.out.println("- " + udflugt.getDestination() + " on " + udflugt.getDato() + " with price " + udflugt.getPris());
+                    }
+                }
+                System.out.println("Total Price: " + registration.calculateTotalPris());
+                System.out.println("--------------------------------------");
+            }
+        }
     }
 
     public static void selectionSort(ArrayList<Deltager> deltagere) {

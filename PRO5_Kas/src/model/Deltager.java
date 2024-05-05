@@ -7,7 +7,6 @@ public class Deltager extends Person {
 
     private String adresse;
 
-
     private String land;
 
     private String by;
@@ -49,17 +48,19 @@ public class Deltager extends Person {
         return registrationer;
     }
 
+    public void addRegistration(Registration registration) {
+        registrationer.add(registration);
+    }
 
     @Override
     public String toString() {
         return "Deltager{" +
                 "navn='" + navn + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", foredragsholder=" + //foredragsholder +
                 ", land='" + land + '\'' +
                 ", by='" + by + '\'' +
                 ", tlfNr='" + tlfNr + '\'' +
-                ", registrationer=" + registrationer +
+                ", registrationer=" + registrationer.size() +
                 '}';
     }
     //Metode til at navnene kommer i alfabetisk rækkefølge

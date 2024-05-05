@@ -9,7 +9,7 @@ public class Hotel {
     private int doublePris;
     private final ArrayList<Tillæg> tilægger = new ArrayList<>();
 //    private final ArrayList<Konference> konferencer = new ArrayList<>();
-     private final ArrayList<Hotelværelse> hotelVærelser = new ArrayList<>();
+     private final ArrayList<HotelVærelse> hotelVærelser = new ArrayList<>();
 
     public Hotel(String name, int singlePris, int doublePris) {
         this.name = name;

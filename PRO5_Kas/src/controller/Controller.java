@@ -128,6 +128,7 @@ public abstract class Controller {
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
         var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
         konference.addRegistration(registration);
+        deltager.addRegistration(registration);
         Storage.addRegistration(registration);
         return registration;
     }
@@ -152,8 +153,8 @@ public abstract class Controller {
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
      */
-    public static Hotelværelse createHotelVærelse(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
-        Hotelværelse hotelværelse = new Hotelværelse(værelsesNr,pris, værelseType, hotel);
+    public static HotelVærelse createHotelVærelse(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
+        HotelVærelse hotelværelse = new HotelVærelse(værelsesNr,pris, værelseType, hotel);
         Storage.addHotelværelse(hotelværelse);
         return hotelværelse;
     }
@@ -161,15 +162,15 @@ public abstract class Controller {
     /**
      * Sletter et hotelværelse fra storage
      */
-    public static void removeHotelVærelse(Hotelværelse hotelværelse) {
+    public static void removeHotelVærelse(HotelVærelse hotelværelse) {
         Storage.removeHotelværelse(hotelværelse);
     }
 
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
-    public static ArrayList<Hotelværelse> getHotelværelser() {
-        return Storage.getHotelværelser();
+    public static ArrayList<HotelVærelse> getHotelværelser() {
+        return Storage.getHotelVærelser();
     }
 
     // ----------------------------- Tillæg -----------------------------

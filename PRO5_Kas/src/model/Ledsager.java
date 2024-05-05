@@ -9,16 +9,21 @@ public class Ledsager extends Person {
 
     public Ledsager(String navn) {
         this.navn = navn;
-
-
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
     //Assocering 0..* til 0..* til udflugter
     public ArrayList<Udflugt> getUdflugter(){
         return new ArrayList<>(udflugter);
     }
+
     public void addUdflugt(Udflugt udflugt){
         udflugter.add(udflugt);
     }
+
     public void removeUdflugt(Udflugt udflugt){
         udflugter.remove(udflugt);
     }

@@ -10,7 +10,7 @@ public class Registration {
     private LocalDate ankomstDato;
     private LocalDate afstedsDato;
     boolean foredragsholder;
-    private Hotelværelse hotelværelse;
+    private HotelVærelse hotelVærelse;
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
@@ -22,7 +22,7 @@ public class Registration {
         this.ankomstDato = ankomstDato;
         this.afstedsDato = afstedsDato;
         this.foredragsholder = foredragsholder;
-        this.hotelværelse = hotelværelse;
+        this.hotelVærelse = hotelVærelse;
         this.deltager = deltager;
         this.setkonference(konference);
         this.ledsager = ledsager;
@@ -50,6 +50,10 @@ public class Registration {
 
     public void setAnkomstDato(LocalDate ankomstDato) {
         this.ankomstDato = ankomstDato;
+    }
+
+    public void setHotelVærelse(HotelVærelse hotelværelse) {
+        this.hotelVærelse = hotelværelse;
     }
 
     public LocalDate getAfstedsDato() {
@@ -127,8 +131,8 @@ return ledsager;
      if(!this.isForedragsholder()){
          sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
      }
-     if(this.hotelværelse != null){
-         sum += (this.getHotelværelse().getPris() + this.getHotelværelse().calculateTillægsPris()) * totalDage;
+     if(this.hotelVærelse != null){
+         sum += (this.getHotelVærelse().getPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
      }
      if(this.ledsager != null){
          sum += this.ledsager.calculateUdflugtsPris();
@@ -136,8 +140,8 @@ return ledsager;
      return sum;
     }
     //_________________________________
-    public Hotelværelse getHotelværelse() {
-       return hotelværelse;
+    public HotelVærelse getHotelVærelse() {
+       return hotelVærelse;
    }
 
     public Deltager getDeltager() {
