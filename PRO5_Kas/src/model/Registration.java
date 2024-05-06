@@ -24,7 +24,6 @@ public class Registration {
         this.foredragsholder = foredragsholder;
         this.hotelBooking = hotelBooking;
         this.deltager = deltager;
-        this.setkonference(konference);
         this.ledsager = ledsager;
     }
 
@@ -68,28 +67,20 @@ public class Registration {
         this.foredragsholder = foredragsholder;
     }
 
-    //_________________________________________
-    //Tilføjer konference til registration
-    public void setkonference(Konference konference) {
-        if (this.konference != konference) {
-            if (this.konference != null) {
-                this.konference.removeRegistration(this);
-            }
-            if (konference != null) {
-                konference.addRegistration(this);
-            }
-            this.konference = konference;
-        }
-    }
 
     public Konference getKonference() {
         return konference;
+    }
+    public void setKonference(Konference konference) {
     }
 
     public Ledsager getLedsager() {
         return ledsager;
     }
-//________________
+
+    public void setLedsager(Ledsager ledsager) {
+        this.ledsager = ledsager;
+    }
 
     public Ledsager createLedsager(String navn) {
         Ledsager ledsager = new Ledsager(navn);
@@ -150,6 +141,5 @@ public class Registration {
     public Deltager getDeltager() {
         return deltager;
     }
-
 
 }

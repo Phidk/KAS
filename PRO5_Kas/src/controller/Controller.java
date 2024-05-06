@@ -99,9 +99,23 @@ public abstract class Controller {
     /**
      * Returnerer en liste af konferencer fra storage
      */
-    public static ArrayList<Konference> getConferences () {
+    //Tilføjer konference til registration
+    public static ArrayList<Konference> getKonferencer () {
         return Storage.getKonferencer();
     }
+    public void addKonferenceToRegistration(Konference konference, Registration registration) {
+        if (registration.getKonference() != konference) {
+            Konference oldKonference = registration.getKonference();
+            if (oldKonference != null) {
+                oldKonference.removeRegistration(registration);
+            }
+            if (konference != null) {
+                konference.addRegistration(registration);
+            }
+            registration.setKonference(konference);
+        }
+    }
+
 
     // ----------------------------- Hoteller -----------------------------
 
@@ -126,12 +140,15 @@ public abstract class Controller {
          Storage.removeHotel(hotel);
     }
 
+
     /**
      * Returnerer en liste af hoteller fra storage
      */
     public static ArrayList<Hotel> getHoteller() {
          return Storage.getHoteller();
     }
+
+
 
     // ----------------------------- Udflugter -----------------------------
 
@@ -287,6 +304,7 @@ public abstract class Controller {
     /**
      * Opretter en ledsager og tilføjer den til en registration
      */
+
     public static Ledsager createLedsager(String navn, Registration registration) {
         registration.createLedsager(navn);
         return registration.getLedsager();

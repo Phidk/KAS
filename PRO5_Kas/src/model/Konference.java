@@ -73,74 +73,60 @@ public class Konference {
     }
 
     //____Registration
-    public void addRegistration(Registration registration) {
-        if (!this.registrationer.contains(registration)) {
-            this.registrationer.add(registration);
-            registration.setkonference(this);
-        }
+    public void addRegistration(Registration registration){
+        registrationer.add(registration);
     }
-
-    public void removeRegistration(Registration registration) {
-        if (this.registrationer.contains(registration)) {
-            this.registrationer.remove(registration);
-            registration.setkonference(null);
-        }
+    public void removeRegistration(Registration registration){
+        registrationer.remove(registration);
     }
-
     public ArrayList<Registration> getRegistrationer() {
         return new ArrayList<>(registrationer);
     }
+//    public void addRegistration(Registration registration) {
+//        if (!this.registrationer.contains(registration)) {
+//            this.registrationer.add(registration);
+//            registration.setkonference(this);
+//        }
+//    }
+//
+//    public void removeRegistration(Registration registration) {
+//        if (this.registrationer.contains(registration)) {
+//            this.registrationer.remove(registration);
+//            registration.setkonference(null);
+//        }
+//    }
 
-    //_____Hotel
-    public void addHotel(Hotel hotel) {
-        if (!this.hoteller.contains(hotel)) {
-            this.hoteller.add(hotel);
-            // hotel.addKonference(this);
-        }
-    }
 
-    public void addHoteller(Hotel... hoteller) {
-        for (Hotel hotel : hoteller) {
-            if (!this.hoteller.contains(hotel)) {
-                this.hoteller.add(hotel);
-                //hotel.addKonference(this);
-            }
-        }
-    }
-
-    public void removeHotel(Hotel hotel) {
-        if (this.hoteller.contains(hotel)) {
-            this.hoteller.remove(hotel);
-            //hotel.removeKonference(this);
-        }
-    }
-
+    //Hotel
     public ArrayList<Hotel> getHoteller() {
         return new ArrayList<>(this.hoteller);
     }
+    public void addHotel(Hotel hotel){
+        hoteller.add(hotel);
+    }
+    public void removeHotel(Hotel hotel){
+        hoteller.remove(hotel);
+    }
 
     //____________Udflugt
-    public void addUdflugt(Udflugt udflugt) {
-        if (!this.udflugter.contains(udflugt)) {
-            this.udflugter.add(udflugt);
-        }
-    }
-
-    public void addUdflugter(Udflugt... udflugter) {
-        for (Udflugt udflugt : udflugter) {
-            if (!this.udflugter.contains(udflugt)) {
-                this.udflugter.add(udflugt);
-            }
-        }
-    }
-
-    public void removeUdflugt(Udflugt udflugt) {
-        this.udflugter.remove(udflugt);
-    }
-
     public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(this.udflugter);
     }
+    public void addUdflugt(Udflugt udflugt){
+        udflugter.add(udflugt);
+    }
+
+    public void removeUdflugt(Udflugt udflugt) {
+        udflugter.remove(udflugt);
+    }
+
+    //    public void addUdflugt(Udflugt udflugt) {
+//        if (!this.udflugter.contains(udflugt)) {
+//            this.udflugter.add(udflugt);
+//        }
+//    }
+//
+
 
     //To String metode
     public String ToString() {
