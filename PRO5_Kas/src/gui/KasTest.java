@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class KasTest {
     public static void main(String[] args) {
 
-
         Deltager deltager1 = Controller.createDeltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
         Deltager deltager2 = Controller.createDeltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
         Deltager deltager3 = Controller.createDeltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
@@ -89,15 +88,25 @@ public class KasTest {
         Controller.addTillægToHotelVærelse(hotelBooking3, tillæg1);
 
         System.out.println();
-        System.out.println("Konference created: " + konference1.getNavn());
-        System.out.println();
-        System.out.println("Hotel and Tillæg created: " + hotel1.getName() + ", " + tillæg1.getName());
-        System.out.println("Hotel and Tillæg created: " + hotel2.getName() + ", " + tillæg2.getName() + ", " + tillæg3.getName());
-        System.out.println("Hotel and Tillæg created: " + hotel3.getName() + ", " + tillæg4.getName());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Konference created: " + konference.getNavn());
+        }
         System.out.println();
 
-        System.out.println("Number of deltagere: " + Controller.getDeltager().size());
-        System.out.println(konference1.listParticipantsForKonference());
+        for (Hotel hotel : Controller.getHoteller()) {
+            System.out.print("Hotel created: " + hotel.getNavn() + " med tillæg: ");
+            for (Tillæg tillæg : hotel.getTillæg()) {
+                System.out.print(tillæg.getName() + ", ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Deltagere til konferencen " + konference.getNavn() + ": " + konference.listParticipantsForKonference());
+        }
         System.out.println();
 
         for (Deltager deltager : Controller.getDeltager()) {
@@ -108,7 +117,7 @@ public class KasTest {
                 System.out.println("Afskeds Dato: " + registration.getAfstedsDato());
                 System.out.println("Foredragsholder: " + registration.isForedragsholder());
                 if (registration.getHotelVærelse() != null) {
-                    System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getName());
+                    System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getNavn());
                     System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
                     System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
                 }
