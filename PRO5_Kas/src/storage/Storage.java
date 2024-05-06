@@ -10,7 +10,7 @@ public abstract class Storage {
     private static final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private static final ArrayList<Deltager> deltagere = new ArrayList<>();
     private static final ArrayList<Registration> registrationer = new ArrayList<>();
-    private static final ArrayList<HotelVærelse> hotelværelser = new ArrayList<>();
+    private static final ArrayList<HotelBooking> HOTELVÆRELSER = new ArrayList<>();
     private static final ArrayList<Tillæg> tillæg = new ArrayList<>();
     private static final ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
@@ -80,16 +80,16 @@ public abstract class Storage {
     }
 
         // ---------------------- HotelVærelser ----------------------
-    public static void addHotelværelse(HotelVærelse hotelværelse) {
-        Storage.hotelværelser.add(hotelværelse);
+    public static void addHotelværelse(HotelBooking hotelværelse) {
+        Storage.HOTELVÆRELSER.add(hotelværelse);
     }
 
-    public static void removeHotelværelse(HotelVærelse hotelværelse) {
-        Storage.hotelværelser.remove(hotelværelse);
+    public static void removeHotelværelse(HotelBooking hotelværelse) {
+        Storage.HOTELVÆRELSER.remove(hotelværelse);
     }
 
-    public static ArrayList<HotelVærelse> getHotelVærelser() {
-        return new ArrayList<>(hotelværelser);
+    public static ArrayList<HotelBooking> getHotelVærelser() {
+        return new ArrayList<>(HOTELVÆRELSER);
     }
 
     // ---------------------- Tillæg ----------------------

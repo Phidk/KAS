@@ -5,24 +5,24 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Registration {
+    boolean foredragsholder;
     private String firmaTlfNr;
     private String firmaNavn;
     private LocalDate ankomstDato;
     private LocalDate afstedsDato;
-    boolean foredragsholder;
-    private HotelVærelse hotelVærelse;
+    private HotelBooking hotelBooking;
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
     private ArrayList<Tillæg> tillægger = new ArrayList<>();
 
-    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder,  Deltager deltager, Konference konference) {
+    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder, Deltager deltager, Konference konference) {
         this.firmaTlfNr = firmaTlfNr;
         this.firmaNavn = firmaNavn;
         this.ankomstDato = ankomstDato;
         this.afstedsDato = afstedsDato;
         this.foredragsholder = foredragsholder;
-        this.hotelVærelse = hotelVærelse;
+        this.hotelBooking = hotelBooking;
         this.deltager = deltager;
         this.setkonference(konference);
         this.ledsager = ledsager;
@@ -52,10 +52,6 @@ public class Registration {
         this.ankomstDato = ankomstDato;
     }
 
-    public void setHotelVærelse(HotelVærelse hotelværelse) {
-        this.hotelVærelse = hotelværelse;
-    }
-
     public LocalDate getAfstedsDato() {
         return afstedsDato;
     }
@@ -71,50 +67,52 @@ public class Registration {
     public void setForedragsholder(boolean foredragsholder) {
         this.foredragsholder = foredragsholder;
     }
+
     //_________________________________________
     //Tilføjer konference til registration
-    public void setkonference(Konference konference){
-        if(this.konference != konference){
-            if(this.konference != null){
+    public void setkonference(Konference konference) {
+        if (this.konference != konference) {
+            if (this.konference != null) {
                 this.konference.removeRegistration(this);
             }
-            if(konference != null){
+            if (konference != null) {
                 konference.addRegistration(this);
             }
             this.konference = konference;
         }
     }
+
     public Konference getKonference() {
         return konference;
     }
-//________________
 
     public Ledsager getLedsager() {
         return ledsager;
     }
+//________________
 
-    public Ledsager createLedsager(String navn){
-Ledsager ledsager = new Ledsager(navn);
-this.ledsager = ledsager;
-return ledsager;
+    public Ledsager createLedsager(String navn) {
+        Ledsager ledsager = new Ledsager(navn);
+        this.ledsager = ledsager;
+        return ledsager;
     }
 
-    public ArrayList<Tillæg> getTillægger(){
+    public ArrayList<Tillæg> getTillægger() {
         return new ArrayList<>(tillægger);
     }
 
-    public void addTillæg(Tillæg tillæg){
+    public void addTillæg(Tillæg tillæg) {
         tillægger.add(tillæg);
     }
 
-    public void removeTillæg(Tillæg tillæg){
-     this.tillægger.remove(tillæg);
+    public void removeTillæg(Tillæg tillæg) {
+        this.tillægger.remove(tillæg);
     }
 
     //Udregner tillægspris
-    public double calculateTillægsPris(){
+    public double calculateTillægsPris() {
         double sum = 0.0;
-        for (Tillæg tillæg : this.tillægger){
+        for (Tillæg tillæg : this.tillægger) {
             sum += tillæg.getPris();
         }
         return sum;
@@ -124,25 +122,30 @@ return ledsager;
     //Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
     //Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
     //Hvis personen deltager i udflugter, udregnes udflugtsprisenn
-    public int calculateTotalPris(){
-     int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
-     int sum = 0;
+    public int calculateTotalPris() {
+        int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
+        int sum = 0;
 
-     if(!this.isForedragsholder()){
-         sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
-     }
-     if(this.hotelVærelse != null){
-         sum += (this.getHotelVærelse().getPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
-     }
-     if(this.ledsager != null){
-         sum += this.ledsager.calculateUdflugtsPris();
-     }
-     return sum;
+        if (!this.isForedragsholder()) {
+            sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
+        }
+        if (this.hotelBooking != null) {
+            sum += (this.getHotelVærelse().getPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
+        }
+        if (this.ledsager != null) {
+            sum += this.ledsager.calculateUdflugtsPris();
+        }
+        return sum;
     }
+
     //_________________________________
-    public HotelVærelse getHotelVærelse() {
-       return hotelVærelse;
-   }
+    public HotelBooking getHotelVærelse() {
+        return hotelBooking;
+    }
+
+    public void setHotelVærelse(HotelBooking hotelværelse) {
+        this.hotelBooking = hotelværelse;
+    }
 
     public Deltager getDeltager() {
         return deltager;

@@ -63,6 +63,15 @@ public class Konference {
         return slutDate;
     }
 
+    public ArrayList<String> listParticipantsForKonference() {
+        ArrayList<String> deltageresNavne = new ArrayList<String>();
+        for (Registration registration : this.registrationer) {
+            String navn = registration.getDeltager().getNavn();
+            deltageresNavne.add(navn);
+        }
+        return deltageresNavne;
+    }
+
     //____Registration
     public void addRegistration(Registration registration) {
         if (!this.registrationer.contains(registration)) {

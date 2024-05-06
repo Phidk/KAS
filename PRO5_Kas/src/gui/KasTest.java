@@ -1,11 +1,9 @@
 package gui;
 
 import model.*;
-import storage.*;
 import controller.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class KasTest {
@@ -60,8 +58,8 @@ public class KasTest {
         // Registration for Niels alle 3 dage af konference1
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
         // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
-        HotelVærelse hotelVærelse1 = Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration2, hotelVærelse1);
+        HotelBooking hotelBooking1 = Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
+        Controller.setHotelVærelseOfRegistration(registration2, hotelBooking1);
 
         // Registration for Ulla for første 2 dage af konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
@@ -74,9 +72,9 @@ public class KasTest {
         Controller.addUdflugtToLedsager(ledsager2, udflugt2);
         Controller.addUdflugtToLedsager(ledsager2, udflugt3);
         // Peter skal til hotelværelse på "Den hvide svane" med tilvalgt wifi.
-        HotelVærelse hotelVærelse2 = Controller.createHotelVærelse(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration (registration4, hotelVærelse2);
-        Controller.addTillægToHotelVærelse(hotelVærelse2, tillæg1);
+        HotelBooking hotelBooking2 = Controller.createHotelVærelse(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        Controller.setHotelVærelseOfRegistration (registration4, hotelBooking2);
+        Controller.addTillægToHotelVærelse(hotelBooking2, tillæg1);
 
         // Registration for Lone alle 3 dage af konference1
         Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, deltager5, konference1);
@@ -84,9 +82,9 @@ public class KasTest {
         Controller.addUdflugtToLedsager(ledsager3, udflugt1);
         Controller.addUdflugtToLedsager(ledsager3, udflugt2);
         // Lone skal på hotel "Den hvide svane" med tilvagt wifi.
-        HotelVærelse hotelVærelse3 = Controller.createHotelVærelse(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration5, hotelVærelse3);
-        Controller.addTillægToHotelVærelse(hotelVærelse3, tillæg1);
+        HotelBooking hotelBooking3 = Controller.createHotelVærelse(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        Controller.setHotelVærelseOfRegistration(registration5, hotelBooking3);
+        Controller.addTillægToHotelVærelse(hotelBooking3, tillæg1);
 
         System.out.println();
         System.out.println("Konference created: " + konference1.getNavn());
@@ -120,6 +118,9 @@ public class KasTest {
                 System.out.println("Total Price: " + registration.calculateTotalPris());
                 System.out.println("--------------------------------------");
             }
+
+            System.out.println();
+            System.out.println(konference1.listParticipantsForKonference());
         }
     }
 

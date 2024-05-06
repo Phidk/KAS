@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class HotelVærelse {
+public class HotelBooking {
 
     private int nummer;
     private int pris;
@@ -15,7 +15,7 @@ public class HotelVærelse {
         this.tillæg.add(tillæg);
     }
 
-    public HotelVærelse(int nummer, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
+    public HotelBooking(int nummer, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
         this.nummer = nummer;
         this.pris = pris;
         this.værelseType = værelseType;
