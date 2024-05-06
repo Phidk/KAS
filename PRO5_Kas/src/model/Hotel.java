@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-
+//Kald alle arraylists
 public class Hotel {
     private String name;
     private String adresse;
@@ -33,6 +33,7 @@ public class Hotel {
         return doublePris;
     }
 
+<<<<<<< Updated upstream
 //    //Assocering til tillæg
 //    public ArrayList<Tillæg> getTilægger() {
 //        return tilægger;
@@ -73,4 +74,19 @@ public class Hotel {
 //        return new Arraylist<>(hotelVærelser);
 //    }
 //
+=======
+    public ArrayList<Konference> getKonferencer() {
+        return konferencer;
+    }
+
+    public ArrayList<HotelVærelse> getHotelVærelser() {
+        return hotelVærelser;
+    }
+
+    //Assocering til tillæg
+    public ArrayList<Tillæg> getTilægger() {
+        return tilægger;
+    }
+
+>>>>>>> Stashed changes
 }

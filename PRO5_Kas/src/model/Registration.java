@@ -62,7 +62,7 @@ public class Registration {
     public boolean isForedragsholder() {
         return foredragsholder;
     }
-
+ //Controller
     public void setForedragsholder(boolean foredragsholder) {
         this.foredragsholder = foredragsholder;
     }

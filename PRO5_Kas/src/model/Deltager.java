@@ -1,6 +1,6 @@
 package model;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Deltager extends Person {
@@ -50,6 +50,9 @@ public class Deltager extends Person {
 
     public void addRegistration(Registration registration) {
         registrationer.add(registration);
+    }
+    public void removeRegistration(Registration registration){
+        registrationer.remove(registration);
     }
 
     @Override

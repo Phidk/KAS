@@ -89,6 +89,7 @@ public abstract class Controller {
         return konference;
     }
 
+
     /**
      * Fjerner en konference fra storage
      */
