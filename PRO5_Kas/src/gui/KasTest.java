@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class KasTest {
     public static void main(String[] args) {
 
-
         Deltager deltager1 = Controller.createDeltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
         Deltager deltager2 = Controller.createDeltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
         Deltager deltager3 = Controller.createDeltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
@@ -101,11 +100,16 @@ public class KasTest {
             }
             System.out.println();
         }
+
         System.out.println();
 
-        System.out.println("Number of deltagere: " + Controller.getDeltager().size());
-        System.out.println(konference1.listParticipantsForKonference());
-        System.out.println();
+        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Deltagere til konferencen " + konference + ":" + konference.listParticipantsForKonference());
+        }
+
+//        System.out.println(konference1.listParticipantsForKonference());
+//        System.out.println();
 
         for (Deltager deltager : Controller.getDeltager()) {
             System.out.println("Registration details for: " + deltager.getNavn());
