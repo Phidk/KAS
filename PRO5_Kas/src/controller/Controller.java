@@ -75,8 +75,8 @@ public abstract class Controller {
     /**
      * Opretter en udflugt og tilføjer den til storage
      * Pre: Pris >= 0
+     * Pre: Dato er efter konferencens startdato
      */
-    // Association: Konference 1 --> Udflugt 0..*
     public static Udflugt createUdflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(destination, dato, pris, frokost, konference);
          Storage.addUdflugt(udflugt);
@@ -137,6 +137,10 @@ public abstract class Controller {
         return registration;
     }
 
+    /**
+     * Sætter hotelværelse på en registrering
+     * Pre: Hotelværelse må ikke allerede være optaget
+     */
     public static void setHotelVærelseOfRegistration(Registration registration, HotelVærelse hotelVærelse) {
         registration.setHotelVærelse(hotelVærelse);
     }
@@ -194,6 +198,9 @@ public abstract class Controller {
         return tillæg;
     }
 
+    /**
+     * Tilføjer et tillæg til et hotelværelse
+     */
     public static void addTillægToHotelVærelse(HotelVærelse hotelVærelse, Tillæg tillæg) {
         hotelVærelse.addTillæg(tillæg);
     }
@@ -211,20 +218,29 @@ public abstract class Controller {
     public static ArrayList<Tillæg> getTillæg() {
         return Storage.getTillæg();
     }
+
     // ----------------------------- Ledsagere -----------------------------
+
+    /**
+     * Opretter en ledsager og tilføjer den til en registration
+     */
     public static Ledsager createLedsager(String navn, Registration registration) {
         registration.createLedsager(navn);
         return registration.getLedsager();
     }
 
+    /**
+     * Tilføjer en udflugt til en ledsager
+     * Pre: Ledsageren må ikke have udflugten i forvejen
+     */
     public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
         ledsager.addUdflugt(udflugt);
     }
 
-//    public static void removeLedsager(Ledsager ledsager) {
-//        Storage.removeLedsager(ledsager);
-//    }
-
+    /**
+     * Returnerer tilsatte ledsager fra en registration
+     * Pre: Registration skal have en ledsager
+     */
     public static Ledsager getLedsager(Registration registration) {
         return registration.getLedsager();
     }

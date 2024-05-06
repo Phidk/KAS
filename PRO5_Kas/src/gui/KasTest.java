@@ -16,12 +16,6 @@ public class KasTest {
         Deltager deltager4 = Controller.createDeltager("Peter Sommer", "Gågadevej 4", "Danmark", "Aarhus", "43214321");
         Deltager deltager5 = Controller.createDeltager("Lone Jensen", "Piftervej 7", "Danmark", "Aarhus", "67896789");
 
-//        Deltager deltager1 = new Deltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
-//        Deltager deltager2 = new Deltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
-//        Deltager deltager3 = new Deltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
-//        Deltager deltager4 = new Deltager("Peter Sommer", "Gågadevej 4", "Danmark", "Aarhus", "43214321");
-//        Deltager deltager5 = new Deltager("Lone Jensen", "Piftervej 7", "Danmark", "Aarhus", "67896789");
-
         ArrayList<Deltager> deltagere = new ArrayList<>();
         deltagere.add(deltager1);
         deltagere.add(deltager2);
