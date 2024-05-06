@@ -130,7 +130,7 @@ public class Registration {
             sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
         }
         if (this.hotelBooking != null) {
-            sum += (this.getHotelVærelse().getPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
+            sum += (this.getHotelVærelse().calculateVærelsesPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
         }
         if (this.ledsager != null) {
             sum += this.ledsager.calculateUdflugtsPris();
