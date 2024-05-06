@@ -105,11 +105,9 @@ public class KasTest {
 
         System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
         for (Konference konference : Controller.getKonferencer()) {
-            System.out.println("Deltagere til konferencen " + konference + ":" + konference.listParticipantsForKonference());
+            System.out.println("Deltagere til konferencen " + konference.getNavn() + ": " + konference.listParticipantsForKonference());
         }
-
-//        System.out.println(konference1.listParticipantsForKonference());
-//        System.out.println();
+        System.out.println();
 
         for (Deltager deltager : Controller.getDeltager()) {
             System.out.println("Registration details for: " + deltager.getNavn());
