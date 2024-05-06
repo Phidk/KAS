@@ -86,11 +86,18 @@ public class KasTest {
         Controller.addTillægToHotelVærelse(hotelBooking3, tillæg1);
 
         System.out.println();
-        System.out.println("Konference created: " + konference1.getNavn());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Konference created: " + konference.getNavn());
+        }
         System.out.println();
-        System.out.println("Hotel and Tillæg created: " + hotel1.getName() + ", " + tillæg1.getName());
-        System.out.println("Hotel and Tillæg created: " + hotel2.getName() + ", " + tillæg2.getName() + ", " + tillæg3.getName());
-        System.out.println("Hotel and Tillæg created: " + hotel3.getName() + ", " + tillæg4.getName());
+
+        for (Hotel hotel : Controller.getHoteller()) {
+            System.out.print("Hotel created: " + hotel.getNavn() + " med tillæg: ");
+            for (Tillæg tillæg : hotel.getTillæg()) {
+                System.out.print(tillæg.getName() + ", ");
+            }
+            System.out.println();
+        }
         System.out.println();
 
         System.out.println("Number of deltagere: " + Controller.getDeltager().size());
@@ -105,7 +112,7 @@ public class KasTest {
                 System.out.println("Afskeds Dato: " + registration.getAfstedsDato());
                 System.out.println("Foredragsholder: " + registration.isForedragsholder());
                 if (registration.getHotelVærelse() != null) {
-                    System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getName());
+                    System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getNavn());
                     System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
                     System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
                 }

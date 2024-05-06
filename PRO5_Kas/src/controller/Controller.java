@@ -279,6 +279,7 @@ public abstract class Controller {
      */
     public static Tillæg createTillæg(String navn, double pris, Hotel hotel) {
         Tillæg tillæg = new Tillæg(navn, pris, hotel);
+        hotel.addTillæg(tillæg);
         Storage.addTillæg(tillæg);
         return tillæg;
     }
