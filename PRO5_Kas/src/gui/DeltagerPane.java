@@ -20,9 +20,6 @@ public class DeltagerPane extends Application {
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
     private final ListView<Hotel> lvwHoteller = new ListView<>();
 
-    
-
-
     @Override
     public void start(Stage stage) {
         stage.setTitle(" KAS Projekt");
