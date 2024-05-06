@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Application;
 import model.*;
 import controller.*;
 
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 
 public class KasTest {
     public static void main(String[] args) {
+
+
         Deltager deltager1 = Controller.createDeltager("Finn Madsen", "Broloftet 11", "Danmark", "Aarhus", "23888571");
         Deltager deltager2 = Controller.createDeltager("Niels Petersen", "Bæltevej 13", "Danmark", "Aarhus", "31348571");
         Deltager deltager3 = Controller.createDeltager("Ulla Hansen", "Kirkegade 15", "Danmark", "Aarhus", "12341234");
