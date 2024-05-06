@@ -21,7 +21,7 @@ public class KasTest {
         deltagere.add(deltager4);
         deltagere.add(deltager5);
 
-        selectionSort(deltagere);
+        Konference.selectionSort(deltagere);
 
         System.out.println("Sorted with selection sort:");
         for (Deltager deltager : deltagere) {
@@ -95,7 +95,9 @@ public class KasTest {
         System.out.println();
 
         System.out.println("Number of deltagere: " + Controller.getDeltager().size());
+        System.out.println(konference1.listParticipantsForKonference());
         System.out.println();
+
         for (Deltager deltager : Controller.getDeltager()) {
             System.out.println("Registration details for: " + deltager.getNavn());
             for (Registration registration : deltager.getRegistrationer()) {
@@ -106,7 +108,7 @@ public class KasTest {
                 if (registration.getHotelVærelse() != null) {
                     System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getName());
                     System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
-                    System.out.println("Værelse Pris: " + registration.getHotelVærelse().getPris());
+                    System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
                 }
                 if (registration.getLedsager() != null) {
                     System.out.println("Ledsager: " + registration.getLedsager().getNavn());
@@ -118,23 +120,6 @@ public class KasTest {
                 System.out.println("Total Price: " + registration.calculateTotalPris());
                 System.out.println("--------------------------------------");
             }
-
-            System.out.println();
-            System.out.println(konference1.listParticipantsForKonference());
-        }
-    }
-
-    public static void selectionSort(ArrayList<Deltager> deltagere) {
-        for (int i = 0; i < deltagere.size() - 1; i++) {
-            int indexOfMin = i;
-            for (int j = i + 1; j < deltagere.size(); j++) {
-                if (deltagere.get(j).compareTo(deltagere.get(indexOfMin)) < 0) {
-                    indexOfMin = j;
-                }
-            }
-            Deltager temp = deltagere.get(i);
-            deltagere.set(i, deltagere.get(indexOfMin));
-            deltagere.set(indexOfMin, temp);
         }
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import gui.KasTest;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,7 +22,6 @@ public class Konference {
         this.konferenceAfgift = konferenceAfgift;
         this.startDato = startDato;
         this.slutDate = slutDate;
-
     }
 
     public String getNavn() {
@@ -64,13 +65,58 @@ public class Konference {
     }
 
     public ArrayList<String> listParticipantsForKonference() {
-        ArrayList<String> deltageresNavne = new ArrayList<String>();
+        ArrayList<Deltager> deltagere = new ArrayList<>();
         for (Registration registration : this.registrationer) {
-            String navn = registration.getDeltager().getNavn();
-            deltageresNavne.add(navn);
+            deltagere.add(registration.getDeltager());
         }
+
+        selectionSort(deltagere);
+
+        ArrayList<String> deltageresNavne = new ArrayList<>();
+        for (Deltager deltager : deltagere) {
+            deltageresNavne.add(deltager.getNavn());
+        }
+
         return deltageresNavne;
     }
+
+    public static void selectionSort(ArrayList<Deltager> deltagere) {
+        for (int i = 0; i < deltagere.size() - 1; i++) {
+            int indexOfMin = i;
+            for (int j = i + 1; j < deltagere.size(); j++) {
+                if (deltagere.get(j).compareTo(deltagere.get(indexOfMin)) < 0) {
+                    indexOfMin = j;
+                }
+            }
+            Deltager temp = deltagere.get(i);
+            deltagere.set(i, deltagere.get(indexOfMin));
+            deltagere.set(indexOfMin, temp);
+        }
+    }
+
+
+//    public static void selectionSort(ArrayList<Deltager> deltagere) {
+//        for (int i = 0; i < deltagere.size() - 1; i++) {
+//            int indexOfMin = i;
+//            for (int j = i + 1; j < deltagere.size(); j++) {
+//                if (deltagere.get(j).compareTo(deltagere.get(indexOfMin)) < 0) {
+//                    indexOfMin = j;
+//                }
+//            }
+//            Deltager temp = deltagere.get(i);
+//            deltagere.set(i, deltagere.get(indexOfMin));
+//            deltagere.set(indexOfMin, temp);
+//        }
+//    }
+//
+//    public ArrayList<String> listParticipantsForKonference() {
+//        ArrayList<String> deltageresNavne = new ArrayList<String>();
+//        for (Registration registration : this.registrationer) {
+//            String navn = registration.getDeltager().getNavn();
+//            deltageresNavne.add(navn);
+//        }
+//        return deltageresNavne;
+//    }
 
     //____Registration
     public void addRegistration(Registration registration){
