@@ -32,7 +32,6 @@ public class HotelBooking {
         return registrationer;
     }
 
-<<<<<<< Updated upstream:PRO5_Kas/src/model/HotelBooking.java
     public double calculateVærelsesPris() {
         double værelsesPris = 0;
         if (værelseType == EnumVærelser.Værelser.SINGLE) {
@@ -43,18 +42,15 @@ public class HotelBooking {
         return værelsesPris;
     }
 
-=======
     public ArrayList<Tillæg> getTillæg() {
         return tillæg;
     }
-
     public void addTillæg(Tillæg tillæg) {
         this.tillæg.add(tillæg);
     }
     public void removeTillæg(Tillæg tillæg){
         this.tillæg.remove(tillæg);
     }
->>>>>>> Stashed changes:PRO5_Kas/src/model/HotelVærelse.java
     // Udregn tillægsprisen for værelset
     public double calculateTillægsPris() {
         double tillægPris = 0.0;

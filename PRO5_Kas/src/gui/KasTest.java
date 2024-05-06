@@ -30,7 +30,6 @@ public class KasTest {
 
         // Create konference 'Hav og Himmel' som kører fra  18/5 to 20/5 2024 ved Odense Universitet med  1500kr daglig afgift
         Konference konference1 = Controller.createKonference("Hav og Himmel", "Odense Universitet", 1500, LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20));
-
         // Create udflugter
         Udflugt udflugt1 = Controller.createUdflugt("Byrundtur, Odense", LocalDate.of(2024, 5, 18), 125, true, konference1);
         Udflugt udflugt2 = Controller.createUdflugt("Egeskov", LocalDate.of(2024, 5, 19), 75, false, konference1);

@@ -179,8 +179,6 @@ public class Konference {
         DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/mm og HH:mm");
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd-MM-yyyy @ HH:mm");
         return String.format("%s konference.%n%s - %s på %s.%nTilmeldingsfrist: %s%nDagspris: %d", this.navn, this.startDato, this.slutDate, this.adresse, this.konferenceAfgift);
-
-
     }
 }
 

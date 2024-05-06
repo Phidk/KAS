@@ -100,11 +100,13 @@ public abstract class Controller {
     /**
      * Returnerer en liste af konferencer fra storage
      */
+
     //Tilføjer konference til registration
     public static ArrayList<Konference> getKonferencer () {
         return Storage.getKonferencer();
     }
-    public void addKonferenceToRegistration(Konference konference, Registration registration) {
+
+    public static void addKonferenceToRegistration(Konference konference, Registration registration) {
         if (registration.getKonference() != konference) {
             Konference oldKonference = registration.getKonference();
             if (oldKonference != null) {
@@ -212,6 +214,7 @@ public abstract class Controller {
      */
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
         var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
+        registration.setKonference(konference);
         konference.addRegistration(registration);
         deltager.addRegistration(registration);
         Storage.addRegistration(registration);

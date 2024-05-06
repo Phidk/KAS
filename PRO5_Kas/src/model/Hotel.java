@@ -9,7 +9,7 @@ public class Hotel {
     private int doublePris;
     private final ArrayList<Tillæg> tilægger = new ArrayList<>();
     private final ArrayList<Konference> konferencer = new ArrayList<>();
-    private final ArrayList<HotelBooking> hotelVærelser = new ArrayList<>();
+    private final ArrayList<HotelBooking> hotelBookinger = new ArrayList<>();
 
     public Hotel(String name, int singlePris, int doublePris) {
         this.name = name;
@@ -33,7 +33,6 @@ public class Hotel {
         return doublePris;
     }
 
-<<<<<<< Updated upstream
 //    //Assocering til tillæg
 //    public ArrayList<Tillæg> getTilægger() {
 //        return tilægger;
@@ -74,19 +73,16 @@ public class Hotel {
 //        return new Arraylist<>(hotelVærelser);
 //    }
 //
-=======
     public ArrayList<Konference> getKonferencer() {
         return konferencer;
     }
 
-    public ArrayList<HotelVærelse> getHotelVærelser() {
-        return hotelVærelser;
+    public ArrayList<HotelBooking> getHotelBookinger() {
+        return hotelBookinger;
     }
 
     //Assocering til tillæg
     public ArrayList<Tillæg> getTilægger() {
         return tilægger;
     }
-
->>>>>>> Stashed changes
 }

@@ -67,11 +67,12 @@ public class Registration {
         this.foredragsholder = foredragsholder;
     }
 
-
     public Konference getKonference() {
         return konference;
     }
+
     public void setKonference(Konference konference) {
+        this.konference = konference;
     }
 
     public Ledsager getLedsager() {
