@@ -100,12 +100,13 @@ public abstract class Controller {
     /**
      * Returnerer en liste af konferencer fra storage
      */
-
-    //Tilføjer konference til registration
     public static ArrayList<Konference> getKonferencer () {
         return Storage.getKonferencer();
     }
 
+    /**
+     * Tilføjer konference til registration, fjerner tidligere tilsat konference fra registreringen
+     */
     public static void addKonferenceToRegistration(Konference konference, Registration registration) {
         if (registration.getKonference() != konference) {
             Konference oldKonference = registration.getKonference();
