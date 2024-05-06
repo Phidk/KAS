@@ -14,8 +14,8 @@ public class HotelPane extends GridPane {
    private Hotel hotel;
    private Tillæg tillæg;
 
-   private final ListView<Hotel> lvwHotels;
-   private final ListView<Tillæg> lvwTillæg;
+//   private final ListView<Hotel> lvwHotels;
+//   private final ListView<Tillæg> lvwTillæg;
 
 
 

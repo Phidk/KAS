@@ -45,7 +45,7 @@ public class DeltagerPane extends Application {
         lvwHoteller.setPrefSize(300, 200);
         Label lblKunder = new Label("Kunder");
         pane.add(lblKunder, 1, 0);
-        pane.add(lvwKunde, 1, 1);
+       // pane.add(lvwKunde, 1, 1);
 
     }
 
