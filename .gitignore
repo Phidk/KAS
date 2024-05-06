@@ -1,0 +1,16 @@
+
+out/production/PRO5_Kas/controller/Controller.class
+out/production/PRO5_Kas/gui/DeltagerPane.class
+out/production/PRO5_Kas/gui/KasTest.class
+out/production/PRO5_Kas/model/Deltager.class
+out/production/PRO5_Kas/model/EnumVærelser$Værelser.class
+out/production/PRO5_Kas/model/EnumVærelser.class
+out/production/PRO5_Kas/model/Hotel.class
+out/production/PRO5_Kas/model/HotelBooking.class
+out/production/PRO5_Kas/model/Konference.class
+out/production/PRO5_Kas/model/Ledsager.class
+out/production/PRO5_Kas/model/Person.class
+out/production/PRO5_Kas/model/Registration.class
+out/production/PRO5_Kas/model/Tillæg.class
+out/production/PRO5_Kas/model/Udflugt.class
+out/production/PRO5_Kas/storage/Storage.class
