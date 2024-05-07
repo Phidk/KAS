@@ -2,7 +2,6 @@ package gui;
 
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -13,10 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DeltagerRegistrationPane extends ScrollPane {
 
@@ -34,7 +31,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
     private ListView<Konference> lvwKonferencer;
     private ListView<Udflugt> lvwUdflugter;
     private ListView<Hotel> lvwHoteller;
-    private ListView<Tillæg> lvwTilægger;
+    private ListView<Tillæg> lvwTillæg;
 
     private final TextField txfNavn, txfAdresse, txfBy, txfLand, txfFirmaNavn, txfLedsagerNavn;
     private final TextField txfTotalPris;
@@ -44,10 +41,10 @@ public class DeltagerRegistrationPane extends ScrollPane {
     private Label lblForedragsholder, lblTlfNr, lblAnkomstDato, lblAfrejseDato, lblFirmaTlfNr;
     private final Label lblLedsagerNavn;
     private final Label lblHoteller;
-    private final Label lblTillægger;
+    private final Label lblTillæg;
     private Label lblTotalPris;
     private final CheckBox chbForedragsholder, chbLedsager, chbHotel;
-    private final Button btnSlet, btnBekræft;
+    private final Button btnClear, btnBekræft;
 
     private final VBox content;
 
@@ -125,6 +122,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.chbForedragsholder = new CheckBox();
         lblForedragsholder.setGraphic(this.chbForedragsholder);
         lblForedragsholder.setContentDisplay(ContentDisplay.RIGHT);
+        this.chbForedragsholder.setOnAction(event -> this.checkboxForedragsholderAction());
         this.deltagerGridPane.add(lblForedragsholder, 2, 1, 2, 1);
 
         Label lblAdresse = new Label("Adresse:");
@@ -208,21 +206,22 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.ledsagerGridPane.add(lblLedsager, 0, 1, 3, 1);
 
         this.lblLedsagerNavn = new Label("Ledsagerens navn:");
-        this.lblLedsagerNavn.setDisable(false);
+        this.lblLedsagerNavn.setDisable(true);
         this.ledsagerGridPane.add(this.lblLedsagerNavn, 0, 2, 3, 1);
 
         this.txfLedsagerNavn = new TextField();
-        this.txfLedsagerNavn.setDisable(false);
+        this.txfLedsagerNavn.setDisable(true);
         this.ledsagerGridPane.add(this.txfLedsagerNavn, 2, 2);
 
         this.lblUdflugter = new Label("Tilgængelige udflugter:");
         this.lblUdflugter.setFont(new Font(15));
-        this.lblUdflugter.setDisable(false);
+        this.lblUdflugter.setDisable(true);
         this.ledsagerGridPane.add(this.lblUdflugter, 0, 3);
 
         this.lvwUdflugter = new ListView<>();
         this.lvwUdflugter.setPrefSize(400, 130);
-        this.lvwUdflugter.setDisable(false);
+        this.lvwUdflugter.setDisable(true);
+        this.lvwUdflugter.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         this.ledsagerGridPane.add(this.lvwUdflugter, 0, 4, 4, 1);
 
         ChangeListener<Udflugt> listenerUdflugt = (ov, oldUdflugt, newUdflugt) -> this.selectedUdflugtChanged();
@@ -259,33 +258,33 @@ public class DeltagerRegistrationPane extends ScrollPane {
 
         this.lblHoteller = new Label("Tilgængelige hoteller");
         this.lblHoteller.setFont(new Font(14));
-        this.lblHoteller.setDisable(false);
+        this.lblHoteller.setDisable(true);
         this.hotelGridPane.add(this.lblHoteller, 0, 2);
 
         this.lvwHoteller = new ListView<>();
         this.lvwHoteller.setPrefSize(200, 175);
-        this.lvwHoteller.setDisable(false);
+        this.lvwHoteller.setDisable(true);
         this.hotelGridPane.add(this.lvwHoteller, 0, 3);
 
         ChangeListener<Hotel> listenerHoteller = (ov, oldHotel, newHotel) -> this.selectedHotelChanged(newHotel);
         this.lvwHoteller.getSelectionModel().selectedItemProperty().addListener(listenerHoteller);
 
-        this.lblTillægger = new Label("Tilgængelige tillæg:");
-        this.lblTillægger.setFont(new Font(14));
-        this.lblTillægger.setDisable(false);
-        this.hotelGridPane.add(this.lblTillægger, 0, 4);
+        this.lblTillæg = new Label("Tilgængelige tillæg:");
+        this.lblTillæg.setFont(new Font(14));
+        this.lblTillæg.setDisable(true);
+        this.hotelGridPane.add(this.lblTillæg, 0, 4);
 
 //        Label lblTotalPris = new Label("Samlet pris");
 //        this.hotelGridPane.add(this.lblTotalPris, 0,5);
 
-        this.lvwTilægger = new ListView<>();
-        this.lvwTilægger.setPrefSize(200, 150);
-        this.lvwTilægger.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        this.lvwTilægger.setDisable(false);
-        this.hotelGridPane.add(this.lvwTilægger, 0, 5);
+        this.lvwTillæg = new ListView<>();
+        this.lvwTillæg.setPrefSize(200, 150);
+        this.lvwTillæg.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        this.lvwTillæg.setDisable(true);
+        this.hotelGridPane.add(this.lvwTillæg, 0, 5);
 
         ChangeListener<Tillæg> listenerTillægger = (ov, oldTillæg, newTillæg) -> this.selectedTillægChanged();
-        this.lvwTilægger.getSelectionModel().selectedItemProperty().addListener(listenerTillægger);
+        this.lvwTillæg.getSelectionModel().selectedItemProperty().addListener(listenerTillægger);
 
         lblPageNumber = new Label("Side 4/4");
         lblPageNumber.setFont(Font.font(12));
@@ -331,9 +330,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
 //        this.setContent(content);
 //        this.setFitToWidth(true);
 
-        this.btnSlet = new Button("Start forfra");
-        this.btnSlet.setDisable(false);
-        this.btnSlet.setOnAction(event -> this.sletControls());
+        this.btnClear = new Button("Start forfra");
+        this.btnClear.setDisable(false);
+        this.btnClear.setOnAction(event -> this.clearControls());
 
         HBox hbox = new HBox();
 
@@ -342,9 +341,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.btnBekræft.setOnAction(event -> this.bekræftAction());
         hbox.getChildren().add(this.btnBekræft);
 
-
-
-        buttonsBox.getChildren().addAll(this.btnSlet, this.btnBekræft);
+        buttonsBox.getChildren().addAll(this.btnClear, this.btnBekræft);
 
         this.txfTotalPris.setEditable(false);
 
@@ -361,6 +358,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.setContent(content);
         this.setFitToWidth(true);
 
+        this.hotelGridPane.setDisable(true);
+        this.ledsagerGridPane.setDisable(true);
+        this.deltagerGridPane.setDisable(true);
     }
 
     /**
@@ -373,7 +373,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.ledsagerGridPane.setDisable(isNull);
         this.hotelGridPane.setDisable(isNull);
         this.btnBekræft.setDisable(isNull);
-        this.btnSlet.setDisable(isNull);
+        this.btnClear.setDisable(isNull);
 
         this.konference = newKonference;
 
@@ -411,9 +411,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
     private void selectedHotelChanged(Hotel newHotel) {
         this.hotel = newHotel;
         if (newHotel != null) {
-            this.lvwTilægger.getItems().setAll(newHotel.getTillæg());
+            this.lvwTillæg.getItems().setAll(newHotel.getTillæg());
         } else {
-            this.lvwTilægger.getItems().clear();
+            this.lvwTillæg.getItems().clear();
         }
         this.updatePris();
 
@@ -427,17 +427,18 @@ public class DeltagerRegistrationPane extends ScrollPane {
 
         this.lvwHoteller.setDisable(!checked);
         this.lblHoteller.setDisable(!checked);
-        this.lblTillægger.setDisable(!checked);
-        this.lvwTilægger.setDisable(!checked);
+        this.lblTillæg.setDisable(!checked);
+        this.lvwTillæg.setDisable(!checked);
 
         if (!checked) {
             this.lvwHoteller.getSelectionModel().clearSelection();
         }
+        this.updatePris();
     }
 
-    /**
-     * Når en deltager trykker ja til at en ledsager medbringes
-     */
+        /**
+         * Når en deltager trykker ja til at en ledsager medbringes
+         */
     private void checkboxLedsagerAction() {
         boolean checked = this.chbLedsager.isSelected();
         this.lblLedsagerNavn.setDisable(!checked);
@@ -448,6 +449,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         if (!checked) {
             this.lvwUdflugter.getSelectionModel().clearSelection();
         }
+        this.updatePris();
     }
 
     /**
@@ -464,11 +466,13 @@ public class DeltagerRegistrationPane extends ScrollPane {
             int hotelPris = 0;
             if (this.hotel != null) {
                 int tillægsPris = 0;
-                for (Tillæg tillæg : this.lvwTilægger.getSelectionModel().getSelectedItems()) {
+                for (Tillæg tillæg : this.lvwTillæg.getSelectionModel().getSelectedItems()) {
                     tillægsPris += tillæg.getPris();
                 }
                 if (this.chbLedsager.isSelected()) {
-                    hotelPris = (hotelPris + tillægsPris) * antalOpholdsDage;
+                    hotelPris = (hotel.getDoublePris() + tillægsPris) * antalOpholdsDage;
+                } else {
+                    hotelPris = (hotel.getSinglePris() + tillægsPris) * antalOpholdsDage;
                 }
             }
             int udflugtsPris = 0;
@@ -480,7 +484,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
             this.txfTotalPris.setText(konferencePris + hotelPris + udflugtsPris + "");
         }
     }
-
     /**
      * Når en datepicker skifter værdi
      */
@@ -488,9 +491,11 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.updatePris();
     }
 
-    private void sletControls() {
-        this.content.getChildren().removeAll(this.ledsagerGridPane, this.hotelGridPane);
-        this.txfNavn.clear();
+    /**
+     * Når det er valgt om man er foredragsholder
+     */
+    private void checkboxForedragsholderAction() {
+        this.updatePris();
     }
 
     private void bekræftAction() {
@@ -675,8 +680,8 @@ public class DeltagerRegistrationPane extends ScrollPane {
             this.lvwUdflugter.setDisable(true);
             this.lvwHoteller.getItems().clear();
             this.lvwHoteller.setDisable(true);
-            this.lvwTilægger.getItems().clear();
-            this.lvwTilægger.setDisable(true);
+            this.lvwTillæg.getItems().clear();
+            this.lvwTillæg.setDisable(true);
 
             this.chbHotel.setSelected(false);
             this.chbLedsager.setSelected(false);
@@ -698,9 +703,8 @@ public class DeltagerRegistrationPane extends ScrollPane {
 
             this.lblHoteller.setDisable(true);
             this.lblUdflugter.setDisable(true);
-            this.lblTillægger.setDisable(true);
+            this.lblTillæg.setDisable(true);
             this.lblLedsagerNavn.setDisable(true);
-
         }
 
         /**
@@ -716,12 +720,3 @@ public class DeltagerRegistrationPane extends ScrollPane {
             });
         }
     }
-
-
-
-
-
-
-
-
-

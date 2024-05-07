@@ -36,7 +36,7 @@ public abstract class Controller {
         Tillæg tillæg3 = Controller.createTillæg("WiFi", 75, hotel2);
 
         Hotel hotel3 = Controller.createHotel("Pension Tusindfryd", 500, 600);
-        Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
+        Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel3);
 
         // Tilføjer hoteller til konferencen
         Controller.addHotelToKonference(hotel1, konference1);
