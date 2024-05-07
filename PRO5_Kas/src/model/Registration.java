@@ -143,4 +143,6 @@ public class Registration {
         return deltager;
     }
 
+    public void setHotelBooking(HotelBooking hotelBooking) {
+    }
 }

@@ -81,4 +81,7 @@ public class Hotel {
     public void addTillæg(Tillæg tillæg){
         this.tillæg.add(tillæg);
     }
+
+
+
 }

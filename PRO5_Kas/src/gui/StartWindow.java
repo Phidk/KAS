@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,19 +16,24 @@ import javafx.stage.Stage;
 import model.Konference;
 
 public class StartWindow extends Application {
-    public void start(Stage stage){
-stage.setTitle("Websystem for KAS");
-BorderPane pane = new BorderPane();
-initContent(pane);
+    public void init(){
+        Controller.init();
+    }
 
-Scene scene = new Scene(pane, 400,300);
+    public void start(Stage stage){
+stage.setTitle("Konference Administrationssystem");
+BorderPane pane = new BorderPane();
+this.initContent(pane);
+
+Scene scene = new Scene(pane, 800,500);
 stage.setScene(scene);
 stage.show();
     }
     //------------------------------------------
-    private void initContent(BorderPane pane){
-    TabPane tabPane = new TabPane();
-    initTabPane(tabPane);
+    private void initContent(BorderPane pane) {
+        TabPane tabPane = new TabPane();
+        this.initTabPane(tabPane);
+        pane.setCenter(tabPane);
 
     // Tilføj Administration og Deltager knapper
     Button adminButton = new Button("Administration");
