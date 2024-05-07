@@ -80,6 +80,22 @@ public class Konference {
         return deltageresNavne;
     }
 
+    public ArrayList<String> listUdflugterForKonference() {
+        ArrayList<String> udflugtersNavne = new ArrayList<>();
+        for (Udflugt udflugt : udflugter) {
+            udflugtersNavne.add(udflugt.getDestination());
+        }
+        return udflugtersNavne;
+    }
+
+    public ArrayList<String> listHotellerForKonference() {
+        ArrayList<String> hotellersNavne = new ArrayList<>();
+        for (Hotel hotel : hoteller) {
+            hotellersNavne.add(hotel.getNavn());
+        }
+        return hotellersNavne;
+    }
+
     public static void selectionSort(ArrayList<Deltager> deltagere) {
         for (int i = 0; i < deltagere.size() - 1; i++) {
             int indexOfMin = i;

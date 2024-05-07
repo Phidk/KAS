@@ -163,6 +163,7 @@ public abstract class Controller {
      */
     public static Udflugt createUdflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(destination, dato, pris, frokost, konference);
+         konference.addUdflugt(udflugt);
          Storage.addUdflugt(udflugt);
          return udflugt;
     }

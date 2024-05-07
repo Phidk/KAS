@@ -108,6 +108,18 @@ public class KasTest {
         }
         System.out.println();
 
+        System.out.println("Antal udflugter til alle konferencer: " + Controller.getUdflugter().size());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Udflugter til konferencen " + konference.getNavn() + ": " + konference.listUdflugterForKonference());
+        }
+        System.out.println();
+
+        System.out.println("Antal hoteller til alle konferencer: " + Controller.getHoteller().size());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Hoteller til konferencen " + konference.getNavn() + ": " + konference.listHotellerForKonference());
+        }
+        System.out.println();
+
         for (Deltager deltager : Controller.getDeltager()) {
             System.out.println("Registration details for: " + deltager.getNavn());
             for (Registration registration : deltager.getRegistrationer()) {

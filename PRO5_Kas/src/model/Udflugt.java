@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Udflugt {
 
-    private String navn;
     private String destination;
     private LocalDate dato;
     private int pris;
@@ -16,20 +15,13 @@ public class Udflugt {
 
     // Setup association to Ledsager
 
-    public Udflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
-        this.destination = destination;
+    public Udflugt(String navn, LocalDate dato, int pris, Boolean frokost, Konference konference) {
+        this.destination = navn;
         this.dato = dato;
         this.pris = pris;
         this.frokost = frokost;
     }
 
-    public String getNavn() {
-        return navn;
-    }
-
-    public void setNavn(String navn) {
-        this.navn = navn;
-    }
 
     public String getDestination() {
         return destination;
@@ -71,5 +63,10 @@ public class Udflugt {
     }
     public void removeLedsager(Ledsager ledsager){
         ledsagere.remove(ledsager);
+    }
+
+    @Override
+    public String toString() {
+        return getDestination();
     }
 }

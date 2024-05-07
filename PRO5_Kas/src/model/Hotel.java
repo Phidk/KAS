@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 //Kald alle arraylists
 public class Hotel {
-    private String name;
+    private String navn;
     private String adresse;
     private int singlePris;
     private int doublePris;
@@ -11,18 +11,18 @@ public class Hotel {
     private final ArrayList<Konference> konferencer = new ArrayList<>();
     private final ArrayList<HotelBooking> hotelBookinger = new ArrayList<>();
 
-    public Hotel(String name, int singlePris, int doublePris) {
-        this.name = name;
+    public Hotel(String navn, int singlePris, int doublePris) {
+        this.navn = navn;
         this.singlePris = singlePris;
         this.doublePris = doublePris;
     }
 
     public String getNavn() {
-        return name;
+        return navn;
     }
 
-    public void setNavn(String name) {
-        this.name = name;
+    public void setNavn(String navn) {
+        this.navn = navn;
     }
 
     public int getSinglePris() {
