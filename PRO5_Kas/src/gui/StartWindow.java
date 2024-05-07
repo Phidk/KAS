@@ -31,7 +31,7 @@ stage.show();
 
     // Tilføj Administration og Deltager knapper
     Button adminButton = new Button("Administration");
-    Button participantButton = new Button("Deltager");
+    Button participantButton = new Button("Ny deltager");
 
         participantButton.setOnAction(e -> {
             DeltagerRegistrationPane deltagerRegistrationPane = new DeltagerRegistrationPane();
