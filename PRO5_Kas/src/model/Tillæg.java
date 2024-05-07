@@ -3,23 +3,23 @@ package model;
 import java.util.ArrayList;
 
 public class Tillæg {
-    private String name;
+    private String navn;
     private double pris;
     //Tvungen assocering til Hotel
     private Hotel hotel;
 
-    public Tillæg(String name, double pris, Hotel hotel) {
-        this.name = name;
+    public Tillæg(String Navn, double pris, Hotel hotel) {
+        this.navn = Navn;
         this.pris = pris;
         this.hotel = hotel;
     }
 
-    public String getName() {
-        return name;
+    public String getNavn() {
+        return navn;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.navn = name;
     }
 
     public double getPris() {
@@ -38,4 +38,8 @@ public class Tillæg {
         this.hotel = hotel;
     }
 
+    @Override
+    public String toString() {
+        return getNavn();
+    }
 }
