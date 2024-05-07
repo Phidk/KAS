@@ -83,6 +83,10 @@ public class Registration {
         this.ledsager = ledsager;
     }
 
+    public HotelBooking getHotelBooking() {
+        return hotelBooking;
+    }
+
     public Ledsager createLedsager(String navn) {
         Ledsager ledsager = new Ledsager(navn);
         this.ledsager = ledsager;
