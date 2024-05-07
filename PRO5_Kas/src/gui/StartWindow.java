@@ -48,6 +48,14 @@ public class StartWindow extends Application {
             deltagerStage.setTitle("Deltager Registration");
             deltagerStage.show();
         });
+        adminButton.setOnAction(e -> {
+            AdminPane adminPane = new AdminPane();
+            Scene adminScene = new Scene(adminPane, 600, 400);
+            Stage adminStage = new Stage();
+            adminStage.setScene(adminScene);
+            adminStage.setTitle("Administration");
+            adminStage.show();
+        });
 
         // Layout for knapper
         HBox buttonBox = new HBox(10); // Afstand mellem knapper
