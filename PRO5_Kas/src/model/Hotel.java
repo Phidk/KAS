@@ -7,7 +7,7 @@ public class Hotel {
     private String adresse;
     private int singlePris;
     private int doublePris;
-    private final ArrayList<Tillæg> tillæg = new ArrayList<>();
+    private final ArrayList<Tillæg> tilægger = new ArrayList<>();
     private final ArrayList<Konference> konferencer = new ArrayList<>();
     private final ArrayList<HotelBooking> hotelBookinger = new ArrayList<>();
 
@@ -17,11 +17,11 @@ public class Hotel {
         this.doublePris = doublePris;
     }
 
-    public String getNavn() {
+    public String getName() {
         return name;
     }
 
-    public void setNavn(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -34,7 +34,15 @@ public class Hotel {
     }
 
 //    //Assocering til tillæg
+//    public ArrayList<Tillæg> getTilægger() {
+//        return tilægger;
+//    }
 //
+//    public Tillæg createTillæg(String navn, int pris) {
+//        Tillæg tillæg = new Tillæg(navn, pris);
+//        this.tilægger.add(tillæg);
+//        return tillæg;
+//    }
 //
 //    public void removeTillæg(Tillæg tillæg) {
 //        this.tilægger.remove(tillæg);
@@ -74,16 +82,7 @@ public class Hotel {
     }
 
     //Assocering til tillæg
-    public ArrayList<Tillæg> getTillæg() {
-        return this.tillæg;
-    }
-
-    public void addTillæg(Tillæg tillæg){
-        this.tillæg.add(tillæg);
-    }
-
-    @Override
-    public String toString() {
-        return getNavn();
+    public ArrayList<Tillæg> getTilægger() {
+        return tilægger;
     }
 }

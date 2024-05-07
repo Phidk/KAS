@@ -45,6 +45,7 @@ public class HotelBooking {
     public ArrayList<Tillæg> getTillæg() {
         return tillæg;
     }
+
     public void addTillæg(Tillæg tillæg) {
         this.tillæg.add(tillæg);
     }
