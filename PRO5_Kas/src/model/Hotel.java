@@ -82,6 +82,8 @@ public class Hotel {
         this.tillæg.add(tillæg);
     }
 
-
-
+    @Override
+    public String toString() {
+        return getNavn();
+    }
 }

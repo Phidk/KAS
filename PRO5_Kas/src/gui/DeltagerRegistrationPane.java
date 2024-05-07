@@ -1,6 +1,5 @@
 package gui;
 
-
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
@@ -75,10 +74,20 @@ public class DeltagerRegistrationPane extends ScrollPane {
         GridPane.setHalignment(lblConferenceHeader, HPos.CENTER);
         konferencerGridPane.add(lblConferenceHeader, 0, 0);
 
+        // changes
         this.lvwKonferencer = new ListView<>();
-        this.lvwKonferencer.getItems().setAll(Controller.getKonferencer());
+        ArrayList<Konference> konferencer = Controller.getKonferencer();
+
+        this.lvwKonferencer.getItems().clear();
+        this.lvwKonferencer.getItems().setAll(konferencer);
         this.lvwKonferencer.setPrefSize(800, 200);
+
         konferencerGridPane.add(this.lvwKonferencer, 0, 1);
+
+//        this.lvwKonferencer = new ListView<>();
+//        this.lvwKonferencer.getItems().setAll(Controller.getKonferencer());
+//        this.lvwKonferencer.setPrefSize(800, 200);
+//        konferencerGridPane.add(this.lvwKonferencer, 0, 1);
 
         ChangeListener<Konference> listener = (ov, oldKonference, newKonference) -> this.selectedKonferenceChanged(newKonference);
         this.lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
