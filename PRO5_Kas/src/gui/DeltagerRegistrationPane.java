@@ -145,7 +145,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.txfLand = new TextField();
         this.deltagerGridPane.add(this.txfLand, 1, 3);
 
-        Label lblTlfNr = new Label("Telefonnummer:");
+        Label lblTlfNr = new Label("TlfNr:");
         this.deltagerGridPane.add(lblTlfNr, 2, 3);
 
         this.txfTlfNr = new TextField();
@@ -174,7 +174,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.txfFirmaNavn = new TextField();
         this.deltagerGridPane.add(this.txfFirmaNavn, 1, 6);
 
-        Label lblFirmaTlfNr = new Label("Firma telefonnummer:");
+        Label lblFirmaTlfNr = new Label("FirmaTlfNr:");
         this.deltagerGridPane.add(lblFirmaTlfNr, 2, 6);
 
         this.txfFirmaTlfNr = new TextField();
