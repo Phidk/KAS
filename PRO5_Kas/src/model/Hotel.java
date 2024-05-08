@@ -81,6 +81,10 @@ public class Hotel {
         return hotelBookinger;
     }
 
+    public void addHotelBooking(HotelBooking hotelBooking){
+        this.hotelBookinger.add(hotelBooking);
+    }
+
     //Assocering til tillæg
     public ArrayList<Tillæg> getTilægger() {
         return tilægger;
