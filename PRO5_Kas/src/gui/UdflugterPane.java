@@ -9,26 +9,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Konference;
+import model.Udflugt;
 
-import javax.print.attribute.standard.Destination;
 
 public class UdflugterPane extends Stage {
 
     private TextField txfNavn, txfDato, txfPris, txfDestination, txfFrokost;
     private ListView<Konference> lvwKonferencer = new ListView<>();
 
-
+    private Udflugt udflugt;
 
     public UdflugterPane (String title) {
             this.initStyle(StageStyle.UTILITY);
             this.initModality(Modality.APPLICATION_MODAL);
             this.setResizable(false);
+            this.setTitle(String.format("%s udflugt - KAS", (udflugt != null) ? "Opdater" : "Opret"));
 
-            this.setTitle(title);
+            this.udflugt = Udflugt;
+
             GridPane pane = new GridPane();
             this.initContent(pane);
 
@@ -43,8 +46,11 @@ public class UdflugterPane extends Stage {
             pane.setVgap(10);
             pane.setGridLinesVisible(false);
 
-            Label lblTitel = new Label("Titel");
-            pane.add(lblTitel,0,0);
+            VBox vBox = new VBox();
+            pane.add(vBox, 0, 0, 2, 1);
+
+            Label lblTitel = new Label("Navn");
+            pane.add(lblTitel,0,1);
 
             txfNavn = new TextField();
             pane.add(txfNavn,1,0,2,1);
