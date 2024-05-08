@@ -81,9 +81,7 @@ public class Hotel {
     public String getAdresse() {
         return adresse;
     }
-    public void removeTillæg(Tillæg tillæg){
-        this.tillæg.remove(tillæg);
-    }
+
 
     public void setSinglePris(int singlePris) {
         this.singlePris = singlePris;

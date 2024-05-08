@@ -24,7 +24,7 @@ public class Konference {
         this.slutDate = slutDate;
     }
 
-    public String getNavn() {
+    public String getNavn()   {
         return navn;
     }
 
