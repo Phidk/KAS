@@ -55,21 +55,27 @@ public class Udflugt {
         this.pris = pris;
     }
 
-   //Boolean om frokost er inkluderet
-    public boolean frokost(){
+    //Boolean om frokost er inkluderet
+    public boolean frokost() {
         return this.frokost();
     }
+
     public void setFrokost(boolean frokost) {
         this.frokost = frokost;
     }
 
-    public ArrayList<Ledsager> getLedsagere(){
+    public ArrayList<Ledsager> getLedsagere() {
         return new ArrayList<>(ledsagere);
     }
-    public void addLedsager(Ledsager ledsager){
+
+    public void addLedsager(Ledsager ledsager) {
         ledsagere.add(ledsager);
     }
-    public void removeLedsager(Ledsager ledsager){
+
+    public void removeLedsager(Ledsager ledsager) {
         ledsagere.remove(ledsager);
     }
+
 }
+
+
