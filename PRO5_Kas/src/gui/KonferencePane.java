@@ -59,9 +59,6 @@ public class KonferencePane extends GridPane {
         Label lblEndDate = new Label("Slutdato og tid:");
         this.add(lblEndDate, 1, 4);
 
-        Label lblDeadline = new Label("Tilmeldingsfrist:");
-        this.add(lblDeadline, 1, 5);
-
         Label lblHotels = new Label("Hoteller:");
         this.add(lblHotels, 1, 6);
 
@@ -85,9 +82,6 @@ public class KonferencePane extends GridPane {
         this.txfSlutDato.setEditable(false);
         this.add(this.txfSlutDato, 2, 4);
 
-        this.txfDeadline = new TextField();
-        this.txfDeadline.setEditable(false);
-        this.add(this.txfDeadline, 2, 5);
 
         this.lvwHoteller = new ListView<>();
         this.lvwHoteller.setPrefSize(200, 100);

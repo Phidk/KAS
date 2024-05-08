@@ -22,7 +22,7 @@ public class CreateKonferenceWindow  extends Stage {
     private DatePicker dtpStartDate, dtpEndDate, dtpDeadline;
 
     CreateKonferenceWindow(Konference konference) {
-        
+
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
         this.setTitle(String.format("%s konference - KAS", (konference != null) ? "Opdater" : "Opret"));

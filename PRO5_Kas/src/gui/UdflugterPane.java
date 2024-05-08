@@ -48,7 +48,6 @@ public class UdflugterPane extends GridPane {
         ChangeListener<Udflugt> listener = (ov, oldValue, newValue) -> this.selectedUdflugtChanged(newValue);
         this.lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener);
 
-
         Label lblNavn = new Label("Navn:");
         this.add(lblNavn, 1, 0);
 

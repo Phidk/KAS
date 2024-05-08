@@ -48,6 +48,7 @@ public class AdminWindow extends Stage {
 
         KonferencePane konferencePane = new KonferencePane();
         tabKonferencer.setContent(konferencePane);
+
     }
 
 }
