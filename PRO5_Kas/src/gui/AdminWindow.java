@@ -5,6 +5,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Hotel;
 
 public class AdminWindow extends Stage {
 
@@ -36,7 +37,11 @@ public class AdminWindow extends Stage {
         DeltagerPane deltagerPane = new DeltagerPane();
         tabDeltagere.setContent(deltagerPane);
 
+        Tab tabHotel = new Tab("Hoteller");
+        tabPane.getTabs().add(tabHotel);
 
+        HotelPane hotelPane = new HotelPane();
+        tabHotel.setContent(hotelPane);
     }
 
 //public class AdminWindow extends Stage {

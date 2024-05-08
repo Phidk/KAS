@@ -24,7 +24,10 @@ public class Ledsager extends Person {
     public void removeUdflugt(Udflugt udflugt){
         udflugter.remove(udflugt);
     }
-    
+
+    /**
+     * Udregner den samlede pris af de udflugter som ledsageren deltager til.
+     */
     public double calculateUdflugtsPris(){
         double sum = 0.0;
         for (Udflugt udflugt : this.udflugter){

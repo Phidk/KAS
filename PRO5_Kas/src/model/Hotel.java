@@ -49,6 +49,14 @@ public class Hotel {
         this.hotelBookinger.remove(hotelBooking);
     }
 
+    public void addKonference(Konference konference){
+        this.konferencer.add(konference);
+    }
+
+    public void removeKonference(Konference konference) {
+        this.konferencer.remove(konference);
+    }
+
     public ArrayList<Tillæg> getTillæg() {
         return tillæg;
     }
@@ -57,8 +65,29 @@ public class Hotel {
         this.tillæg.add(tillæg);
     }
 
+    public void removeTillæg(Tillæg tillæg) {
+        this.tillæg.remove(tillæg);
+    }
+
     @Override
     public String toString() {
         return getNavn();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+
+    public void setSinglePris(int singlePris) {
+        this.singlePris = singlePris;
+    }
+
+    public void setDoublePris(int doublePris) {
+        this.doublePris = doublePris;
     }
 }

@@ -583,7 +583,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
 
         System.out.println(Controller.getHoteller());
 
-        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
+        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltagere().size());
         for (Konference konference : Controller.getKonferencer()) {
             System.out.println("Deltagere til konferencen " + konference.getNavn() + ": " + konference.listParticipantsForKonference());
         }

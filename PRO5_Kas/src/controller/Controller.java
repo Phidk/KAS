@@ -39,9 +39,9 @@ public abstract class Controller {
         Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
 
         // Tilføjer hoteller til konferencen
-        Controller.addHotelToKonference(hotel1, konference1);
-        Controller.addHotelToKonference(hotel2, konference1);
-        Controller.addHotelToKonference(hotel3, konference1);
+        Controller.addHotelToKonference(konference1, hotel1);
+        Controller.addHotelToKonference(konference1, hotel2);
+        Controller.addHotelToKonference(konference1, hotel3);
 
         // Registration for Finn alle 3 dage af konference1
         Registration registration1 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager1, konference1);
@@ -89,11 +89,34 @@ public abstract class Controller {
         return konference;
     }
 
+    /**
+     * Konference tilføjes til et hotel
+     * Note: Nullable params hotel, konference
+     */
+    public static void addHotelToKonference(Hotel hotel, Konference konference) {
+        hotel.addKonference(konference);
+        konference.addHotel(hotel);
+    }
+
+    /**
+     * Fjerner en konference fra specifikt hotel
+     * Note: Nullable params hotel, konference
+     */
+    public static void removeKonferenceFromHotel(Hotel hotel, Konference konference) {
+        if (konference.getHoteller().contains(hotel)) {
+            hotel.removeKonference(konference);
+            konference.removeHotel(hotel);
+        }
+    }
 
     /**
      * Fjerner en konference fra storage
+     * Note: nullable param konference
      */
     public static void removeKonference(Konference konference) {
+        for (Hotel hotel : konference.getHoteller()) {
+            removeKonferenceFromHotel(hotel, konference);
+        }
         Storage.removeKonference(konference);
     }
 
@@ -133,17 +156,40 @@ public abstract class Controller {
         return hotel;
     }
 
-    public static void addHotelToKonference(Hotel hotel, Konference konference) {
+    /**
+     * Hotel tilføjes til en konference
+     * Note: nullable params konference, hotel
+     */
+    public static void addHotelToKonference(Konference konference, Hotel hotel) {
         konference.addHotel(hotel);
+        hotel.addKonference(konference);
     }
 
     /**
-     * Fjerner et hotel fra storage
+     * Fjerner et hotel fra specifik konference
+     * Note: nullable params hotel, konference
      */
-    public static void removeHotel(Hotel hotel) {
-         Storage.removeHotel(hotel);
+    public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
+        if (hotel.getKonferencer().contains(konference)) {
+            konference.removeHotel(hotel);
+            hotel.removeKonference(konference);
+        }
     }
 
+
+    /**
+     * Fjerner hotel fra alle konferencer og storage
+     * note: nullable param hotel.
+     */
+    public static void removeHotel(Hotel hotel) {
+        for (Konference konference : hotel.getKonferencer()) {
+            if (hotel.getKonferencer().contains(konference)) {
+                konference.removeHotel(hotel);
+                hotel.removeKonference(konference);
+            }
+            Storage.removeHotel(hotel);
+        }
+    }
 
     /**
      * Returnerer en liste af hoteller fra storage
@@ -152,14 +198,13 @@ public abstract class Controller {
          return Storage.getHoteller();
     }
 
-
-
     // ----------------------------- Udflugter -----------------------------
 
     /**
      * Opretter en udflugt og tilføjer den til storage
      * Pre: Pris >= 0
      * Pre: Dato er efter konferencens startdato
+     * Note: nullable param konference.
      */
     public static Udflugt createUdflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(destination, dato, pris, frokost, konference);
@@ -169,9 +214,14 @@ public abstract class Controller {
 
     /**
      * Fjerner en udflugt fra storage
+     * Note: nullable param konference.
      */
-    public static void removeUdflugt(Udflugt udflugt) {
-         Storage.removeUdflugt(udflugt);
+    public static void removeUdflugt(Konference konference, Udflugt udflugt) {
+        if (konference.getUdflugter().contains(udflugt)) {
+            konference.removeUdflugt(udflugt);
+
+            Storage.removeUdflugt(udflugt);
+        }
     }
 
     /**
@@ -185,7 +235,6 @@ public abstract class Controller {
 
     /**
      * Opretter en deltager og tilføjer den til storage
-     * Pre: none
      */
     public static Deltager createDeltager(String navn, String adresse, String land, String by, String tlfNr) {
         Deltager deltager = new Deltager(navn, adresse, land, by, tlfNr);
@@ -195,6 +244,8 @@ public abstract class Controller {
 
     /**
      * Fjerner en deltager fra storage
+     * Note: Nullable param deltager.
+     * Deltageres registrationer eksisterer stadig, men deltageren er ikke gemt i storage
      */
     public static void removeDeltager(Deltager deltager) {
         Storage.removeDeltager(deltager);
@@ -203,7 +254,7 @@ public abstract class Controller {
     /**
      * Returnerer en liste af deltagere fra storage
      */
-    public static ArrayList<Deltager> getDeltager() {
+    public static ArrayList<Deltager> getDeltagere() {
         return Storage.getDeltagere();
     }
 
@@ -212,6 +263,7 @@ public abstract class Controller {
     /**
      * Opretter en registrering og gemmer den i storage
      * Pre: ankomstDato >= afrejseDato && ankomstDato <= konference.getSlutDato() && afrejseDato >= konference.getStartDato()
+     * Note: Nullable param konference.
      */
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
         var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
@@ -223,17 +275,12 @@ public abstract class Controller {
     }
 
     /**
-     * Sætter hotelværelse på en registrering
-     * Pre: Hotelværelse må ikke allerede være optaget
+     * Sletter en registrering fra konference og storage
+     * Note: Nullable param konference.
      */
-    public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
-        registration.setHotelVærelse(hotelBooking);
-    }
-
-    /**
-     * Sletter en registrering fra storage
-     */
-    public static void removeRegistration(Registration registration) {
+    public static void removeRegistration(Registration registration, Konference konference) {
+        konference.removeRegistration(registration);
+        registration.setKonference(null);
         Storage.removeRegistration(registration);
     }
 
@@ -249,27 +296,40 @@ public abstract class Controller {
     /**
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
+     * Note: Nullable param hotel.
      */
     public static HotelBooking createHotelBooking(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
         HotelBooking hotelBooking = new HotelBooking(værelsesNr, pris, værelseType, hotel);
         hotel.addHotelBooking(hotelBooking);
-        Storage.addHotelværelse(hotelBooking);
+        Storage.addHotelBooking(hotelBooking);
         return hotelBooking;
     }
 
     /**
-     * Sletter et hotelværelse fra storage
+     * Sætter hotelBooking med værelse til en registrering
+     * Note: Nullable params hotelBooking, registration.
      */
-    public static void removeHotelBooking(HotelBooking hotelværelse) {
-        Storage.removeHotelværelse(hotelværelse);
+    public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
+        registration.setHotelBooking(hotelBooking);
     }
-
-
+    
+    /**
+     * Sletter et hotelværelse fra storage
+     * Note: Nullable params hotelBooking, registration.
+     */
+    public static void removeHotelBookingFromRegistration(HotelBooking hotelBooking, Registration registration) {
+        if (hotelBooking.getRegistration() == registration) {
+            registration.setHotelBooking(null);
+            hotelBooking.setRegistration(null);
+            Storage.removeHotelBooking(hotelBooking);
+        }
+    }
+    
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
     public static ArrayList<HotelBooking> getHotelBookinger() {
-        return Storage.getHotelVærelser();
+        return Storage.getHotelBookinger();
     }
 
     // ----------------------------- Tillæg -----------------------------
@@ -277,6 +337,7 @@ public abstract class Controller {
     /**
      * Opretter et tillæg og gemmer det i storage
      * Pre: pris >= 0
+     * Note: Nullable param hotel.
      */
     public static Tillæg createTillæg(String navn, double pris, Hotel hotel) {
         Tillæg tillæg = new Tillæg(navn, pris, hotel);
@@ -286,17 +347,39 @@ public abstract class Controller {
     }
 
     /**
-     * Tilføjer et tillæg til et hotelværelse
+     * Tilføjer et tillæg til et hotelBooking
+     * Note: Nullable params hotelBooking, tillæg.
      */
     public static void addTillægToHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
         hotelBooking.addTillæg(tillæg);
     }
 
     /**
-     * Sletter et tillæg fra storage
+     * Fjerner et tillæg fra en specifik hotelBooking
+     * Note: Nullable params hotelBooking, tillæg.
      */
-    public static void removeTillæg(Tillæg tillæg) {
-        Storage.removeTillæg(tillæg);
+    public static void removeTillægFromHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
+        if(hotelBooking.getTillæg().contains(tillæg)) {
+            hotelBooking.removeTillæg(tillæg);
+        }
+    }
+
+    /**
+     * Sletter et tillæg fra storage og et hotel, og nødvendige hotelBookinger.
+     * Note: Nullable params tillæg, hotel.
+     */
+    public static void removeTillægFromHotel(Tillæg tillæg, Hotel hotel) {
+        if (tillæg.getHotel() == hotel) {
+            hotel.removeTillæg(tillæg);
+            tillæg.setHotel(null);
+
+            for (HotelBooking hotelBooking : hotel.getHotelBookinger()) {
+                if(hotelBooking.getTillæg().contains(tillæg)) {
+                    hotelBooking.removeTillæg(tillæg);
+                }
+            }
+            Storage.removeTillæg(tillæg);
+        }
     }
 
     /**
@@ -310,8 +393,8 @@ public abstract class Controller {
 
     /**
      * Opretter en ledsager og tilføjer den til en registration
+     * Note: nullable param registration
      */
-
     public static Ledsager createLedsager(String navn, Registration registration) {
         registration.createLedsager(navn);
         return registration.getLedsager();
@@ -320,18 +403,26 @@ public abstract class Controller {
     /**
      * Tilføjer en udflugt til en ledsager
      * Pre: Ledsageren må ikke have udflugten i forvejen
+     * Note: nullable params ledsager, udflugt.
      */
     public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
         ledsager.addUdflugt(udflugt);
     }
 
-    public static void removeLedsager(Registration registration) {
-        registration.setLedsager(null);
+    /**
+     * Fjerner ledsager fra specifik registration
+     * Note: Nullable params registration, ledsager
+     */
+    public static void removeLedsagerFromRegistration(Registration registration, Ledsager ledsager) {
+        if (registration.getLedsager() == ledsager) {
+            registration.setLedsager(null);
+        }
     }
 
     /**
      * Returnerer tilsatte ledsager fra en registration
      * Pre: Registration skal have en ledsager
+     * Nullable param registration.
      */
     public static Ledsager getLedsager(Registration registration) {
         return registration.getLedsager();

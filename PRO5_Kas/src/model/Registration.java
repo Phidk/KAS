@@ -14,13 +14,13 @@ public class Registration {
     private Konference konference;
     private Ledsager ledsager;
 
-    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder, Deltager deltager, Konference konference) {
+    public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato,
+                        boolean foredragsholder, Deltager deltager, Konference konference) {
         this.firmaTlfNr = firmaTlfNr;
         this.firmaNavn = firmaNavn;
         this.ankomstDato = ankomstDato;
         this.afstedsDato = afstedsDato;
         this.foredragsholder = foredragsholder;
-        this.hotelBooking = hotelBooking;
         this.deltager = deltager;
         this.ledsager = ledsager;
     }
@@ -87,10 +87,12 @@ public class Registration {
         return ledsager;
     }
 
-    //Udregner den totale pris for opholdet
-    //Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
-    //Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
-    //Hvis personen deltager i udflugter, udregnes udflugtsprisenn
+    /**
+     * Udregner den totale pris for opholdet
+     * Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
+     * Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
+     * Hvis personen deltager i udflugter, udregnes udflugtsprisenn
+     */
     public int calculateTotalPris() {
         int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
         int sum = 0;
@@ -113,15 +115,12 @@ public class Registration {
         return hotelBooking;
     }
 
-    public void setHotelVærelse(HotelBooking hotelværelse) {
-        this.hotelBooking = hotelværelse;
+    public void setHotelBooking(HotelBooking hotelBooking) {
+        this.hotelBooking = hotelBooking;
     }
 
     public Deltager getDeltager() {
         return deltager;
-    }
-
-    public void setHotelBooking(HotelBooking hotelBooking) {
     }
 
     @Override

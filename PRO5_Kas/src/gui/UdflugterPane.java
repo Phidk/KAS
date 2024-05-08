@@ -203,7 +203,7 @@ public class UdflugterPane extends GridPane {
 
     private void deleteAction () {
 
-        Controller.removeUdflugt(this.udflugt);
+        Controller.removeUdflugt(udflugt);
 
 
         this.udflugt = null;
