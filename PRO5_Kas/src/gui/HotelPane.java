@@ -208,7 +208,7 @@ HotelPane(){
     }
 
     private void updateHotels () {
-        this.lvwHotels.getItems().setAll(Controller.getHotelBookinger());
+        this.lvwHotels.getItems().setAll(Controller.getHoteller());
     }
 
     // --------------------------------------------------------------

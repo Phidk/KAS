@@ -168,8 +168,18 @@ public abstract class Controller {
         if (hotel.getKonferencer().contains(konference)) {
             konference.removeHotel(hotel);
             hotel.removeKonference(konference);
+        }
+    }
+
+
+    public static void removeHotel(Hotel hotel) {
+        for (Konference konference : hotel.getKonferencer()) {
+            if (hotel.getKonferencer().contains(konference)) {
+                konference.removeHotel(hotel);
+                hotel.removeKonference(konference);
+            }
             Storage.removeHotel(hotel);
-        } 
+        }
     }
 
 
@@ -280,7 +290,7 @@ public abstract class Controller {
     public static HotelBooking createHotelBooking(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
         HotelBooking hotelBooking = new HotelBooking(værelsesNr, pris, værelseType, hotel);
         hotel.addHotelBooking(hotelBooking);
-        Storage.addHotelværelse(hotelBooking);
+        Storage.addHotelBooking(hotelBooking);
         return hotelBooking;
     }
 
@@ -298,7 +308,7 @@ public abstract class Controller {
         if (hotelBooking.getRegistration() == registration) {
             registration.setHotelBooking(null);
             hotelBooking.setRegistration(null);
-            Storage.removeHotelværelse(hotelBooking);
+            Storage.removeHotelBooking(hotelBooking);
         }
     }
     

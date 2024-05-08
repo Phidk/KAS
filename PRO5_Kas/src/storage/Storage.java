@@ -79,11 +79,11 @@ public abstract class Storage {
     }
 
         // ---------------------- HotelVærelser ----------------------
-    public static void addHotelværelse(HotelBooking hotelværelse) {
+    public static void addHotelBooking(HotelBooking hotelværelse) {
         Storage.hotelBookinger.add(hotelværelse);
     }
 
-    public static void removeHotelværelse(HotelBooking hotelværelse) {
+    public static void removeHotelBooking(HotelBooking hotelværelse) {
         Storage.hotelBookinger.remove(hotelværelse);
     }
 
