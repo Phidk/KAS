@@ -61,4 +61,20 @@ public class Hotel {
     public String toString() {
         return getNavn();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setSinglePris(int singlePris) {
+        this.singlePris = singlePris;
+    }
+
+    public void setDoublePris(int doublePris) {
+        this.doublePris = doublePris;
+    }
 }
