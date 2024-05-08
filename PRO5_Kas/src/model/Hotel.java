@@ -33,46 +33,6 @@ public class Hotel {
         return doublePris;
     }
 
-//    //Assocering til tillæg
-//    public ArrayList<Tillæg> getTilægger() {
-//        return tilægger;
-//    }
-//
-//    public Tillæg createTillæg(String navn, int pris) {
-//        Tillæg tillæg = new Tillæg(navn, pris);
-//        this.tilægger.add(tillæg);
-//        return tillæg;
-//    }
-//
-//    public void removeTillæg(Tillæg tillæg) {
-//        this.tilægger.remove(tillæg);
-//
-//    }
-//
-//    //Assocering til konference
-//    public ArrayList<Konference> getKonferencer() {
-//        return konferencer;
-//    }
-//
-//    public void addKonference(Konference konference) {
-//        if (!this.konferencer.contains(konference)) {
-//            this.konferencer.add(konference);
-//            konference.addHotel(this);
-//        }
-//    }
-//
-//    public void removeKonference(Konference konference) {
-//        if (this.konferencer.contains(konference)) {
-//            this.konferencer.remove(konference);
-//            konference.removeHotel(this);
-//        }
-//    }
-//
-//    //Assocering 0..* til 1 til hotelværelse
-//    public ArrayList<HotelBooking> getHotelVærelser() {
-//        return new Arraylist<>(hotelVærelser);
-//    }
-//
     public ArrayList<Konference> getKonferencer() {
         return konferencer;
     }
@@ -85,7 +45,10 @@ public class Hotel {
         this.hotelBookinger.add(hotelBooking);
     }
 
-    //Assocering til tillæg
+    public void removeHotelBooking(HotelBooking hotelBooking) {
+        this.hotelBookinger.remove(hotelBooking);
+    }
+
     public ArrayList<Tillæg> getTillæg() {
         return tillæg;
     }
