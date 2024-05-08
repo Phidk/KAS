@@ -73,6 +73,10 @@ public class Udflugt {
         ledsagere.remove(ledsager);
     }
 
+    @Override
+    public String toString() {
+        return getNavn();
+    }
 }
 
 

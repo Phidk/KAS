@@ -135,7 +135,7 @@ public class Konference {
     }
 
     @Override
-    public static String toString() {
+    public String toString() {
         return getNavn();
     }
 }

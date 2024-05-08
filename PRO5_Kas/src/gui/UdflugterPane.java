@@ -150,7 +150,7 @@ public class UdflugterPane extends GridPane {
 
                 }
             }
-                this.txaKonferencer.setText(Konference.toString());
+                //this.txaKonferencer.setText(Konference.toString());
         }
 
         this.opdaterButtons();
@@ -202,8 +202,7 @@ public class UdflugterPane extends GridPane {
     }
 
     private void deleteAction () {
-
-        Controller.removeUdflugt(udflugt);
+        //Controller.removeUdflugt(udflugt);
 
 
         this.udflugt = null;
