@@ -104,9 +104,9 @@ HotelPane(){
     this.btnRedigerHotel.setOnAction(event -> this.updateHotelAction());
     hBoxHotels.getChildren().add(this.btnRedigerHotel);
 
-    Button btnCreateHotel = new Button("Opret hotel");
-    btnCreateHotel.setOnAction(event -> this.createHotelAction());
-    hBoxHotels.getChildren().add(btnCreateHotel);
+    this.btnCreateHotel = new Button("Opret hotel");
+    this.btnCreateHotel.setOnAction(event -> this.createHotelAction());
+    hBoxHotels.getChildren().add(this.btnCreateHotel);
 
     HBox hBoxAddOns = new HBox(10);
     this.add(hBoxAddOns, 2, 5);
@@ -122,10 +122,6 @@ HotelPane(){
     this.btnCreateTillæg = new Button("Opret tillæg");
     this.btnCreateTillæg.setOnAction(event -> this.createTillægAction());
     hBoxAddOns.getChildren().add(this.btnCreateTillæg);
-
-   this.btnCreateHotel = new Button("Opret hotel");
-   this.btnCreateHotel.setOnAction(event -> this.createHotelAction());
-   hBoxHotels.getChildren().add(this.btnCreateHotel);
 
     // --------------------------------------------------------------
 

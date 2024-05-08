@@ -123,6 +123,8 @@ public class UdflugterWindow extends Stage {
 
     }
 
+    private void cancelAction() {this.hide();}
+
     private void CreateAction() {
 
         String navn = this.txfNavn.getText().trim();
@@ -158,8 +160,10 @@ public class UdflugterWindow extends Stage {
 
     }
 
-    private void cancelAction() {this.hide();}
 
+    public Udflugt getUdflugter() {return this.udflugter;}
 }
+
+
 
 

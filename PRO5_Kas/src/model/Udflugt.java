@@ -14,8 +14,6 @@ public class Udflugt {
 
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
-    // Setup association to Ledsager
-
     public Udflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
         this.destination = destination;
         this.dato = dato;
@@ -55,7 +53,6 @@ public class Udflugt {
         this.pris = pris;
     }
 
-    //Boolean om frokost er inkluderet
     public boolean frokost() {
         return this.frokost();
     }
@@ -76,6 +73,10 @@ public class Udflugt {
         ledsagere.remove(ledsager);
     }
 
+    @Override
+    public String toString() {
+        return getNavn();
+    }
 }
 
 

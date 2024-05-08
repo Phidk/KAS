@@ -14,7 +14,6 @@ public class Deltager extends Person {
     public Deltager(String navn, String adresse, String land, String by, String tlfNr) {
         this.navn = navn;
         this.adresse = adresse;
-        this.navn = navn;
         this.land = land;
         this.by = by;
         this.tlfNr = tlfNr;
@@ -64,22 +63,19 @@ public class Deltager extends Person {
     public void addRegistration(Registration registration) {
         registrationer.add(registration);
     }
+
     public void removeRegistration(Registration registration){
         registrationer.remove(registration);
     }
 
     @Override
     public String toString() {
-        return "Deltager{" +
-                "navn='" + navn + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", land='" + land + '\'' +
-                ", by='" + by + '\'' +
-                ", tlfNr='" + tlfNr + '\'' +
-                ", registrationer=" + registrationer.size() +
-                '}';
+        return getNavn();
     }
-    //Metode til at navnene kommer i alfabetisk rækkefølge
+
+    /**
+     * Metoden anvendes til at sætte deltagere i rækkeføge
+     */
     public int compareTo(Deltager other){
         return this.navn.compareTo(other.navn);
     }

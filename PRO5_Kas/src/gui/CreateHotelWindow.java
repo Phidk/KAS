@@ -34,9 +34,6 @@ private TextField txfDoublePris, txfNavn, txfAdresse;
 
         Scene scene = new Scene(pane);
         this.setScene(scene);
-
-        this.showAndWait();
-
     }
 
     CreateHotelWindow() {
@@ -98,6 +95,7 @@ private TextField txfDoublePris, txfNavn, txfAdresse;
     private void annullerAction () {
         this.hide();
     }
+
     private void gemCreateAction () {
         String name = this.txfNavn.getText().trim();
         String address = this.txfAdresse.getText().trim();

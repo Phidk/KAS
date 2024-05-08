@@ -24,6 +24,7 @@ public class Konference {
         this.slutDate = slutDate;
     }
 
+
     public String getNavn()   {
         return navn;
     }
@@ -64,6 +65,9 @@ public class Konference {
         return slutDate;
     }
 
+    /**
+     * Returnerer en liste af deltagerne tilhørende en konference
+     */
     public ArrayList<String> listParticipantsForKonference() {
         ArrayList<Deltager> deltagere = new ArrayList<>();
         for (Registration registration : this.registrationer) {
@@ -80,6 +84,9 @@ public class Konference {
         return deltageresNavne;
     }
 
+    /**
+     * Anvendt til at sortere en liste af deltagere
+     */
     public static void selectionSort(ArrayList<Deltager> deltagere) {
         for (int i = 0; i < deltagere.size() - 1; i++) {
             int indexOfMin = i;
@@ -117,7 +124,7 @@ public class Konference {
 
     //Udflugt
     public ArrayList<Udflugt> getUdflugter() {
-        return new ArrayList<>(this.udflugter);
+        return new ArrayList<>(udflugter);
     }
     public void addUdflugt(Udflugt udflugt){
         udflugter.add(udflugt);

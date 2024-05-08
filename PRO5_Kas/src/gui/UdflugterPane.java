@@ -1,7 +1,12 @@
 package gui;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import controller.Controller;
+import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,98 +23,195 @@ import model.Konference;
 import model.Udflugt;
 
 
-public class UdflugterPane extends Stage {
-
-    private TextField txfNavn, txfDato, txfPris, txfDestination, txfFrokost;
-    private ListView<Konference> lvwKonferencer = new ListView<>();
+public class UdflugterPane extends GridPane {
 
     private Udflugt udflugt;
 
-    public UdflugterPane (String title) {
-            this.initStyle(StageStyle.UTILITY);
-            this.initModality(Modality.APPLICATION_MODAL);
-            this.setResizable(false);
-            this.setTitle(String.format("%s udflugt - KAS", (udflugt != null) ? "Opdater" : "Opret"));
-
-            //this.udflugt = Udflugt;
-
-            GridPane pane = new GridPane();
-            this.initContent(pane);
-
-            Scene scene = new Scene(pane);
-            this.setScene(scene);
-        }
+    private ListView<Udflugt> lvwUdflugter;
+    private TextField txfNavn, txfDato, txfPris, txfDestination;
+    private CheckBox chbFrokost;
+    private TextArea txaKonferencer;
+    private Button btnSlet, btnOpdater;
 
 
-        private void initContent(GridPane pane) {
-            pane.setPadding(new Insets(20));
-            pane.setHgap(10);
-            pane.setVgap(10);
-            pane.setGridLinesVisible(false);
+    public UdflugterPane() {
 
-            VBox vBox = new VBox();
-            pane.add(vBox, 0, 0, 2, 1);
+        this.setPadding(new Insets(10));
+        this.setHgap(10);
+        this.setVgap(10);
+        this.setGridLinesVisible(false);
 
-            Label lblTitel = new Label("Navn");
-            pane.add(lblTitel,0,1);
+        this.lvwUdflugter = new ListView<>();
+        this.lvwUdflugter.setPrefSize(250, 400);
+        this.add(this.lvwUdflugter, 0, 0, 1, 7);
 
-            txfNavn = new TextField();
-            pane.add(txfNavn,1,0,2,1);
-            txfNavn.setPrefWidth(200);
-
-            Label lblDato = new Label("Dato (yyyy-mm-dd)");
-            pane.add(lblDato,0,1);
-
-            txfDato = new TextField();
-            pane.add(txfDato,1,1,2,1);
-            txfDato.setPrefWidth(200);
-
-            Label lblPris = new Label("Pris");
-            pane.add(lblPris,0,2);
-
-            txfPris = new TextField();
-            pane.add(txfPris,1,2,2,1);
-            txfPris.setPrefWidth(200);
-
-            Label lblKonference = new Label("Vælg konference");
-            pane.add(lblKonference,0,3);
+        ChangeListener<Udflugt> listener = (ov, oldValue, newValue) -> this.selectedUdflugtChanged(newValue);
+        this.lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener);
 
 
-            lvwKonferencer.setEditable(false);
-            lvwKonferencer.setPrefHeight(150);
-            lvwKonferencer.getItems().setAll(Controller.getKonferencer());
-            pane.add(lvwKonferencer,1,3,2,1);
+        Label lblNavn = new Label("Navn:");
+        this.add(lblNavn, 1, 0);
 
-            Button btnCreate = new Button("Opret");
-            pane.add(btnCreate,1,5);
-            btnCreate.setOnAction(event -> this.createAction());
+        Label lblDestination = new Label("Destination:");
+        this.add(lblDestination, 1, 1);
 
-            Button btnCancel = new Button("Fortryd");
-            pane.add(btnCancel,2,5);
-            btnCancel.setOnAction(event -> this.cancelAction());
-        }
+        Label lblDato = new Label("Dato");
+        this.add(lblDato, 1, 2);
+
+        Label lblPris = new Label("Pris:");
+        this.add(lblPris, 1, 3);
+
+        Label lblFrokost = new Label("Frokost inkluderet:");
+        this.add(lblFrokost, 1, 4);
+
+        Label lblKonferencer = new Label("Konferencer:");
+        this.add(lblKonferencer, 1, 5);
+
+        this.txfNavn = new TextField();
+        this.txfNavn.setEditable(false);
+        this.add(this.txfNavn, 2, 0);
+
+        this.txfDestination = new TextField();
+        this.txfDestination.setEditable(false);
+        this.add(this.txfDestination, 2, 1);
+
+        this.txfDato = new TextField();
+        this.txfDato.setEditable(false);
+        this.add(this.txfDato, 2, 2);
+
+        this.txfPris = new TextField();
+        this.txfPris.setEditable(false);
+        this.add(this.txfPris, 2, 3);
+
+        this.chbFrokost = new CheckBox();
+        this.chbFrokost.setDisable(true);
+        this.chbFrokost.setOpacity(1);
+        this.add(this.chbFrokost, 2, 4);
+
+        this.txaKonferencer = new TextArea();
+        this.txaKonferencer.setPrefSize(200, 100);
+        this.txaKonferencer.setEditable(false);
+        this.add(this.txaKonferencer, 2, 5);
 
 
-    private void cancelAction() {
-        this.hide();
+        HBox hBox = new HBox(10);
+        this.add(hBox, 0, 7);
+
+        this.btnSlet = new Button("Slet");
+        this.btnSlet.setOnAction(event -> this.deleteAction());
+        hBox.getChildren().add(this.btnSlet);
+
+        this.btnOpdater = new Button("Opdatere");
+        this.btnOpdater.setOnAction(event -> this.opdaterAction());
+        hBox.getChildren().add(this.btnOpdater);
+
+        Button btnCreate = new Button("Opret");
+        btnCreate.setOnAction(event -> this.createAction());
+        hBox.getChildren().add(btnCreate);
+
+
+      this.opdaterUdflugter();
+       this.opdaterButtons();
+
     }
 
 
-    private void createAction() {
-        String navn = txfNavn.getText().trim();
-        String destination = txfDestination.getText().trim();
-        LocalDate dato = LocalDate.parse(txfDato.getText());
-        int pris = Integer.valueOf(txfPris.getText()); // ikke sikker på om det skal være int eller double og valueof
-        boolean frokost = Boolean.getBoolean(txfFrokost.getText()); // ikke sikker
-        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
-        if (navn.length() > 0 && dato.isAfter(LocalDate.now())) {
-            Controller.createUdflugt(destination, dato, pris, frokost, konference); // hjælp
-            this.hide();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Opret arrangement");
-            alert.setHeaderText("Alle informationer skal være gylidge!");
-            alert.showAndWait();
-        }
+    // -----------------------------------------------------
+
+    private void selectedUdflugtChanged (Udflugt udflugter) {
+
+        this.udflugt = udflugter;
+
+        this.OpdaterControls();
     }
+
+    // --------------------------------------------
+
+
+    private void OpdaterControls () {
+
+        this.clearControls();
+
+
+        if (this.udflugt != null) {
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            this.txfNavn.setText(this.udflugt.getNavn());
+            this.txfDestination.setText(this.udflugt.getDestination());
+            this.txfDato.setText(this.udflugt.getDato().format(dtf));
+            this.txfPris.setText(this.udflugt.getPris() + "");
+            this.chbFrokost.setSelected(this.udflugt.frokost());
+
+            StringBuilder konferencer = new StringBuilder();
+            for (Konference konference : Controller.getKonferencer()) {
+                if (konference.getUdflugter().contains(this.udflugt)) {
+                    konferencer.append(konference.getNavn()).append("\n");
+
+                }
+            }
+                //this.txaKonferencer.setText(Konference.toString());
+        }
+
+        this.opdaterButtons();
+    }
+
+
+    private void opdaterButtons() {
+
+        boolean Udflugt = this.udflugt == null;
+
+        this.btnSlet.setDisable(Udflugt);
+        this.btnOpdater.setDisable(Udflugt);
+    }
+
+    private void clearControls () {
+
+        this.txfNavn.clear();
+        this.txfDestination.clear();
+        this.txfPris.clear();
+        this.txfDato.clear();
+        this.chbFrokost.setSelected(false);
+        this.txaKonferencer.clear();
+
+        this.opdaterButtons();
+    }
+
+    private void opdaterUdflugter() {
+
+        this.lvwUdflugter.getItems().setAll(Controller.getUdflugter());
+    }
+
+    private void createAction () {
+        UdflugterWindow udflugterWindow = new UdflugterWindow();
+        udflugterWindow.showAndWait();
+
+        this.udflugt = udflugterWindow.getUdflugter();
+        this.OpdaterControls();
+        this.opdaterUdflugter();
+    }
+
+    private void opdaterAction () {
+
+        UdflugterWindow udflugterWindow = new UdflugterWindow(this.udflugt);
+        udflugterWindow.showAndWait();
+
+        this.OpdaterControls();
+        this.opdaterUdflugter();
+
+    }
+
+    private void deleteAction () {
+        //Controller.removeUdflugt(udflugt);
+
+
+        this.udflugt = null;
+        this.clearControls();
+        this.opdaterUdflugter();
+
+    }
+
+
+
 }
+
