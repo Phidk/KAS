@@ -5,105 +5,164 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Deltager;
 import javafx.scene.layout.GridPane;
 import model.*;
+
+import javafx.beans.value.ChangeListener;
 import java.time.LocalDate;
 
-public class DeltagerPane extends Application {
+public class DeltagerPane extends GridPane {
 
-    private final ListView<Konference> lvwKonferencer = new ListView<>();
-    private final ListView<Udflugt> lvwUdflugter = new ListView<>();
-    private final ListView<Hotel> lvwHoteller = new ListView<>();
+    private Deltager deltager;
+    private ListView<Deltager> lvwDeltagere;
+    private TextField txfNavn, txfAdresse,txfLand, txfBy, txfTlfNr;
+    private TextArea txaRegistrationer;
+    private Button btnSlet, btnRediger;
 
-    private final TextField txfKonferenceNavn = new TextField();
-    private final TextField txfUdflugtNavn = new TextField();
-    private final TextField txfHotelNavn = new TextField();
+    DeltagerPane(){
+        this.setPadding(new Insets(10));
+        this.setHgap(10);
+        this.setVgap(10);
+        this.setGridLinesVisible(false);
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle(" KAS Projekt");
+        //-----------------------------------------
 
-        opdaterKonferencer();
-        opdaterUdflugter();
-        opdaterHoteller();
+        this.lvwDeltagere = new ListView<>();
+        this.lvwDeltagere.setPrefSize(250,400);
+        this.add(this.lvwDeltagere, 0,0,1,6);
 
-        GridPane pane = new GridPane();
-        pane.setHgap(20);
-        pane.setVgap(20);
-        pane.setPadding(new Insets(20));
-        pane.setGridLinesVisible(false);
+        ChangeListener<Deltager> listener =  (ov, oldValue, newValue) -> this.selectedDeltagerChanged(newValue);
+        this.lvwDeltagere.getSelectionModel().selectedItemProperty().addListener(listener);
 
-                                                  // Konferencer//
-        //--------------------------------------------------------------------------------------------------//
+        //-----------------------------------------------
 
-        lvwKonferencer.setPrefSize(300, 200);
-        Label lblKonference = new Label(" Tilgængelige Konferencer");
-        pane.add(lblKonference, 0, 0);
-        pane.add(lvwKonferencer, 0, 1);
-        lvwKonferencer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        Label lblNavn = new Label("Navn:");
+        this.add(lblNavn,1,0);
 
-        });
-        // Udflugter//
-        //--------------------------------------------------------------------------------------------------//
+        Label lblAdresse = new Label("Adresse:");
+        this.add(lblAdresse, 1,1);
 
-        lvwUdflugter.setPrefSize(300, 200);
-        Label lblUdflugt = new Label("Pladser");
-        pane.add(lblUdflugt, 2, 0);
-        pane.add(lvwUdflugter, 2, 1);
+        Label lblLand = new Label("Land:");
+        this.add(lblLand,1,2);
 
-        // Hoteller//
-        //--------------------------------------------------------------------------------------------------//
+        Label lblBy = new Label("By:");
+        this.add(lblBy,1,3);
 
-        lvwHoteller.setPrefSize(300, 200);
-        Label lblHotel = new Label(" Tilgængelige Hoteller");
-        pane.add(lvwHoteller, 1, 0);
-        //,pane.add(lvwHoteller, 1, 1);
+        Label lblTlfNr = new Label("TlfNr:");
+        this.add(lblTlfNr,1,4);
 
+        Label lblRegistrationer = new Label("Registrationer:");
+        this.add(lblRegistrationer,1,5);
 
-        VBox Konference = new VBox();
-        Konference.setSpacing(10);
-        txfKonferenceNavn.setPromptText("Forestillingens Navn");
-        Button btnOpretKonference = new Button("Opret Forestilling");
-        btnOpretKonference.setOnAction(event -> opretKonferenceAction());
-        pane.add(Konference, 0, 2);
+        this.txfNavn = new TextField();
+        this.txfNavn.setEditable(false);
+        this.add(this.txfNavn,2,0);
 
+        this.txfAdresse = new TextField();
+        this.txfAdresse.setEditable(false);
+        this.add(txfAdresse,2,1);
 
-        VBox Udflugt = new VBox();
-        Udflugt.setSpacing(10);
-        txfUdflugtNavn.setPromptText(" Udflugter");
-        Button btnOpretUdflugt = new Button(" Opret Udflugter");
-        btnOpretUdflugt.setOnAction(event -> opretUdflugtAction());
-        Udflugt.getChildren().addAll(txfUdflugtNavn, txfKonferenceNavn, btnOpretUdflugt);
-        pane.add(Udflugt, 1, 2);
+        this.txfLand = new TextField();
+        this.txfLand = new TextField();
+        this.add(this.txfLand,2,2);
 
+        this.txfBy = new TextField();
+        this.txfBy.setEditable(false);
+        this.add(this.txfBy, 2,3);
+
+        this.txfTlfNr = new TextField();
+        this.txfTlfNr.setEditable(false);
+        this.add(this.txfTlfNr,2,4);
+
+        this.txaRegistrationer = new TextArea();
+        this.txaRegistrationer.setPrefSize(200,100);
+        this.txaRegistrationer.setEditable(false);
+        this.add(this.txaRegistrationer, 2,5);
+
+        //-------------------------------------
+
+        HBox hbox = new HBox(10);
+        this.add(hbox, 0,6);
+
+        this.btnSlet = new Button("Slet deltager");
+        this.btnSlet.setOnAction(event -> this.deleteAction());
+        hbox.getChildren().add(this.btnSlet);
+
+        this.btnRediger = new Button("Rediger");
+        this.btnRediger.setOnAction(event -> this.redigerAction());
+        hbox.getChildren().add(this.btnRediger);
+
+        //-------------------------------------
+
+        this.updateDeltager();
+        this.updateButtons();
 
     }
 
-    private void opretUdflugtAction() {
+    private void selectedDeltagerChanged(Deltager deltager){
+        this.deltager = deltager;
 
+        this.updateControls();
 
+    }
+    //----------------------------------------
+    private void updateControls(){
+        if(this.deltager != null){
+            this.txfNavn.setText(this.deltager.getNavn());
+            this.txfAdresse.setText(this.deltager.getAdresse());
+            this.txfLand.setText(this.deltager.getLand());
+            this.txfBy.setText(this.deltager.getBy());
+            this.txfTlfNr.setText(this.deltager.getTlfNr());
 
+            StringBuilder registrationer = new StringBuilder();
+            for (Registration registration : this.deltager.getRegistrationer()) {
+                registrationer.append(registration.getKonference().getNavn()).append("\n");
+            }
+            this.txaRegistrationer.setText(registrationer.toString());
+        }
+        this.updateButtons();
+    }
+
+    private void updateButtons(){
+        boolean deltager = this.deltager == null;
+        this.btnSlet.setDisable(deltager);
+        this.btnRediger.setDisable(deltager);
+    }
+
+    private void updateDeltager(){
+        this.lvwDeltagere.getItems().setAll(Controller.getDeltager());
+    }
+
+    private void clearTextFields(){
+        this.txfNavn.clear();
+        this.txfAdresse.clear();
+        this.txfLand.clear();
+        this.txfBy.clear();
+        this.txfTlfNr.clear();
+        this.txaRegistrationer.clear();
+
+        this.updateButtons();
 
     }
 
-    private void opretKonferenceAction() {
+    private void deleteAction(){
+        Controller.removeDeltager(this.deltager);
 
-
-
-
+        this.deltager = null;
+        this.clearTextFields();
+        this.updateDeltager();
     }
 
-    private void opdaterKonferencer() {
-    }
+    private void redigerAction(){
+        UpdateDeltagerWindow updateDeltagerWindow = new UpdateDeltagerWindow(this.deltager);
+        updateDeltagerWindow.showAndWait();
 
-
-    private void opdaterUdflugter() {
-    }
-
-    private void opdaterHoteller() {
+        this.updateControls();
+        this.updateDeltager();
     }
 
 
