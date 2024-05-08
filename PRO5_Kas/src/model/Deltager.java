@@ -70,14 +70,7 @@ public class Deltager extends Person {
 
     @Override
     public String toString() {
-        return "Deltager{" +
-                "navn='" + navn + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", land='" + land + '\'' +
-                ", by='" + by + '\'' +
-                ", tlfNr='" + tlfNr + '\'' +
-                ", registrationer=" + registrationer.size() +
-                '}';
+        return getNavn();
     }
 
     /**
