@@ -36,10 +36,10 @@ public class AdminWindow extends Stage {
 
     }
 
-public class AdminWindow extends Stage {
-
-
-}
+//public class AdminWindow extends Stage {
+//
+//
+//}
 }
 
 
