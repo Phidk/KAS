@@ -50,7 +50,7 @@ public abstract class Controller {
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
         // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
         HotelBooking hotelBooking1 = Controller.createHotelBooking(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration2, hotelBooking1);
+        Controller.setHotelBookingOfRegistration(registration2, hotelBooking1);
 
         // Registration for Ulla for første 2 dage af konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
@@ -64,7 +64,7 @@ public abstract class Controller {
         Controller.addUdflugtToLedsager(ledsager2, udflugt3);
         // Peter skal til hotelværelse på "Den hvide svane" med tilvalgt wifi.
         HotelBooking hotelBooking2 = Controller.createHotelBooking(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration (registration4, hotelBooking2);
+        Controller.setHotelBookingOfRegistration(registration4, hotelBooking2);
         Controller.addTillægToHotelBooking(hotelBooking2, tillæg1);
 
         // Registration for Lone alle 3 dage af konference1
@@ -74,7 +74,7 @@ public abstract class Controller {
         Controller.addUdflugtToLedsager(ledsager3, udflugt2);
         // Lone skal på hotel "Den hvide svane" med tilvagt wifi.
         HotelBooking hotelBooking3 = Controller.createHotelBooking(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration5, hotelBooking3);
+        Controller.setHotelBookingOfRegistration(registration5, hotelBooking3);
         Controller.addTillægToHotelBooking(hotelBooking3, tillæg1);
     }
     // ----------------------------- Konferencer -----------------------------
@@ -226,7 +226,7 @@ public abstract class Controller {
      * Sætter hotelværelse på en registrering
      * Pre: Hotelværelse må ikke allerede være optaget
      */
-    public static void setHotelVærelseOfRegistration(Registration registration, HotelBooking hotelBooking) {
+    public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
         registration.setHotelVærelse(hotelBooking);
     }
 
@@ -260,7 +260,7 @@ public abstract class Controller {
     /**
      * Sletter et hotelværelse fra storage
      */
-    public static void removeHotelVærelse(HotelBooking hotelværelse) {
+    public static void removeHotelBooking(HotelBooking hotelværelse) {
         Storage.removeHotelværelse(hotelværelse);
     }
 
@@ -323,6 +323,10 @@ public abstract class Controller {
      */
     public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
         ledsager.addUdflugt(udflugt);
+    }
+
+    public static void removeLedsager(Registration registration) {
+        registration.setLedsager(null);
     }
 
     /**

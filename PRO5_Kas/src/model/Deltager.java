@@ -6,13 +6,9 @@ import java.util.ArrayList;
 public class Deltager extends Person {
 
     private String adresse;
-
     private String land;
-
     private String by;
-
     private String tlfNr;
-
     private final ArrayList<Registration> registrationer = new ArrayList<Registration>();
 
     public Deltager(String navn, String adresse, String land, String by, String tlfNr) {

@@ -58,7 +58,7 @@ public class KasTest {
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
         // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
         HotelBooking hotelBooking1 = Controller.createHotelBooking(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration2, hotelBooking1);
+        Controller.setHotelBookingOfRegistration(registration2, hotelBooking1);
 
         // Registration for Ulla for første 2 dage af konference1
         Registration registration3 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 19), false, deltager3, konference1);
@@ -72,7 +72,7 @@ public class KasTest {
         Controller.addUdflugtToLedsager(ledsager2, udflugt3);
         // Peter skal til hotelværelse på "Den hvide svane" med tilvalgt wifi.
         HotelBooking hotelBooking2 = Controller.createHotelBooking(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration (registration4, hotelBooking2);
+        Controller.setHotelBookingOfRegistration(registration4, hotelBooking2);
         Controller.addTillægToHotelBooking(hotelBooking2, tillæg1);
 
         // Registration for Lone alle 3 dage af konference1
@@ -82,7 +82,7 @@ public class KasTest {
         Controller.addUdflugtToLedsager(ledsager3, udflugt2);
         // Lone skal på hotel "Den hvide svane" med tilvagt wifi.
         HotelBooking hotelBooking3 = Controller.createHotelBooking(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
-        Controller.setHotelVærelseOfRegistration(registration5, hotelBooking3);
+        Controller.setHotelBookingOfRegistration(registration5, hotelBooking3);
         Controller.addTillægToHotelBooking(hotelBooking3, tillæg1);
 
         System.out.println();
@@ -117,7 +117,7 @@ public class KasTest {
                 if (registration.getHotelVærelse() != null) {
                     System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getNavn());
                     System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
-                    System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
+                    System.out.println("Værelse Pris: " + registration.getHotelVærelse().getVærelsesPris());
                 }
                 if (registration.getLedsager() != null) {
                     System.out.println("Ledsager: " + registration.getLedsager().getNavn());

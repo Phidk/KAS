@@ -94,31 +94,6 @@ public class Konference {
         }
     }
 
-
-//    public static void selectionSort(ArrayList<Deltager> deltagere) {
-//        for (int i = 0; i < deltagere.size() - 1; i++) {
-//            int indexOfMin = i;
-//            for (int j = i + 1; j < deltagere.size(); j++) {
-//                if (deltagere.get(j).compareTo(deltagere.get(indexOfMin)) < 0) {
-//                    indexOfMin = j;
-//                }
-//            }
-//            Deltager temp = deltagere.get(i);
-//            deltagere.set(i, deltagere.get(indexOfMin));
-//            deltagere.set(indexOfMin, temp);
-//        }
-//    }
-//
-//    public ArrayList<String> listParticipantsForKonference() {
-//        ArrayList<String> deltageresNavne = new ArrayList<String>();
-//        for (Registration registration : this.registrationer) {
-//            String navn = registration.getDeltager().getNavn();
-//            deltageresNavne.add(navn);
-//        }
-//        return deltageresNavne;
-//    }
-
-    //____Registration
     public void addRegistration(Registration registration){
         registrationer.add(registration);
     }
@@ -128,20 +103,6 @@ public class Konference {
     public ArrayList<Registration> getRegistrationer() {
         return new ArrayList<>(registrationer);
     }
-//    public void addRegistration(Registration registration) {
-//        if (!this.registrationer.contains(registration)) {
-//            this.registrationer.add(registration);
-//            registration.setkonference(this);
-//        }
-//    }
-//
-//    public void removeRegistration(Registration registration) {
-//        if (this.registrationer.contains(registration)) {
-//            this.registrationer.remove(registration);
-//            registration.setkonference(null);
-//        }
-//    }
-
 
     //Hotel
     public ArrayList<Hotel> getHoteller() {
@@ -154,7 +115,7 @@ public class Konference {
         hoteller.remove(hotel);
     }
 
-    //____________Udflugt
+    //Udflugt
     public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(this.udflugter);
     }
@@ -166,25 +127,10 @@ public class Konference {
         udflugter.remove(udflugt);
     }
 
-    //    public void addUdflugt(Udflugt udflugt) {
-//        if (!this.udflugter.contains(udflugt)) {
-//            this.udflugter.add(udflugt);
-//        }
-//    }
-//
-
-
     @Override
     public String toString() {
         return getNavn();
     }
-
-    //To String metode
-//    public String ToString() {
-//        DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/mm og HH:mm");
-//        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd-MM-yyyy @ HH:mm");
-//        return String.format("%s konference.%n%s - %s på %s.%nTilmeldingsfrist: %s%nDagspris: %d", this.navn, this.startDato, this.slutDate, this.adresse, this.konferenceAfgift);
-//    }
 }
 
 

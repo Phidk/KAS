@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import model.*;
 
 import java.time.LocalDate;
@@ -570,7 +569,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
             for (Tillæg tillæg : this.lvwTillæg.getSelectionModel().getSelectedItems()) {
                 Controller.addTillægToHotelBooking(hotelBooking, tillæg);
             }
-            Controller.setHotelVærelseOfRegistration(registration, hotelBooking);
+            Controller.setHotelBookingOfRegistration(registration, hotelBooking);
         }
 
         this.clearControls();
@@ -598,7 +597,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         if (registration.getHotelVærelse() != null) {
             System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getNavn());
             System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
-            System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
+            System.out.println("Værelse Pris: " + registration.getHotelVærelse().getVærelsesPris());
         }
         if (registration.getLedsager() != null) {
             System.out.println("Ledsager: " + registration.getLedsager().getNavn());

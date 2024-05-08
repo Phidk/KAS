@@ -32,7 +32,7 @@ public class HotelBooking {
         return registrationer;
     }
 
-    public double calculateVærelsesPris() {
+    public double getVærelsesPris() {
         double værelsesPris = 0;
         if (værelseType == EnumVærelser.Værelser.SINGLE) {
             værelsesPris = hotel.getSinglePris();
@@ -40,6 +40,14 @@ public class HotelBooking {
             værelsesPris = hotel.getDoublePris();
         }
         return værelsesPris;
+    }
+
+    public double calculateTillægsPris() {
+        double tillægPris = 0.0;
+        for (Tillæg tillæg : this.tillæg) {
+            tillægPris += tillæg.getPris();
+        }
+        return tillægPris;
     }
 
     public ArrayList<Tillæg> getTillæg() {
@@ -53,11 +61,5 @@ public class HotelBooking {
         this.tillæg.remove(tillæg);
     }
     // Udregn tillægsprisen for værelset
-    public double calculateTillægsPris() {
-        double tillægPris = 0.0;
-        for (Tillæg tillæg : this.tillæg) {
-            tillægPris += tillæg.getPris();
-        }
-        return tillægPris;
-    }
+
 }

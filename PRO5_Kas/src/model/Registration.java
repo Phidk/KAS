@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 public class Registration {
     boolean foredragsholder;
@@ -14,8 +13,6 @@ public class Registration {
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
-    //private int samletPris;
-    private ArrayList<Tillæg> tillæg = new ArrayList<>();
 
     public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder, Deltager deltager, Konference konference) {
         this.firmaTlfNr = firmaTlfNr;
@@ -63,7 +60,7 @@ public class Registration {
     public boolean isForedragsholder() {
         return foredragsholder;
     }
- //Controller
+
     public void setForedragsholder(boolean foredragsholder) {
         this.foredragsholder = foredragsholder;
     }
@@ -90,27 +87,6 @@ public class Registration {
         return ledsager;
     }
 
-    public ArrayList<Tillæg> getTillæg() {
-        return new ArrayList<>(tillæg);
-    }
-
-    public void addTillæg(Tillæg tillæg) {
-        this.tillæg.add(tillæg);
-    }
-
-    public void removeTillæg(Tillæg tillæg) {
-        this.tillæg.remove(tillæg);
-    }
-
-    //Udregner tillægspris
-    public double calculateTillægsPris() {
-        double sum = 0.0;
-        for (Tillæg tillæg : this.tillæg) {
-            sum += tillæg.getPris();
-        }
-        return sum;
-    }
-
     //Udregner den totale pris for opholdet
     //Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
     //Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
@@ -123,7 +99,8 @@ public class Registration {
             sum = this.konference.getKonferenceAfgift() * (totalDage + 1);
         }
         if (this.hotelBooking != null) {
-            sum += (this.getHotelVærelse().calculateVærelsesPris() + this.getHotelVærelse().calculateTillægsPris()) * totalDage;
+            sum += (this.getHotelVærelse().getVærelsesPris() +
+                    this.getHotelVærelse().calculateTillægsPris()) * totalDage;
         }
         if (this.ledsager != null) {
             sum += this.ledsager.calculateUdflugtsPris();
@@ -159,7 +136,7 @@ public class Registration {
                 ", deltager=" + deltager +
                 ", konference=" + konference +
                 ", ledsager=" + ledsager +
-                ", tillæg=" + tillæg +
+                ", tillæg=" + this.hotelBooking.getTillæg() +
                 '}';
     }
 }
