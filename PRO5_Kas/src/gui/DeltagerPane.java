@@ -63,7 +63,7 @@ public class DeltagerPane extends GridPane {
         this.add(txfAdresse,2,1);
 
         this.txfLand = new TextField();
-        this.txfLand = new TextField();
+        this.txfLand.setEditable(false);
         this.add(this.txfLand,2,2);
 
         this.txfBy = new TextField();

@@ -305,7 +305,7 @@ public abstract class Controller {
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
-    public static ArrayList<HotelBooking> getHotelBookinger() {
+    public static Hotel getHotelBookinger() {
         return Storage.getHotelVærelser();
     }
 
