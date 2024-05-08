@@ -268,9 +268,9 @@ public abstract class Controller {
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
-    public static Hotel getHotelBookinger() {
-        return Storage.getHotelVærelser();
-    }
+//    public static Hotel getHotelBookinger() {
+//        return Storage.getHotelVærelser();
+//    }
 
     // ----------------------------- Tillæg -----------------------------
 

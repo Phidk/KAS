@@ -35,6 +35,8 @@ private TextField txfDoublePris, txfNavn, txfAdresse;
         Scene scene = new Scene(pane);
         this.setScene(scene);
 
+        this.showAndWait();
+
     }
 
     CreateHotelWindow() {

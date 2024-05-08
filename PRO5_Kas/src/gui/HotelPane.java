@@ -158,7 +158,7 @@ HotelPane(){
 
             StringBuilder konferencer = new StringBuilder();
             for (Konference konference : this.hotel.getKonferencer()) {
-                konferencer.append(konferencer).append("\n");
+                konferencer.append(konference.getNavn()).append("\n");
             }
             this.txaKonferencer.setText(konferencer.toString());
 
@@ -208,14 +208,14 @@ HotelPane(){
     }
 
     private void updateHotels () {
-        this.lvwHotels.getItems().setAll(Controller.getHotelBookinger());
+        this.lvwHotels.getItems().setAll(Controller.getHoteller());
     }
 
     // --------------------------------------------------------------
 
     private void createHotelAction () {
         CreateHotelWindow createHotelWindow = new CreateHotelWindow();
-       // CreateHotelWindow.showAndWait();
+        createHotelWindow.showAndWait();
 
         this.hotel = createHotelWindow.getHotel();
         this.updateControls();
@@ -240,27 +240,27 @@ HotelPane(){
     }
 
 //    // --------------------------------------------------------------
-//
+
     private void createTillægAction () {
-//        CreateAddOnWindow createAddOnWindow = new CreateAddOnWindow(this.hotel);
-//        CreateAddOnWindow.showAndWait();
-//
-//        this.tillæg = createAddOnWindow.gettillæg();
-//        this.updateControls();
+        CreateTillægWindow createTillægWindow = new CreateTillægWindow(this.hotel);
+        createTillægWindow.showAndWait();
+
+        this.tillæg = createTillægWindow.getTillæg();
+        this.updateControls();
     }
 //
     private void updateTillægAction () {
-//        CreateAddOnWindow adminCreateAddOnWindow = new CreateTillægWindow(this.hotel, this.tillæg);
-//        adminCreateAddOnWindow.showAndWait();
-//
-//        this.updateControls();
+        CreateTillægWindow createAddOnWindow = new CreateTillægWindow(this.hotel, this.tillæg);
+        createAddOnWindow.showAndWait();
+
+        this.updateControls();
     }
 //
     private void deleteTillægAction () {
-//        this.hotel.removeTillæg(this.tillæg);
-//
-//        this.tillæg = null;
-//        this.updateControls();
+        this.hotel.removeTillæg(this.tillæg);
+
+        this.tillæg = null;
+        this.updateControls();
     }
 
 }
