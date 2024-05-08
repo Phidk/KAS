@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Tillæg {
     private String name;
     private double pris;
@@ -14,7 +12,7 @@ public class Tillæg {
         this.hotel = hotel;
     }
 
-    public String getName() {
+    public String getNavn() {
         return name;
     }
 
@@ -38,4 +36,8 @@ public class Tillæg {
         this.hotel = hotel;
     }
 
+    @Override
+    public String toString() {
+        return getNavn();
+    }
 }
