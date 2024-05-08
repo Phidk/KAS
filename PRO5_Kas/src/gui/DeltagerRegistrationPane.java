@@ -503,7 +503,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
     }
 
 
-
+    /**
+     * Bekræfter registration af brugeren og opretter igennem controller
+     */
     private void bekræftAction() {
         String navn = txfNavn.getText().trim();
         String adresse = txfAdresse.getText().trim();
