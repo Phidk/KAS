@@ -49,12 +49,24 @@ public class Hotel {
         this.hotelBookinger.remove(hotelBooking);
     }
 
+    public void addKonference(Konference konference){
+        this.konferencer.add(konference);
+    }
+
+    public void removeKonference(Konference konference) {
+        this.konferencer.remove(konference);
+    }
+
     public ArrayList<Tillæg> getTillæg() {
         return tillæg;
     }
 
     public void addTillæg(Tillæg tillæg) {
         this.tillæg.add(tillæg);
+    }
+
+    public void removeTillæg(Tillæg tillæg) {
+        this.tillæg.remove(tillæg);
     }
 
     @Override

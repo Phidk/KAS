@@ -7,7 +7,7 @@ public class HotelBooking {
     private int nummer;
     private EnumVærelser.Værelser værelseType;
     private Hotel hotel;
-    private final ArrayList<Registration> registrationer = new ArrayList<>();
+    private Registration registration;
     private ArrayList<Tillæg> tillæg = new ArrayList<>();
 
 
@@ -28,8 +28,12 @@ public class HotelBooking {
         return hotel;
     }
 
-    public ArrayList<Registration> getRegistrationer() {
-        return registrationer;
+    public Registration getRegistration() {
+        return this.registration;
+    }
+
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
     }
 
     public double getVærelsesPris() {

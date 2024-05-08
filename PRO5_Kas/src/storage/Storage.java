@@ -79,15 +79,15 @@ public abstract class Storage {
     }
 
         // ---------------------- HotelVærelser ----------------------
-    public static void addHotelværelse(HotelBooking hotelværelse) {
+    public static void addHotelBooking(HotelBooking hotelværelse) {
         Storage.hotelBookinger.add(hotelværelse);
     }
 
-    public static void removeHotelværelse(HotelBooking hotelværelse) {
+    public static void removeHotelBooking(HotelBooking hotelværelse) {
         Storage.hotelBookinger.remove(hotelværelse);
     }
 
-    public static ArrayList<HotelBooking> getHotelVærelser() {
+    public static ArrayList<HotelBooking> getHotelBookinger() {
         return new ArrayList<>(hotelBookinger);
     }
 

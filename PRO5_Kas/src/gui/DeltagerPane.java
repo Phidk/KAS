@@ -2,18 +2,14 @@ package gui;
 
 import controller.Controller;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Deltager;
 import javafx.scene.layout.GridPane;
 import model.*;
 
 import javafx.beans.value.ChangeListener;
-import java.time.LocalDate;
 
 public class DeltagerPane extends GridPane {
 
@@ -134,7 +130,7 @@ public class DeltagerPane extends GridPane {
     }
 
     private void updateDeltager(){
-        this.lvwDeltagere.getItems().setAll(Controller.getDeltager());
+        this.lvwDeltagere.getItems().setAll(Controller.getDeltagere());
     }
 
     private void clearTextFields(){
