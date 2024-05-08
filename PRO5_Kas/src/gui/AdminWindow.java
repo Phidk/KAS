@@ -42,12 +42,14 @@ public class AdminWindow extends Stage {
 
         HotelPane hotelPane = new HotelPane();
         tabHotel.setContent(hotelPane);
+
+        Tab tabKonferencer = new Tab("Konferencer");
+        tabPane.getTabs().add(tabKonferencer);
+
+        KonferencePane konferencePane = new KonferencePane();
+        tabKonferencer.setContent(konferencePane);
     }
 
-//public class AdminWindow extends Stage {
-//
-//
-//}
 }
 
 
