@@ -24,7 +24,7 @@ public class Konference {
         this.slutDate = slutDate;
     }
 
-    public String getNavn() {
+    public static String getNavn() {
         return navn;
     }
 
@@ -117,7 +117,7 @@ public class Konference {
 
     //Udflugt
     public ArrayList<Udflugt> getUdflugter() {
-        return new ArrayList<>(this.udflugter);
+        return new ArrayList<>(udflugter);
     }
     public void addUdflugt(Udflugt udflugt){
         udflugter.add(udflugt);
@@ -128,7 +128,7 @@ public class Konference {
     }
 
     @Override
-    public String toString() {
+    public static String toString() {
         return getNavn();
     }
 }
