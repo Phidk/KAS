@@ -94,7 +94,7 @@ public class KasTest {
         for (Hotel hotel : Controller.getHoteller()) {
             System.out.print("Hotel created: " + hotel.getNavn() + " med tillæg: ");
             for (Tillæg tillæg : hotel.getTillæg()) {
-                System.out.print(tillæg.getName() + ", ");
+                System.out.print(tillæg.getNavn() + ", ");
             }
             System.out.println();
         }
