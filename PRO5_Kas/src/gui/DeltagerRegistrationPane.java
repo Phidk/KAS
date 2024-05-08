@@ -1,15 +1,16 @@
 package gui;
 
-import controller.*;
+import controller.Controller;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import model.*;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import model.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -17,46 +18,38 @@ import java.util.ArrayList;
 
 public class DeltagerRegistrationPane extends ScrollPane {
 
+    private final GridPane deltagerGridPane;
+    private final GridPane hotelGridPane;
+    private final TextField txfNavn, txfAdresse, txfBy, txfLand, txfFirmaNavn, txfLedsagerNavn;
+    private final TextField txfTotalPris;
+    private final DatePicker dtpStart, dtpSlut;
+    private final Label lblLedsagerNavn;
+    private final Label lblHoteller;
+    private final Label lblTillæg;
+    private final CheckBox chbForedragsholder, chbLedsager, chbHotel;
+    private final Button btnClear, btnBekræft;
+    private final VBox content;
     private Konference konference;
     private Hotel hotel;
-
-    private final GridPane deltagerGridPane;
     private GridPane ledsagerGridPane;
-    private final GridPane hotelGridPane;
-
     private int currentPage = 1;
     private int totalPages = 4;
     private Label lblPageNumber;
-
     private ListView<Konference> lvwKonferencer;
     private ListView<Udflugt> lvwUdflugter;
     private ListView<Hotel> lvwHoteller;
     private ListView<Tillæg> lvwTillæg;
-
-    private final TextField txfNavn, txfAdresse, txfBy, txfLand, txfFirmaNavn, txfLedsagerNavn;
-    private final TextField txfTotalPris;
     private TextField txfForedragsholder, txfTlfNr, txfAnkomstDato, txfAfrejseDato, txfFirmaTlfNr;
-    private final DatePicker dtpStart, dtpSlut;
-    private Label lblName, lblAdresse, lblBy, lblLand, lblFirmaNavn, lblUdflugter;
+    private Label lblNavn, lblAdresse, lblBy, lblLand, lblFirmaNavn, lblUdflugter;
     private Label lblForedragsholder, lblTlfNr, lblAnkomstDato, lblAfrejseDato, lblFirmaTlfNr;
-    private final Label lblLedsagerNavn;
-    private final Label lblHoteller;
-    private final Label lblTillæg;
     private Label lblTotalPris;
-    private final CheckBox chbForedragsholder, chbLedsager, chbHotel;
-    private final Button btnClear, btnBekræft;
-
-    private final VBox content;
-
 
 
     /**
      * Initialiserer deltagerens registrationspane
      */
-
     public DeltagerRegistrationPane() {
 
-        //VBox content = new VBox();
         content = new VBox();
         this.deltagerGridPane = new GridPane();
         this.ledsagerGridPane = new GridPane();
@@ -77,7 +70,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
         GridPane.setHalignment(lblConferenceHeader, HPos.CENTER);
         konferencerGridPane.add(lblConferenceHeader, 0, 0);
 
-        // changes
         this.lvwKonferencer = new ListView<>();
         ArrayList<Konference> konferencer = Controller.getKonferencer();
 
@@ -86,11 +78,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.lvwKonferencer.setPrefSize(800, 200);
 
         konferencerGridPane.add(this.lvwKonferencer, 0, 1);
-
-//        this.lvwKonferencer = new ListView<>();
-//        this.lvwKonferencer.getItems().setAll(Controller.getKonferencer());
-//        this.lvwKonferencer.setPrefSize(800, 200);
-//        konferencerGridPane.add(this.lvwKonferencer, 0, 1);
 
         ChangeListener<Konference> listener = (ov, oldKonference, newKonference) -> this.selectedKonferenceChanged(newKonference);
         this.lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -184,9 +171,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
         lblPageNumber.setFont(Font.font(12));
         deltagerGridPane.add(lblPageNumber, 3, 0);
         GridPane.setHalignment(lblPageNumber, HPos.RIGHT);
+
         //-----------------------------------------
 
-        //this.ledsagerGridPane.setPrefWidth(500);
         this.ledsagerGridPane.setStyle("-fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 10;");
         this.ledsagerGridPane.setPadding(new Insets(10));
         this.ledsagerGridPane.setHgap(10);
@@ -244,7 +231,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.hotelGridPane.setDisable(false);
         content.getChildren().add(this.hotelGridPane);
 
-
         Label lblHotelHeader = new Label("Hotel:");
         lblHotelHeader.setFont(new Font(15));
         GridPane.setHalignment(lblHotelHeader, HPos.RIGHT);
@@ -276,9 +262,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.lblTillæg.setDisable(true);
         this.hotelGridPane.add(this.lblTillæg, 0, 4);
 
-//        Label lblTotalPris = new Label("Samlet pris");
-//        this.hotelGridPane.add(this.lblTotalPris, 0,5);
-
         this.lvwTillæg = new ListView<>();
         this.lvwTillæg.setPrefSize(200, 150);
         this.lvwTillæg.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -306,31 +289,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
         buttonsBox.setSpacing(20);
 
         //----------------------
-//        this.btnSlet = new Button("Start forfra");
-//        this.btnSlet.setDisable(false);
-//        this.btnSlet.setOnAction(event -> this.sletControls());
-//        GridPane.setHalignment(this.btnSlet, HPos.CENTER);
-//
-//        HBox hbox = new HBox();
-//
-//        this.btnBekræft = new Button("Bekræft registration");
-//        this.btnBekræft.setDisable(false);
-//        this.btnBekræft.setOnAction(event -> this.bekræftAction());
-//        hbox.getChildren().add(this.btnBekræft);
-//
-//        Label lblPris = new Label("Samlet pris: ");
-//        hbox.getChildren().add(lblPris);
-//
-//        this.txfTotalPris = new TextField();
-//        this.txfTotalPris.setEditable(false);
-//        HBox hboxTotalPris = new HBox(3);
-//        hboxTotalPris.getChildren().addAll(this.txfTotalPris, lblPris);
-//
-//        this.hotelGridPane.add(hboxTotalPris, 0, 13);
-//
-//        content.getChildren().addAll(this.btnSlet, this.btnBekræft, this.txfTotalPris);
-//        this.setContent(content);
-//        this.setFitToWidth(true);
 
         this.btnClear = new Button("Start forfra");
         this.btnClear.setDisable(true);
@@ -409,8 +367,6 @@ public class DeltagerRegistrationPane extends ScrollPane {
 
     /**
      * Når deltageren vælger et hotel
-     *
-     * @param newHotel
      */
     private void selectedHotelChanged(Hotel newHotel) {
         this.hotel = newHotel;
@@ -440,9 +396,9 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.updatePris();
     }
 
-        /**
-         * Når en deltager trykker ja til at en ledsager medbringes
-         */
+    /**
+     * Når en deltager trykker ja til at en ledsager medbringes
+     */
     private void checkboxLedsagerAction() {
         boolean checked = this.chbLedsager.isSelected();
         this.lblLedsagerNavn.setDisable(!checked);
@@ -488,6 +444,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
             this.txfTotalPris.setText(konferencePris + hotelPris + udflugtsPris + "");
         }
     }
+
     /**
      * Når en datepicker skifter værdi
      */
@@ -502,26 +459,89 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.updatePris();
     }
 
+    /**
+     * Error style til fejloplysninger i registrering
+     */
+    private void setErrorStyle(TextField field, boolean hasError) {
+        if (hasError) {
+            field.setBorder(Border.stroke(Color.RED));
+        } else {
+            field.setBorder(null);
+        }
+    }
+
+    /**
+     * Bekræfter tilstedeværelse af nødvendig information
+     */
+    private boolean isFieldEmpty(TextField field) {
+        if (field.getText().trim().isEmpty()) {
+            setErrorStyle(field, true);
+            return true;
+        } else {
+            setErrorStyle(field, false);
+            return false;
+        }
+    }
+
+    /**
+     * Bekræfter et acceptabelt tlfNr.
+     */
+    private boolean validatePhoneNumber(String phone) {
+        return phone.matches("\\d{8}");
+    }
 
     /**
      * Bekræfter registration af brugeren og opretter igennem controller
      */
     private void bekræftAction() {
+        boolean invalid = false;
         String navn = txfNavn.getText().trim();
         String adresse = txfAdresse.getText().trim();
         String land = txfLand.getText().trim();
         String by = txfBy.getText().trim();
-        String tlfNr = txfTlfNr.getText().trim();
         EnumVærelser.Værelser værelseType = EnumVærelser.Værelser.SINGLE;
-
-        Deltager deltager = Controller.createDeltager(navn, adresse, land, by, tlfNr);
-
         String firmaTlfNr = txfFirmaTlfNr.getText().trim();
         String firmaNavn = txfFirmaNavn.getText().trim();
         LocalDate ankomstDato = dtpStart.getValue();
         LocalDate afskedsdato = dtpSlut.getValue();
         boolean foredragsholder = this.chbForedragsholder.isSelected();
 
+        String tlfNr = txfTlfNr.getText().trim();
+
+        if (!validatePhoneNumber(tlfNr)) {
+            setErrorStyle(txfTlfNr, true);
+            invalid = true;
+        } else {
+            setErrorStyle(txfTlfNr, false);
+        }
+
+        if (isFieldEmpty(txfNavn)) invalid = true;
+        if (isFieldEmpty(txfAdresse)) invalid = true;
+        if (isFieldEmpty(txfLand)) invalid = true;
+        if (isFieldEmpty(txfBy)) invalid = true;
+
+        if (this.chbLedsager.isSelected()) {
+            if (isFieldEmpty(txfLedsagerNavn)) invalid = true;
+        }
+
+        if (this.chbHotel.isSelected()) {
+            if (this.lvwHoteller.getSelectionModel().isEmpty() == true) {
+                invalid = true;
+            }
+        }
+
+            if (invalid) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ugyldige Indtastninger");
+            alert.setHeaderText(null);
+            alert.setContentText("Udfyld venligst alle nødvendige felter."
+                    + "\nHvis du har en ledsager, skal denne navngives."
+                    + "\nHvis du har valgt hotel, skal dette vælges.");
+            alert.showAndWait();
+            return;
+        }
+
+        Deltager deltager = Controller.createDeltager(navn, adresse, land, by, tlfNr);
         Registration registration = Controller.createRegistration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, this.konference);
 
         if (this.chbLedsager.isSelected()) {
@@ -559,7 +579,7 @@ public class DeltagerRegistrationPane extends ScrollPane {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registrering gennemført!");
         alert.setHeaderText("Registrering gennemført!");
-        alert.setContentText("Tak for at du registrerede dig til " + registration.getKonference().getNavn() + ", " + deltager.getNavn() +  "!\n Hav en fortsat god dag.");
+        alert.setContentText("Tak for at du registrerede dig til " + registration.getKonference().getNavn() + ", " + deltager.getNavn() + "!\n Hav en fortsat god dag.");
         alert.showAndWait();
 
         System.out.println(Controller.getHoteller());
@@ -589,227 +609,60 @@ public class DeltagerRegistrationPane extends ScrollPane {
         }
         System.out.println("Samlet pris: " + registration.calculateTotalPris());
         System.out.println("--------------------------------------");
-        // ---------------- END
-
-
-//        // Tjek om alle krævede felter er udfyldt, altså om de har "valid" css classen
-//        ArrayList<TextField> errorableTextFields = new ArrayList<>(Arrays.asList(
-//                this.txfNavn, this.txfAdresse, this.txfBy, this.txfLand, this.txfTlfNr));
-//        for (TextField textField : errorableTextFields) {
-//            if (!textField.getStyleClass().contains("valid")) {
-//                return;
-//            }
-//        }
-//
-//        // Hvis enten firmanavn eller firma tlf. nr. er skrevet skal begge udfyldes
-//        if (this.txfFirmaNavn.getText().trim().length() != 0 || this.txfFirmaTlfNr.getText().trim().length() != 0) {
-//
-//            if (!this.txfFirmaNavn.getStyleClass().contains("valid")) {
-//                return;
-//
-//            } else if (!this.txfFirmaTlfNr.getStyleClass().contains("valid")) {
-//                return;
-//            }
-//        }
-//// Hvis medbring ledsager er valgt, så skal ledsager navn også være udfyldt,
-//        if (this.chbLedsager.isSelected() && !this.txfFirmaNavn.getStyleClass().contains("valid")) {
-//
-//            return;
-//        }
-//
-//        String navn = this.txfNavn.getText().trim();
-//        String adresse = this.txfAdresse.getText().trim();
-//        String by = this.txfBy.getText().trim();
-//        String land = this.txfLand.getText().trim();
-//        String telefon = this.txfTlfNr.getText().trim();
-//        String firmaNavn = this.txfFirmaNavn.getText().trim();
-//        String FirmaTlfNr = this.txfFirmaTlfNr.getText().trim();
-//        String ledsagerNavn = this.txfFirmaNavn.getText().trim();
-//
-//        boolean foredragsholder = this.chbForedragsholder.isSelected();
-//
-//                LocalDate arrivalDate = this.dtpStart.getValue();
-//                LocalDate departureDate = this.dtpSlut.getValue();
-//        // Hvis deltager med samme navn og tlf. nr. findes, så tilføj registration til den deltager.
-//        // Ellers lav en ny deltager.
-//        Deltager deltager = null;
-//        for (Deltager d : Controller.getDeltager()) {
-//            if (navn.equalsIgnoreCase(d.getNavn()) && telefon.equalsIgnoreCase(d.getTlfNr())) {
-//                deltager = d;
-//                break;
-//            }
-//        }
-//        if (deltager == null) {
-//            deltager = Controller.createDeltager(navn, telefon, adresse, land, by);
-//        }
-//
-//        Registration registration = Controller.createRegistration(FirmaTlfNr, firmaNavn, arrivalDate, departureDate, foredragsholder, deltager, this.konference);
-//
-//        // Hvis medbring ledsager er valgt, skal vi lave en ledsager på registrationen,
-//        // samt udflugter til ledsageren.
-//        if (this.chbLedsager.isSelected()) {
-//            Ledsager ledsager = registration.createLedsager(this.txfLedsagerNavn.getText().trim());
-//
-//            for (Udflugt udflugt : this.lvwUdflugter.getSelectionModel().getSelectedItems()) {
-//                ledsager.addUdflugt(udflugt);
-//            }
-//        }
-//
-//        // Hvis deltageren gerne vil ansøge om hotel gennem os, skal registrationen gives et hotelværelse,
-//        // samt tilføje de valgte tillæg til hotelværelset.
-//        if (this.chbHotel.isSelected()) {
-//            HotelBooking hotelBooking = Controller.createHotelVærelse(101,200, EnumVærelser.Værelser.SINGLE, hotel);
-//
-//            for (Tillæg tillæg : this.lvwTilægger.getSelectionModel().getSelectedItems()) {
-//                hotelBooking.addTillæg(tillæg);
-//            }
-//
-//            registration.setHotelBooking(hotelBooking);
-//        }
-//
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Registrering gennemført!");
-//        alert.setHeaderText("Registrering gennemført!");
-//        alert.setContentText("Tak for at du registrerede dig til " + this.konference.getNavn() + " " + deltager.getNavn());
-//        alert.showAndWait();
-//        this.clearControls();
-        // Tjek om alle krævede felter er udfyldt, altså om de har "valid" css classen
-//        ArrayList<TextField> errorableTextFields = new ArrayList<>(Arrays.asList(
-//                this.txfNavn, this.txfAdresse, this.txfBy, this.txfLand, this.txfTlfNr));
-//        for (TextField textField : errorableTextFields) {
-//            if (!textField.getStyleClass().contains("valid")) {
-//                textField.getStyleClass().add("error");
-//                return;
-//            }
-//        }
-//
-//        // Hvis enten firmanavn eller firma tlf. nr. er skrevet skal begge udfyldes
-//        if (this.txfFirmaNavn.getText().trim().length() != 0 || this.txfFirmaTlfNr.getText().trim().length() != 0) {
-//            if (!this.txfFirmaNavn.getStyleClass().contains("valid")) {
-//                //App.addClass(this.txfFirmaNavn, "error");
-//                return;
-//            } else if (!this.txfFirmaTlfNr.getStyleClass().contains("valid")) {
-//               //App.addClass(this.txfFirmaTlfNr, "error");
-//                return;
-//            }
-//        }
-//
-//        // Hvis medbring ledsager er valgt, så skal ledsager navn også være udfyldt,
-//        // ellers tilføj "error" css class til ledsager navn textfield
-//        if (this.chbLedsager.isSelected() && !this.txfFirmaNavn.getStyleClass().contains("valid")) {
-//           // App.addClass(this.txfFirmaNavn, "error");
-//            return;
-//        }
-//
-//        // --------------------------------------------------------------
-//
-//        String name = this.txfNavn.getText().trim();
-//        String address = this.txfAdresse.getText().trim();
-//        String city = this.txfBy.getText().trim();
-//        String country = this.txfLand.getText().trim();
-//        String telephone = this.txfTlfNr.getText().trim();
-//        String companyName = this.txfFirmaNavn.getText().trim();
-//        String companyTelephone = this.txfFirmaTlfNr.getText().trim();
-//        String companionName = this.txfLedsagerNavn.getText().trim();
-//
-//
-//        boolean speaker = this.chbForedragsholder.isSelected();
-//
-//        LocalDate arrivalDate = this.dtpStart.getValue();
-//        LocalDate departureDate = this.dtpSlut.getValue();
-//
-//        // Hvis deltager med samme navn og tlf. nr. findes, så tilføj registration til den deltager.
-//        // Ellers lav en ny deltager.
-//        Deltager deltager = null;
-//        for (Deltager d : Controller.getDeltager()) {
-//            if (name.equalsIgnoreCase(d.getNavn()) && telephone.equalsIgnoreCase(d.getTlfNr())) {
-//                deltager = d;
-//                break;
-//            }
-//        }
-//        if (deltager == null) {
-//            deltager = Controller.createDeltager(name, telephone, address, country, city);
-//        }
-//
-//        Registration registration = Controller.createRegistration(companyName, companyTelephone, arrivalDate, departureDate, speaker, deltager, this.konference);
-//
-//        // Hvis medbring ledsager er valgt, skal vi lave en ledsager på registrationen,
-//        // samt udflugter til ledsageren.
-//        if (this.chbLedsager.isSelected()) {
-//            Ledsager ledsager = registration.createLedsager(companionName);
-//
-//            for (Udflugt udflugt : this.lvwUdflugter.getSelectionModel().getSelectedItems()) {
-//                ledsager.addUdflugt(udflugt);
-//            }
-//        }
-//
-//        // Hvis deltageren gerne vil ansøge om hotel gennem os, skal registrationen gives et hotelværelse,
-//        // samt tilføje de valgte tillæg til hotelværelset.
-////        if (this.chbHotel.isSelected()) {
-////            HotelBooking hotelBooking = Controller.createHotelVærelse(EnumVærelser.Værelser.SINGLE, hotel);
-////
-////            for (Tillæg tillæg : this.lvwTilægger.getSelectionModel().getSelectedItems()) {
-////                hotelBooking.addTillæg(tillæg);
-////            }
-////
-////            registration.setHotelBooking(hotelBooking);
-////        }
-//
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Registrering gennemført!");
-//        alert.setHeaderText("Registrering gennemført!");
-//        alert.setContentText("Tak for at du registrerede dig til " + this.konference.getNavn() + " " + deltager.getNavn() + "! Hav en god dag");
-//        alert.showAndWait();
-//
-//        this.clearControls();
     }
 
-        /**
-         * Nulstiller alle kontrol textfielder, datepickers, labels og lister.
-         */
-        private void clearControls () {
-            this.lvwKonferencer.getSelectionModel().clearSelection();
-            this.lvwUdflugter.getItems().clear();
-            this.lvwUdflugter.setDisable(true);
-            this.lvwHoteller.getItems().clear();
-            this.lvwHoteller.setDisable(true);
-            this.lvwTillæg.getItems().clear();
-            this.lvwTillæg.setDisable(true);
-
-            this.chbHotel.setSelected(false);
-            this.chbLedsager.setSelected(false);
-            this.chbForedragsholder.setSelected(false);
-
-            this.dtpStart.setValue(null);
-            this.dtpSlut.setValue(null);
-
-            this.txfNavn.clear();
-            this.txfAdresse.clear();
-            this.txfBy.clear();
-            this.txfLand.clear();
-            this.txfTlfNr.clear();
-            this.txfFirmaNavn.clear();
-            this.txfFirmaTlfNr.clear();
-            this.txfFirmaNavn.clear();
-            this.txfTotalPris.clear();
-            this.txfLedsagerNavn.clear();
-
-            this.lblHoteller.setDisable(true);
-            this.lblUdflugter.setDisable(true);
-            this.lblTillæg.setDisable(true);
-            this.lblLedsagerNavn.setDisable(true);
-        }
-
-        /**
-         * Begrænser en datepicker til to localdate objekter
-         */
-        private void restrictDatePicker (DatePicker datePicker, LocalDate startDato, LocalDate slutDato){
-            datePicker.setDayCellFactory(picker -> new DateCell() {
-
-                public void updateItem(LocalDate date, boolean tom) {
-                    super.updateItem(date, tom);
-                    setDisable(tom || date.compareTo(startDato) < 0 || date.compareTo(slutDato) > 0);
-                }
-            });
-        }
+    /**
+     * ClearControls hjælpermetode, resetter textFields
+     */
+    private void resetTextField(TextField field) {
+        field.clear();
+        field.setBorder(null);
     }
+
+    /**
+     * Nulstiller alle kontrol textfielder, datepickers, labels og lister.
+     */
+    private void clearControls() {
+        resetTextField(txfNavn);
+        resetTextField(txfAdresse);
+        resetTextField(txfBy);
+        resetTextField(txfLand);
+        resetTextField(txfTlfNr);
+        resetTextField(txfFirmaNavn);
+        resetTextField(txfFirmaTlfNr);
+        resetTextField(txfTotalPris);
+        resetTextField(txfLedsagerNavn);
+
+        this.lvwKonferencer.getSelectionModel().clearSelection();
+        this.lvwUdflugter.getItems().clear();
+        this.lvwUdflugter.setDisable(true);
+        this.lvwHoteller.getItems().clear();
+        this.lvwHoteller.setDisable(true);
+        this.lvwTillæg.getItems().clear();
+        this.lvwTillæg.setDisable(true);
+
+        this.chbHotel.setSelected(false);
+        this.chbLedsager.setSelected(false);
+        this.chbForedragsholder.setSelected(false);
+
+        this.dtpStart.setValue(null);
+        this.dtpSlut.setValue(null);
+
+        this.lblHoteller.setDisable(true);
+        this.lblUdflugter.setDisable(true);
+        this.lblTillæg.setDisable(true);
+        this.lblLedsagerNavn.setDisable(true);
+    }
+
+    /**
+     * Begrænser en datepicker til to localdate objekter
+     */
+    private void restrictDatePicker(DatePicker datePicker, LocalDate startDato, LocalDate slutDato) {
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean tom) {
+                super.updateItem(date, tom);
+                setDisable(tom || date.compareTo(startDato) < 0 || date.compareTo(slutDato) > 0);
+            }
+        });
+    }
+}

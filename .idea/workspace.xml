@@ -44,7 +44,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.codegpt&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.KasTest">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.App" />
       <module name="PRO5_Kas" />
@@ -61,8 +61,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KasTest" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.KasTest" />
       </list>
     </recent_temporary>
   </component>
