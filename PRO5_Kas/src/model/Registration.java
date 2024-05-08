@@ -87,10 +87,12 @@ public class Registration {
         return ledsager;
     }
 
-    //Udregner den totale pris for opholdet
-    //Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
-    //Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
-    //Hvis personen deltager i udflugter, udregnes udflugtsprisenn
+    /**
+     * Udregner den totale pris for opholdet
+     * Hvis personen ikke er foredragsholder, skal deltageren betale konferenceafgift
+     * Hvis personen har valgt et hotelværelse, udregnes værelse, tillægspris og antal dage
+     * Hvis personen deltager i udflugter, udregnes udflugtsprisenn
+     */
     public int calculateTotalPris() {
         int totalDage = (int) ChronoUnit.DAYS.between(this.ankomstDato, this.afstedsDato);
         int sum = 0;

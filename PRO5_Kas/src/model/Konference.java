@@ -64,6 +64,9 @@ public class Konference {
         return slutDate;
     }
 
+    /**
+     * Returnerer en liste af deltagerne tilhørende en konference
+     */
     public ArrayList<String> listParticipantsForKonference() {
         ArrayList<Deltager> deltagere = new ArrayList<>();
         for (Registration registration : this.registrationer) {
@@ -80,6 +83,9 @@ public class Konference {
         return deltageresNavne;
     }
 
+    /**
+     * Anvendt til at sortere en liste af deltagere
+     */
     public static void selectionSort(ArrayList<Deltager> deltagere) {
         for (int i = 0; i < deltagere.size() - 1; i++) {
             int indexOfMin = i;

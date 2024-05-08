@@ -36,6 +36,9 @@ public class HotelBooking {
         this.registration = registration;
     }
 
+    /**
+     * Udrigner prisen af rummet for denne booking.
+     */
     public double getVærelsesPris() {
         double værelsesPris = 0;
         if (værelseType == EnumVærelser.Værelser.SINGLE) {
@@ -46,6 +49,9 @@ public class HotelBooking {
         return værelsesPris;
     }
 
+    /**
+     * Udregner prisen af de tillæg der tilhænger denne booking.
+     */
     public double calculateTillægsPris() {
         double tillægPris = 0.0;
         for (Tillæg tillæg : this.tillæg) {

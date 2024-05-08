@@ -91,6 +91,7 @@ public abstract class Controller {
 
     /**
      * Konference tilføjes til et hotel
+     * Note: Nullable params hotel, konference
      */
     public static void addHotelToKonference(Hotel hotel, Konference konference) {
         hotel.addKonference(konference);
@@ -99,6 +100,7 @@ public abstract class Controller {
 
     /**
      * Fjerner en konference fra specifikt hotel
+     * Note: Nullable params hotel, konference
      */
     public static void removeKonferenceFromHotel(Hotel hotel, Konference konference) {
         if (konference.getHoteller().contains(hotel)) {
@@ -109,6 +111,7 @@ public abstract class Controller {
 
     /**
      * Fjerner en konference fra storage
+     * Note: nullable param konference
      */
     public static void removeKonference(Konference konference) {
         for (Hotel hotel : konference.getHoteller()) {
@@ -155,6 +158,7 @@ public abstract class Controller {
 
     /**
      * Hotel tilføjes til en konference
+     * Note: nullable params konference, hotel
      */
     public static void addHotelToKonference(Konference konference, Hotel hotel) {
         konference.addHotel(hotel);
@@ -163,6 +167,7 @@ public abstract class Controller {
 
     /**
      * Fjerner et hotel fra specifik konference
+     * Note: nullable params hotel, konference
      */
     public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
         if (hotel.getKonferencer().contains(konference)) {
@@ -172,6 +177,10 @@ public abstract class Controller {
     }
 
 
+    /**
+     * Fjerner hotel fra alle konferencer og storage
+     * note: nullable param hotel.
+     */
     public static void removeHotel(Hotel hotel) {
         for (Konference konference : hotel.getKonferencer()) {
             if (hotel.getKonferencer().contains(konference)) {
@@ -182,7 +191,6 @@ public abstract class Controller {
         }
     }
 
-
     /**
      * Returnerer en liste af hoteller fra storage
      */
@@ -190,14 +198,13 @@ public abstract class Controller {
          return Storage.getHoteller();
     }
 
-
-
     // ----------------------------- Udflugter -----------------------------
 
     /**
      * Opretter en udflugt og tilføjer den til storage
      * Pre: Pris >= 0
      * Pre: Dato er efter konferencens startdato
+     * Note: nullable param konference.
      */
     public static Udflugt createUdflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(destination, dato, pris, frokost, konference);
@@ -207,6 +214,7 @@ public abstract class Controller {
 
     /**
      * Fjerner en udflugt fra storage
+     * Note: nullable param konference.
      */
     public static void removeUdflugt(Konference konference, Udflugt udflugt) {
         if (konference.getUdflugter().contains(udflugt)) {
@@ -227,7 +235,6 @@ public abstract class Controller {
 
     /**
      * Opretter en deltager og tilføjer den til storage
-     * Pre: none
      */
     public static Deltager createDeltager(String navn, String adresse, String land, String by, String tlfNr) {
         Deltager deltager = new Deltager(navn, adresse, land, by, tlfNr);
@@ -237,6 +244,7 @@ public abstract class Controller {
 
     /**
      * Fjerner en deltager fra storage
+     * Note: Nullable param deltager.
      * Deltageres registrationer eksisterer stadig, men deltageren er ikke gemt i storage
      */
     public static void removeDeltager(Deltager deltager) {
@@ -255,6 +263,7 @@ public abstract class Controller {
     /**
      * Opretter en registrering og gemmer den i storage
      * Pre: ankomstDato >= afrejseDato && ankomstDato <= konference.getSlutDato() && afrejseDato >= konference.getStartDato()
+     * Note: Nullable param konference.
      */
     public static Registration createRegistration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afskedsdato, boolean foredragsholder, Deltager deltager, Konference konference) {
         var registration = new Registration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, konference);
@@ -267,6 +276,7 @@ public abstract class Controller {
 
     /**
      * Sletter en registrering fra konference og storage
+     * Note: Nullable param konference.
      */
     public static void removeRegistration(Registration registration, Konference konference) {
         konference.removeRegistration(registration);
@@ -286,6 +296,7 @@ public abstract class Controller {
     /**
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
+     * Note: Nullable param hotel.
      */
     public static HotelBooking createHotelBooking(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
         HotelBooking hotelBooking = new HotelBooking(værelsesNr, pris, værelseType, hotel);
@@ -296,6 +307,7 @@ public abstract class Controller {
 
     /**
      * Sætter hotelBooking med værelse til en registrering
+     * Note: Nullable params hotelBooking, registration.
      */
     public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
         registration.setHotelBooking(hotelBooking);
@@ -303,6 +315,7 @@ public abstract class Controller {
     
     /**
      * Sletter et hotelværelse fra storage
+     * Note: Nullable params hotelBooking, registration.
      */
     public static void removeHotelBookingFromRegistration(HotelBooking hotelBooking, Registration registration) {
         if (hotelBooking.getRegistration() == registration) {
@@ -324,6 +337,7 @@ public abstract class Controller {
     /**
      * Opretter et tillæg og gemmer det i storage
      * Pre: pris >= 0
+     * Note: Nullable param hotel.
      */
     public static Tillæg createTillæg(String navn, double pris, Hotel hotel) {
         Tillæg tillæg = new Tillæg(navn, pris, hotel);
@@ -334,6 +348,7 @@ public abstract class Controller {
 
     /**
      * Tilføjer et tillæg til et hotelBooking
+     * Note: Nullable params hotelBooking, tillæg.
      */
     public static void addTillægToHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
         hotelBooking.addTillæg(tillæg);
@@ -341,6 +356,7 @@ public abstract class Controller {
 
     /**
      * Fjerner et tillæg fra en specifik hotelBooking
+     * Note: Nullable params hotelBooking, tillæg.
      */
     public static void removeTillægFromHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
         if(hotelBooking.getTillæg().contains(tillæg)) {
@@ -350,6 +366,7 @@ public abstract class Controller {
 
     /**
      * Sletter et tillæg fra storage og et hotel, og nødvendige hotelBookinger.
+     * Note: Nullable params tillæg, hotel.
      */
     public static void removeTillægFromHotel(Tillæg tillæg, Hotel hotel) {
         if (tillæg.getHotel() == hotel) {
@@ -376,8 +393,8 @@ public abstract class Controller {
 
     /**
      * Opretter en ledsager og tilføjer den til en registration
+     * Note: nullable param registration
      */
-
     public static Ledsager createLedsager(String navn, Registration registration) {
         registration.createLedsager(navn);
         return registration.getLedsager();
@@ -386,11 +403,16 @@ public abstract class Controller {
     /**
      * Tilføjer en udflugt til en ledsager
      * Pre: Ledsageren må ikke have udflugten i forvejen
+     * Note: nullable params ledsager, udflugt.
      */
     public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
         ledsager.addUdflugt(udflugt);
     }
 
+    /**
+     * Fjerner ledsager fra specifik registration
+     * Note: Nullable params registration, ledsager
+     */
     public static void removeLedsagerFromRegistration(Registration registration, Ledsager ledsager) {
         if (registration.getLedsager() == ledsager) {
             registration.setLedsager(null);
@@ -400,6 +422,7 @@ public abstract class Controller {
     /**
      * Returnerer tilsatte ledsager fra en registration
      * Pre: Registration skal have en ledsager
+     * Nullable param registration.
      */
     public static Ledsager getLedsager(Registration registration) {
         return registration.getLedsager();
