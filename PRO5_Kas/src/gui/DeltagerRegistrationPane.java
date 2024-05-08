@@ -1,6 +1,6 @@
 package gui;
 
-import controller.Controller;
+import controller.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -47,6 +47,8 @@ public class DeltagerRegistrationPane extends ScrollPane {
     private final Button btnClear, btnBekræft;
 
     private final VBox content;
+
+
 
     /**
      * Initialiserer deltagerens registrationspane
@@ -331,13 +333,13 @@ public class DeltagerRegistrationPane extends ScrollPane {
 //        this.setFitToWidth(true);
 
         this.btnClear = new Button("Start forfra");
-        this.btnClear.setDisable(false);
+        this.btnClear.setDisable(true);
         this.btnClear.setOnAction(event -> this.clearControls());
 
         HBox hbox = new HBox();
 
         this.btnBekræft = new Button("Bekræft registration");
-        this.btnBekræft.setDisable(false);
+        this.btnBekræft.setDisable(true);
         this.btnBekræft.setOnAction(event -> this.bekræftAction());
         hbox.getChildren().add(this.btnBekræft);
 
@@ -368,6 +370,8 @@ public class DeltagerRegistrationPane extends ScrollPane {
      */
     private void selectedKonferenceChanged(Konference newKonference) {
         boolean isNull = newKonference == null;
+        this.btnBekræft.setDisable(false);
+        this.btnClear.setDisable(false);
 
         this.deltagerGridPane.setDisable(isNull);
         this.ledsagerGridPane.setDisable(isNull);
@@ -498,7 +502,94 @@ public class DeltagerRegistrationPane extends ScrollPane {
         this.updatePris();
     }
 
+
+
     private void bekræftAction() {
+        String navn = txfNavn.getText().trim();
+        String adresse = txfAdresse.getText().trim();
+        String land = txfLand.getText().trim();
+        String by = txfBy.getText().trim();
+        String tlfNr = txfTlfNr.getText().trim();
+        EnumVærelser.Værelser værelseType = EnumVærelser.Værelser.SINGLE;
+
+        Deltager deltager = Controller.createDeltager(navn, adresse, land, by, tlfNr);
+
+        String firmaTlfNr = txfFirmaTlfNr.getText().trim();
+        String firmaNavn = txfFirmaNavn.getText().trim();
+        LocalDate ankomstDato = dtpStart.getValue();
+        LocalDate afskedsdato = dtpSlut.getValue();
+        boolean foredragsholder = this.chbForedragsholder.isSelected();
+
+        Registration registration = Controller.createRegistration(firmaTlfNr, firmaNavn, ankomstDato, afskedsdato, foredragsholder, deltager, this.konference);
+
+        if (this.chbLedsager.isSelected()) {
+            String ledsagerNavn = txfLedsagerNavn.getText().trim();
+            Ledsager ledsager = Controller.createLedsager(ledsagerNavn, registration);
+            værelseType = EnumVærelser.Værelser.DOUBLE;
+
+            for (Udflugt udflugt : this.lvwUdflugter.getSelectionModel().getSelectedItems()) {
+                ledsager.addUdflugt(udflugt);
+            }
+        }
+
+        if (this.chbHotel.isSelected()) {
+            int maxVærelsesNr = 0;
+            for (HotelBooking hotelBooking : this.hotel.getHotelBookinger()) {
+                if (hotelBooking.getNummer() > maxVærelsesNr) {
+                    maxVærelsesNr = hotelBooking.getNummer();
+                }
+            }
+
+            int værelsesNr = maxVærelsesNr + 1;
+            int pris = Integer.parseInt(txfTotalPris.getText());
+
+            HotelBooking hotelBooking = Controller.createHotelBooking(værelsesNr, pris, værelseType, this.hotel);
+
+            for (Tillæg tillæg : this.lvwTillæg.getSelectionModel().getSelectedItems()) {
+                Controller.addTillægToHotelBooking(hotelBooking, tillæg);
+            }
+            Controller.setHotelVærelseOfRegistration(registration, hotelBooking);
+        }
+
+        this.clearControls();
+        updatePris();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrering gennemført!");
+        alert.setHeaderText("Registrering gennemført!");
+        alert.setContentText("Tak for at du registrerede dig til " + registration.getKonference().getNavn() + ", " + deltager.getNavn() +  "!\n Hav en fortsat god dag.");
+        alert.showAndWait();
+
+        System.out.println(Controller.getHoteller());
+
+        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
+        for (Konference konference : Controller.getKonferencer()) {
+            System.out.println("Deltagere til konferencen " + konference.getNavn() + ": " + konference.listParticipantsForKonference());
+        }
+        System.out.println();
+
+        System.out.println("Registrationsdetaljer for: " + deltager.getNavn());
+        System.out.println("Konference: " + registration.getKonference().getNavn());
+        System.out.println("Ankomst Dato: " + registration.getAnkomstDato());
+        System.out.println("Afskeds Dato: " + registration.getAfstedsDato());
+        System.out.println("Foredragsholder: " + registration.isForedragsholder());
+        if (registration.getHotelVærelse() != null) {
+            System.out.println("Hotel: " + registration.getHotelVærelse().getHotel().getNavn());
+            System.out.println("Værelse Nummer: " + registration.getHotelVærelse().getNummer());
+            System.out.println("Værelse Pris: " + registration.getHotelVærelse().calculateVærelsesPris());
+        }
+        if (registration.getLedsager() != null) {
+            System.out.println("Ledsager: " + registration.getLedsager().getNavn());
+            System.out.println("Udflugter:");
+            for (Udflugt udflugt : registration.getLedsager().getUdflugter()) {
+                System.out.println("- " + udflugt.getDestination() + " d. " + udflugt.getDato() + " med pris " + udflugt.getPris());
+            }
+        }
+        System.out.println("Samlet pris: " + registration.calculateTotalPris());
+        System.out.println("--------------------------------------");
+        // ---------------- END
+
+
 //        // Tjek om alle krævede felter er udfyldt, altså om de har "valid" css classen
 //        ArrayList<TextField> errorableTextFields = new ArrayList<>(Arrays.asList(
 //                this.txfNavn, this.txfAdresse, this.txfBy, this.txfLand, this.txfTlfNr));
@@ -698,8 +789,8 @@ public class DeltagerRegistrationPane extends ScrollPane {
             this.txfFirmaNavn.clear();
             this.txfFirmaTlfNr.clear();
             this.txfFirmaNavn.clear();
-            this.txfFirmaNavn.setDisable(true);
             this.txfTotalPris.clear();
+            this.txfLedsagerNavn.clear();
 
             this.lblHoteller.setDisable(true);
             this.lblUdflugter.setDisable(true);

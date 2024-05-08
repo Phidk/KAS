@@ -49,7 +49,7 @@ public abstract class Controller {
         // Registration for Niels alle 3 dage af konference1
         Registration registration2 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager2, konference1);
         // Niels skal til hotelværelse på hotel "Den hvide svane" uden tillæg
-        HotelBooking hotelBooking1 = Controller.createHotelVærelse(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
+        HotelBooking hotelBooking1 = Controller.createHotelBooking(1, hotel1.getSinglePris(), EnumVærelser.Værelser.SINGLE, hotel1);
         Controller.setHotelVærelseOfRegistration(registration2, hotelBooking1);
 
         // Registration for Ulla for første 2 dage af konference1
@@ -63,9 +63,9 @@ public abstract class Controller {
         Controller.addUdflugtToLedsager(ledsager2, udflugt2);
         Controller.addUdflugtToLedsager(ledsager2, udflugt3);
         // Peter skal til hotelværelse på "Den hvide svane" med tilvalgt wifi.
-        HotelBooking hotelBooking2 = Controller.createHotelVærelse(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        HotelBooking hotelBooking2 = Controller.createHotelBooking(2, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
         Controller.setHotelVærelseOfRegistration (registration4, hotelBooking2);
-        Controller.addTillægToHotelVærelse(hotelBooking2, tillæg1);
+        Controller.addTillægToHotelBooking(hotelBooking2, tillæg1);
 
         // Registration for Lone alle 3 dage af konference1
         Registration registration5 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, deltager5, konference1);
@@ -73,9 +73,9 @@ public abstract class Controller {
         Controller.addUdflugtToLedsager(ledsager3, udflugt1);
         Controller.addUdflugtToLedsager(ledsager3, udflugt2);
         // Lone skal på hotel "Den hvide svane" med tilvagt wifi.
-        HotelBooking hotelBooking3 = Controller.createHotelVærelse(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
+        HotelBooking hotelBooking3 = Controller.createHotelBooking(3, hotel1.getDoublePris(), EnumVærelser.Værelser.DOUBLE, hotel1);
         Controller.setHotelVærelseOfRegistration(registration5, hotelBooking3);
-        Controller.addTillægToHotelVærelse(hotelBooking3, tillæg1);
+        Controller.addTillægToHotelBooking(hotelBooking3, tillæg1);
     }
     // ----------------------------- Konferencer -----------------------------
 
@@ -251,10 +251,11 @@ public abstract class Controller {
      * Opretter et hotelværelse og gemmer det i storage
      * Pre: værelsesNr > 0 && antalSenge > 0 && pris >= 0
      */
-    public static HotelBooking createHotelVærelse(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
-        HotelBooking hotelværelse = new HotelBooking(værelsesNr,pris, værelseType, hotel);
-        Storage.addHotelværelse(hotelværelse);
-        return hotelværelse;
+    public static HotelBooking createHotelBooking(int værelsesNr, int pris, EnumVærelser.Værelser værelseType, Hotel hotel) {
+        HotelBooking hotelBooking = new HotelBooking(værelsesNr, pris, værelseType, hotel);
+        hotel.addHotelBooking(hotelBooking);
+        Storage.addHotelværelse(hotelBooking);
+        return hotelBooking;
     }
 
     /**
@@ -268,7 +269,7 @@ public abstract class Controller {
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
-    public static ArrayList<HotelBooking> getHotelværelser() {
+    public static ArrayList<HotelBooking> getHotelBookinger() {
         return Storage.getHotelVærelser();
     }
 
@@ -288,7 +289,7 @@ public abstract class Controller {
     /**
      * Tilføjer et tillæg til et hotelværelse
      */
-    public static void addTillægToHotelVærelse(HotelBooking hotelBooking, Tillæg tillæg) {
+    public static void addTillægToHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
         hotelBooking.addTillæg(tillæg);
     }
 

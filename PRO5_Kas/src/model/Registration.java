@@ -14,7 +14,8 @@ public class Registration {
     private Deltager deltager;
     private Konference konference;
     private Ledsager ledsager;
-    private ArrayList<Tillæg> tillægger = new ArrayList<>();
+    //private int samletPris;
+    private ArrayList<Tillæg> tillæg = new ArrayList<>();
 
     public Registration(String firmaTlfNr, String firmaNavn, LocalDate ankomstDato, LocalDate afstedsDato, boolean foredragsholder, Deltager deltager, Konference konference) {
         this.firmaTlfNr = firmaTlfNr;
@@ -93,22 +94,22 @@ public class Registration {
         return ledsager;
     }
 
-    public ArrayList<Tillæg> getTillægger() {
-        return new ArrayList<>(tillægger);
+    public ArrayList<Tillæg> getTillæg() {
+        return new ArrayList<>(tillæg);
     }
 
     public void addTillæg(Tillæg tillæg) {
-        tillægger.add(tillæg);
+        this.tillæg.add(tillæg);
     }
 
     public void removeTillæg(Tillæg tillæg) {
-        this.tillægger.remove(tillæg);
+        this.tillæg.remove(tillæg);
     }
 
     //Udregner tillægspris
     public double calculateTillægsPris() {
         double sum = 0.0;
-        for (Tillæg tillæg : this.tillægger) {
+        for (Tillæg tillæg : this.tillæg) {
             sum += tillæg.getPris();
         }
         return sum;
@@ -148,5 +149,21 @@ public class Registration {
     }
 
     public void setHotelBooking(HotelBooking hotelBooking) {
+    }
+
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "foredragsholder=" + foredragsholder +
+                ", firmaTlfNr='" + firmaTlfNr + '\'' +
+                ", firmaNavn='" + firmaNavn + '\'' +
+                ", ankomstDato=" + ankomstDato +
+                ", afstedsDato=" + afstedsDato +
+                ", hotelBooking=" + hotelBooking +
+                ", deltager=" + deltager +
+                ", konference=" + konference +
+                ", ledsager=" + ledsager +
+                ", tillæg=" + tillæg +
+                '}';
     }
 }
