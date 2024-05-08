@@ -30,7 +30,7 @@ public class UdflugterPane extends Stage {
             this.setResizable(false);
             this.setTitle(String.format("%s udflugt - KAS", (udflugt != null) ? "Opdater" : "Opret"));
 
-            this.udflugt = Udflugt;
+            //this.udflugt = Udflugt;
 
             GridPane pane = new GridPane();
             this.initContent(pane);

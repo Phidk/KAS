@@ -47,9 +47,9 @@ public class KasTest {
         Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
 
         // Tilføjer hoteller til konferencen
-        Controller.addHotelToKonference(hotel1, konference1);
-        Controller.addHotelToKonference(hotel2, konference1);
-        Controller.addHotelToKonference(hotel3, konference1);
+        Controller.addHotelToKonference(konference1, hotel1);
+        Controller.addHotelToKonference(konference1, hotel2);
+        Controller.addHotelToKonference(konference1, hotel3);
 
         // Registration for Finn alle 3 dage af konference1
         Registration registration1 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager1, konference1);
@@ -101,13 +101,13 @@ public class KasTest {
 
         System.out.println();
 
-        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltager().size());
+        System.out.println("Antal deltagere til alle konferencer: " + Controller.getDeltagere().size());
         for (Konference konference : Controller.getKonferencer()) {
             System.out.println("Deltagere til konferencen " + konference.getNavn() + ": " + konference.listParticipantsForKonference());
         }
         System.out.println();
 
-        for (Deltager deltager : Controller.getDeltager()) {
+        for (Deltager deltager : Controller.getDeltagere()) {
             System.out.println("Registration details for: " + deltager.getNavn());
             for (Registration registration : deltager.getRegistrationer()) {
                 System.out.println("Konference: " + registration.getKonference().getNavn());

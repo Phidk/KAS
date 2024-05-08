@@ -39,9 +39,9 @@ public abstract class Controller {
         Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
 
         // Tilføjer hoteller til konferencen
-        Controller.addHotelToKonference(hotel1, konference1);
-        Controller.addHotelToKonference(hotel2, konference1);
-        Controller.addHotelToKonference(hotel3, konference1);
+        Controller.addHotelToKonference(konference1, hotel1);
+        Controller.addHotelToKonference(konference1, hotel2);
+        Controller.addHotelToKonference(konference1, hotel3);
 
         // Registration for Finn alle 3 dage af konference1
         Registration registration1 = Controller.createRegistration("", "", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, deltager1, konference1);
@@ -89,11 +89,31 @@ public abstract class Controller {
         return konference;
     }
 
+    /**
+     * Konference tilføjes til et hotel
+     */
+    public static void addHotelToKonference(Hotel hotel, Konference konference) {
+        hotel.addKonference(konference);
+        konference.addHotel(hotel);
+    }
+
+    /**
+     * Fjerner en konference fra specifikt hotel
+     */
+    public static void removeKonferenceFromHotel(Hotel hotel, Konference konference) {
+        if (konference.getHoteller().contains(hotel)) {
+            hotel.removeKonference(konference);
+            konference.removeHotel(hotel);
+        }
+    }
 
     /**
      * Fjerner en konference fra storage
      */
     public static void removeKonference(Konference konference) {
+        for (Hotel hotel : konference.getHoteller()) {
+            removeKonferenceFromHotel(hotel, konference);
+        }
         Storage.removeKonference(konference);
     }
 
@@ -133,15 +153,23 @@ public abstract class Controller {
         return hotel;
     }
 
-    public static void addHotelToKonference(Hotel hotel, Konference konference) {
+    /**
+     * Hotel tilføjes til en konference
+     */
+    public static void addHotelToKonference(Konference konference, Hotel hotel) {
         konference.addHotel(hotel);
+        hotel.addKonference(konference);
     }
 
     /**
-     * Fjerner et hotel fra storage
+     * Fjerner et hotel fra specifik konference
      */
-    public static void removeHotel(Hotel hotel) {
-         Storage.removeHotel(hotel);
+    public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
+        if (hotel.getKonferencer().contains(konference)) {
+            konference.removeHotel(hotel);
+            hotel.removeKonference(konference);
+            Storage.removeHotel(hotel);
+        } 
     }
 
 
@@ -170,8 +198,12 @@ public abstract class Controller {
     /**
      * Fjerner en udflugt fra storage
      */
-    public static void removeUdflugt(Udflugt udflugt) {
-         Storage.removeUdflugt(udflugt);
+    public static void removeUdflugt(Konference konference, Udflugt udflugt) {
+        if (konference.getUdflugter().contains(udflugt)) {
+            konference.removeUdflugt(udflugt);
+
+            Storage.removeUdflugt(udflugt);
+        }
     }
 
     /**
@@ -195,6 +227,7 @@ public abstract class Controller {
 
     /**
      * Fjerner en deltager fra storage
+     * Deltageres registrationer eksisterer stadig, men deltageren er ikke gemt i storage
      */
     public static void removeDeltager(Deltager deltager) {
         Storage.removeDeltager(deltager);
@@ -203,7 +236,7 @@ public abstract class Controller {
     /**
      * Returnerer en liste af deltagere fra storage
      */
-    public static ArrayList<Deltager> getDeltager() {
+    public static ArrayList<Deltager> getDeltagere() {
         return Storage.getDeltagere();
     }
 
@@ -223,17 +256,11 @@ public abstract class Controller {
     }
 
     /**
-     * Sætter hotelværelse på en registrering
-     * Pre: Hotelværelse må ikke allerede være optaget
+     * Sletter en registrering fra konference og storage
      */
-    public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
-        registration.setHotelVærelse(hotelBooking);
-    }
-
-    /**
-     * Sletter en registrering fra storage
-     */
-    public static void removeRegistration(Registration registration) {
+    public static void removeRegistration(Registration registration, Konference konference) {
+        konference.removeRegistration(registration);
+        registration.setKonference(null);
         Storage.removeRegistration(registration);
     }
 
@@ -258,13 +285,23 @@ public abstract class Controller {
     }
 
     /**
+     * Sætter hotelBooking med værelse til en registrering
+     */
+    public static void setHotelBookingOfRegistration(Registration registration, HotelBooking hotelBooking) {
+        registration.setHotelBooking(hotelBooking);
+    }
+    
+    /**
      * Sletter et hotelværelse fra storage
      */
-    public static void removeHotelBooking(HotelBooking hotelværelse) {
-        Storage.removeHotelværelse(hotelværelse);
+    public static void removeHotelBookingFromRegistration(HotelBooking hotelBooking, Registration registration) {
+        if (hotelBooking.getRegistration() == registration) {
+            registration.setHotelBooking(null);
+            hotelBooking.setRegistration(null);
+            Storage.removeHotelværelse(hotelBooking);
+        }
     }
-
-
+    
     /**
      * Returnerer en liste af hotelværelser fra storage
      */
@@ -286,17 +323,36 @@ public abstract class Controller {
     }
 
     /**
-     * Tilføjer et tillæg til et hotelværelse
+     * Tilføjer et tillæg til et hotelBooking
      */
     public static void addTillægToHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
         hotelBooking.addTillæg(tillæg);
     }
 
     /**
-     * Sletter et tillæg fra storage
+     * Fjerner et tillæg fra en specifik hotelBooking
      */
-    public static void removeTillæg(Tillæg tillæg) {
-        Storage.removeTillæg(tillæg);
+    public static void removeTillægFromHotelBooking(HotelBooking hotelBooking, Tillæg tillæg) {
+        if(hotelBooking.getTillæg().contains(tillæg)) {
+            hotelBooking.removeTillæg(tillæg);
+        }
+    }
+
+    /**
+     * Sletter et tillæg fra storage og et hotel, og nødvendige hotelBookinger.
+     */
+    public static void removeTillægFromHotel(Tillæg tillæg, Hotel hotel) {
+        if (tillæg.getHotel() == hotel) {
+            hotel.removeTillæg(tillæg);
+            tillæg.setHotel(null);
+
+            for (HotelBooking hotelBooking : hotel.getHotelBookinger()) {
+                if(hotelBooking.getTillæg().contains(tillæg)) {
+                    hotelBooking.removeTillæg(tillæg);
+                }
+            }
+            Storage.removeTillæg(tillæg);
+        }
     }
 
     /**
@@ -325,8 +381,10 @@ public abstract class Controller {
         ledsager.addUdflugt(udflugt);
     }
 
-    public static void removeLedsager(Registration registration) {
-        registration.setLedsager(null);
+    public static void removeLedsagerFromRegistration(Registration registration, Ledsager ledsager) {
+        if (registration.getLedsager() == ledsager) {
+            registration.setLedsager(null);
+        }
     }
 
     /**
