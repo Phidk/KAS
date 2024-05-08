@@ -87,7 +87,7 @@ public abstract class Storage {
         Storage.hotelBookinger.remove(hotelværelse);
     }
 
-    public static ArrayList<HotelBooking> getHotelVærelser() {
+    public static ArrayList<HotelBooking> getHotelBookinger() {
         return new ArrayList<>(hotelBookinger);
     }
 
