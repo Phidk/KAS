@@ -16,6 +16,7 @@ public class Deltager extends Person {
     private final ArrayList<Registration> registrationer = new ArrayList<Registration>();
 
     public Deltager(String navn, String adresse, String land, String by, String tlfNr) {
+        this.navn = navn;
         this.adresse = adresse;
         this.navn = navn;
         this.land = land;
@@ -42,6 +43,22 @@ public class Deltager extends Person {
 
     public String getTlfNr() {
         return tlfNr;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public void setTlfNr(String tlfNr) {
+        this.tlfNr = tlfNr;
     }
 
     public ArrayList<Registration> getRegistrationer() {
