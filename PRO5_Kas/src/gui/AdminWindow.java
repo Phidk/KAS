@@ -49,6 +49,12 @@ public class AdminWindow extends Stage {
         KonferencePane konferencePane = new KonferencePane();
         tabKonferencer.setContent(konferencePane);
 
+        Tab tabUdflugter = new Tab("Udflugter");
+        tabPane.getTabs().add(tabUdflugter);
+
+        UdflugterPane udflugterPane = new UdflugterPane();
+        tabUdflugter.setContent(udflugterPane);
+
     }
 
 }

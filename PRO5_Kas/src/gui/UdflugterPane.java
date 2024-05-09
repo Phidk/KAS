@@ -30,7 +30,7 @@ public class UdflugterPane extends GridPane {
     private ListView<Udflugt> lvwUdflugter;
     private TextField txfNavn, txfDato, txfPris, txfDestination;
     private CheckBox chbFrokost;
-    private TextArea txaKonferencer;
+    private TextArea txaKonference;
     private Button btnSlet, btnOpdater;
 
 
@@ -87,10 +87,10 @@ public class UdflugterPane extends GridPane {
         this.chbFrokost.setOpacity(1);
         this.add(this.chbFrokost, 2, 4);
 
-        this.txaKonferencer = new TextArea();
-        this.txaKonferencer.setPrefSize(200, 100);
-        this.txaKonferencer.setEditable(false);
-        this.add(this.txaKonferencer, 2, 5);
+        this.txaKonference = new TextArea();
+        this.txaKonference.setPrefSize(200, 100);
+        this.txaKonference.setEditable(false);
+        this.add(this.txaKonference, 2, 6);
 
 
         HBox hBox = new HBox(10);
@@ -117,7 +117,7 @@ public class UdflugterPane extends GridPane {
 
     // -----------------------------------------------------
 
-    private void selectedUdflugtChanged (Udflugt udflugter) {
+    private void selectedUdflugtChanged(Udflugt udflugter) {
 
         this.udflugt = udflugter;
 
@@ -129,7 +129,7 @@ public class UdflugterPane extends GridPane {
 
     private void OpdaterControls () {
 
-        this.clearControls();
+//        this.clearControls(); bruges ikke
 
 
         if (this.udflugt != null) {
@@ -148,8 +148,9 @@ public class UdflugterPane extends GridPane {
                     konferencer.append(konference.getNavn()).append("\n");
 
                 }
+
             }
-                //this.txaKonferencer.setText(Konference.toString());
+            this.txaKonference.setText(konferencer.toString());
         }
 
         this.opdaterButtons();
@@ -164,6 +165,11 @@ public class UdflugterPane extends GridPane {
         this.btnOpdater.setDisable(Udflugt);
     }
 
+    private void opdaterUdflugter() {
+
+        this.lvwUdflugter.getItems().setAll(Controller.getUdflugter());
+    }
+
     private void clearControls () {
 
         this.txfNavn.clear();
@@ -171,15 +177,12 @@ public class UdflugterPane extends GridPane {
         this.txfPris.clear();
         this.txfDato.clear();
         this.chbFrokost.setSelected(false);
-        this.txaKonferencer.clear();
+        this.txaKonference.clear();
 
         this.opdaterButtons();
     }
 
-    private void opdaterUdflugter() {
 
-        this.lvwUdflugter.getItems().setAll(Controller.getUdflugter());
-    }
 
     private void createAction () {
         UdflugterWindow udflugterWindow = new UdflugterWindow();
@@ -201,8 +204,9 @@ public class UdflugterPane extends GridPane {
     }
 
     private void deleteAction () {
-        //Controller.removeUdflugt(udflugt);
 
+        Konference Konference = null;
+        Controller.removeUdflugt(Konference,udflugt);
 
         this.udflugt = null;
         this.clearControls();
