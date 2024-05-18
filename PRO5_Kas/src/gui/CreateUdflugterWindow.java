@@ -1,7 +1,6 @@
 package gui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import controller.Controller;
 import javafx.geometry.Insets;
@@ -20,7 +19,7 @@ import model.Konference;
 import model.Udflugt;
 
 
-public class UdflugterWindow extends Stage {
+public class CreateUdflugterWindow extends Stage {
 
     private Udflugt udflugter;
 
@@ -29,7 +28,7 @@ public class UdflugterWindow extends Stage {
     private CheckBox chbFrokost;
     private Label lblFejl;
 
-    public UdflugterWindow(Udflugt udflugter) {
+    public CreateUdflugterWindow(Udflugt udflugter) {
             this.initStyle(StageStyle.UTILITY);
             this.initModality(Modality.APPLICATION_MODAL);
             this.setTitle(String.format("%s udflugt - KAS", (udflugter != null) ? "Opdater" : "Opret"));
@@ -43,7 +42,7 @@ public class UdflugterWindow extends Stage {
             this.setScene(scene);
         }
 
-        UdflugterWindow () {this(null);}
+        CreateUdflugterWindow() {this(null);}
 
 
     // ----------------------------------------------------------------------------------
@@ -73,7 +72,7 @@ public class UdflugterWindow extends Stage {
             txfPris.setPrefWidth(200);
 
             Label lblDestination = new Label("Destination:");
-            pane.add(lblPris,0,3);
+            pane.add(lblDestination,0,3);
 
             this.txfDestination = new TextField();
             pane.add(this.txfDestination,1,3);
@@ -96,7 +95,7 @@ public class UdflugterWindow extends Stage {
             this.lblFejl.setTextFill(Color.RED);
             pane.add(this.lblFejl, 0, 8, 2, 1);
 
-
+//------------------------------------------------------------
 
  Button btnCancel = new Button("Afslut");
         btnCancel.setOnAction(event -> this.cancelAction());
@@ -105,24 +104,24 @@ public class UdflugterWindow extends Stage {
         Button btnSaveCreate = new Button((this.udflugter != null) ? "Gem" : "Opret");
         btnSaveCreate.setOnAction(event -> this.CreateAction());
         pane.add(btnSaveCreate, 1, 6);
-
+//------------------------------------------------------------
 
         if (this.udflugter != null){
             this.initControls();
         }
 
         }
-
+//--------------------------------------------------------------
     private void initControls() {
 
         this.txfNavn.setText(this.udflugter.getNavn());
         this.txfDestination.setText(this.udflugter.getDestination());
         this.dtpDato.setValue(this.udflugter.getDato());
         this.txfPris.setText(this.udflugter.getPris() + "");
-        this.chbFrokost.setSelected(this.udflugter.frokost());
+        this.chbFrokost.setSelected(this.udflugter.frokost);
 
     }
-
+//--------------------------------------------------------------
     private void cancelAction() {this.hide();}
 
     private void CreateAction() {
@@ -136,13 +135,11 @@ public class UdflugterWindow extends Stage {
         String strPris = this.txfPris.getText().trim();
 
         if (!strPris.isEmpty()){
-
             pris = Integer.parseInt(this.txfPris.getText().trim());
         }else {
             this.lblFejl.setText("Pris er ikke angivet");
             return;
         }
-
 
         if (this.udflugter != null){
             this.udflugter.setNavn(navn);
@@ -153,13 +150,13 @@ public class UdflugterWindow extends Stage {
         }else {
 
             Konference konference = null;
-            this.udflugter = Controller.createUdflugt(destination,dato, pris, Frokost, konference);
+            this.udflugter = Controller.createUdflugt(navn, destination,dato, pris, Frokost, konference);
         }
 
         this.hide();
 
     }
-
+//----------------------------------------------------------
 
     public Udflugt getUdflugter() {return this.udflugter;}
 }

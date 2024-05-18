@@ -10,22 +10,21 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Hotel;
-import model.Konference;
+import model.Registration;
+import model.Udflugt;
 
 import java.util.ArrayList;
 
-public class AddHotelWindow extends Stage {
+public class AddUdflugtTilRegistrationWindow extends Stage {
+    private Registration registration;
+    private ListView<Udflugt> lvwUdflugter;
 
-    private Konference konference;
-    private ListView<Hotel> lvwHoteller;
-
-    AddHotelWindow(Konference konference){
+    AddUdflugtTilRegistrationWindow(Registration registration){
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
-        this.setTitle("Tilføj hotel - KAS");
+        this.setTitle("Tilføj udflugt - KAS");
 
-        this.konference = konference;
+        this.registration = registration;
 
         GridPane pane = new GridPane();
         this.initContent(pane);
@@ -33,9 +32,7 @@ public class AddHotelWindow extends Stage {
         Scene scene = new Scene(pane);
         this.setScene(scene);
     }
-
-    // -------------------------------------------------------------------------
-
+    //-----------------------------------------
     private void initContent (GridPane pane) {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -44,10 +41,10 @@ public class AddHotelWindow extends Stage {
 
         // -------------------------------------------------------------------------
 
-        this.lvwHoteller = new ListView<>();
-        this.lvwHoteller.setPrefSize(300, 500);
-        this.lvwHoteller.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        pane.add(this.lvwHoteller, 0, 0, 2, 1);
+        this.lvwUdflugter = new ListView<>();
+        this.lvwUdflugter.setPrefSize(300, 500);
+        this.lvwUdflugter.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        pane.add(this.lvwUdflugter, 0, 0, 2, 1);
 
         // -------------------------------------------------------------------------
 
@@ -67,9 +64,9 @@ public class AddHotelWindow extends Stage {
     // -------------------------------------------------------------------------
 
     private void initControls () {
-        ArrayList<Hotel> hotels = Controller.getHoteller();
-        hotels.removeAll(this.konference.getHoteller());
-        this.lvwHoteller.getItems().setAll(hotels);
+        ArrayList<Udflugt> udflugter = Controller.getUdflugter();
+        udflugter.removeAll(this.registration.getLedsager().getUdflugter());
+        this.lvwUdflugter.getItems().setAll(udflugter);
     }
 
     // -------------------------------------------------------------------------
@@ -79,10 +76,11 @@ public class AddHotelWindow extends Stage {
     }
 
     private void addAction () {
-        for (Hotel hotel : this.lvwHoteller.getSelectionModel().getSelectedItems()) {
-            this.konference.addHotel(hotel);
+        for (Udflugt udflugt : this.lvwUdflugter.getSelectionModel().getSelectedItems()) {
+            this.registration.getLedsager().addUdflugt(udflugt);
         }
 
         this.hide();
     }
+
 }

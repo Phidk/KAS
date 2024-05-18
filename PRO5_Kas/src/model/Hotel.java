@@ -11,8 +11,9 @@ public class Hotel {
     private final ArrayList<Konference> konferencer = new ArrayList<>();
     private final ArrayList<HotelBooking> hotelBookinger = new ArrayList<>();
 
-    public Hotel(String name, int singlePris, int doublePris) {
+    public Hotel(String name, String adresse, int singlePris, int doublePris) {
         this.name = name;
+        this.adresse = adresse;
         this.singlePris = singlePris;
         this.doublePris = doublePris;
     }
@@ -82,6 +83,9 @@ public class Hotel {
         return adresse;
     }
 
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
 
     public void setSinglePris(int singlePris) {
         this.singlePris = singlePris;

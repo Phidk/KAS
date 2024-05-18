@@ -1,24 +1,16 @@
 package gui;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Konference;
 import model.Udflugt;
 
@@ -26,13 +18,11 @@ import model.Udflugt;
 public class UdflugterPane extends GridPane {
 
     private Udflugt udflugt;
-
-    private ListView<Udflugt> lvwUdflugter;
+    private final ListView<Udflugt> lvwUdflugter;
     private TextField txfNavn, txfDato, txfPris, txfDestination;
     private CheckBox chbFrokost;
     private TextArea txaKonference;
     private Button btnSlet, btnOpdater;
-
 
     public UdflugterPane() {
 
@@ -64,7 +54,7 @@ public class UdflugterPane extends GridPane {
         this.add(lblFrokost, 1, 4);
 
         Label lblKonferencer = new Label("Konferencer:");
-        this.add(lblKonferencer, 1, 5);
+        this.add(lblKonferencer, 1, 6);
 
         this.txfNavn = new TextField();
         this.txfNavn.setEditable(false);
@@ -100,7 +90,7 @@ public class UdflugterPane extends GridPane {
         this.btnSlet.setOnAction(event -> this.deleteAction());
         hBox.getChildren().add(this.btnSlet);
 
-        this.btnOpdater = new Button("Opdatere");
+        this.btnOpdater = new Button("Opdater");
         this.btnOpdater.setOnAction(event -> this.opdaterAction());
         hBox.getChildren().add(this.btnOpdater);
 
@@ -128,8 +118,7 @@ public class UdflugterPane extends GridPane {
 
 
     private void OpdaterControls () {
-
-//        this.clearControls(); bruges ikke
+        this.clearControls();
 
 
         if (this.udflugt != null) {
@@ -140,7 +129,7 @@ public class UdflugterPane extends GridPane {
             this.txfDestination.setText(this.udflugt.getDestination());
             this.txfDato.setText(this.udflugt.getDato().format(dtf));
             this.txfPris.setText(this.udflugt.getPris() + "");
-            this.chbFrokost.setSelected(this.udflugt.frokost());
+            this.chbFrokost.setSelected(this.udflugt.frokost);
 
             StringBuilder konferencer = new StringBuilder();
             for (Konference konference : Controller.getKonferencer()) {
@@ -166,7 +155,6 @@ public class UdflugterPane extends GridPane {
     }
 
     private void opdaterUdflugter() {
-
         this.lvwUdflugter.getItems().setAll(Controller.getUdflugter());
     }
 
@@ -185,18 +173,17 @@ public class UdflugterPane extends GridPane {
 
 
     private void createAction () {
-        UdflugterWindow udflugterWindow = new UdflugterWindow();
-        udflugterWindow.showAndWait();
+        CreateUdflugterWindow createUdflugterWindow = new CreateUdflugterWindow();
+        createUdflugterWindow.showAndWait();
 
-        this.udflugt = udflugterWindow.getUdflugter();
+        this.udflugt = createUdflugterWindow.getUdflugter();
         this.OpdaterControls();
         this.opdaterUdflugter();
     }
 
     private void opdaterAction () {
-
-        UdflugterWindow udflugterWindow = new UdflugterWindow(this.udflugt);
-        udflugterWindow.showAndWait();
+        CreateUdflugterWindow createUdflugterWindow = new CreateUdflugterWindow(this.udflugt);
+        createUdflugterWindow.showAndWait();
 
         this.OpdaterControls();
         this.opdaterUdflugter();
@@ -205,8 +192,7 @@ public class UdflugterPane extends GridPane {
 
     private void deleteAction () {
 
-        Konference Konference = null;
-        Controller.removeUdflugt(Konference,udflugt);
+        Controller.removeUdflugt(this.udflugt);
 
         this.udflugt = null;
         this.clearControls();

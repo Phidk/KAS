@@ -100,7 +100,7 @@ HotelPane(){
     this.btnSletHotel.setOnAction(event -> this.deleteHotelAction());
     hBoxHotels.getChildren().add(this.btnSletHotel);
 
-    this.btnRedigerHotel = new Button("Opdatere hotel");
+    this.btnRedigerHotel = new Button("Opdater hotel");
     this.btnRedigerHotel.setOnAction(event -> this.updateHotelAction());
     hBoxHotels.getChildren().add(this.btnRedigerHotel);
 
@@ -115,8 +115,8 @@ HotelPane(){
     this.btnSletTillæg.setOnAction(event -> this.deleteTillægAction());
     hBoxAddOns.getChildren().add(this.btnSletTillæg);
 
-    this.btnRedigerTillæg = new Button("Opdatere tillæg");
-    this.btnRedigerHotel.setOnAction(event -> this.updateTillægAction());
+    this.btnRedigerTillæg = new Button("Opdater tillæg");
+    this.btnRedigerTillæg.setOnAction(event -> this.updateTillægAction());
     hBoxAddOns.getChildren().add(this.btnRedigerTillæg);
 
     this.btnCreateTillæg = new Button("Opret tillæg");

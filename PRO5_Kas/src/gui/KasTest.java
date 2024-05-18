@@ -31,19 +31,19 @@ public class KasTest {
         // Create konference 'Hav og Himmel' som kører fra  18/5 to 20/5 2024 ved Odense Universitet med  1500kr daglig afgift
         Konference konference1 = Controller.createKonference("Hav og Himmel", "Odense Universitet", 1500, LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20));
         // Create udflugter
-        Udflugt udflugt1 = Controller.createUdflugt("Byrundtur, Odense", LocalDate.of(2024, 5, 18), 125, true, konference1);
-        Udflugt udflugt2 = Controller.createUdflugt("Egeskov", LocalDate.of(2024, 5, 19), 75, false, konference1);
-        Udflugt udflugt3 = Controller.createUdflugt("Trapholt Museum, Kolding", LocalDate.of(2024, 5, 20), 200, false, konference1);
+        Udflugt udflugt1 = Controller.createUdflugt("Byrundtur", "Odense", LocalDate.of(2024, 5, 18), 125, true, konference1);
+        Udflugt udflugt2 = Controller.createUdflugt("Egeskov", "Egeskov", LocalDate.of(2024, 5, 19), 75, false, konference1);
+        Udflugt udflugt3 = Controller.createUdflugt("Trapholt Museum", "Kolding", LocalDate.of(2024, 5, 20), 200, false, konference1);
 
         // Create af hoteller og tillæg
-        Hotel hotel1 = Controller.createHotel("Den Hvide Svane", 1050, 1250);
+        Hotel hotel1 = Controller.createHotel("Den Hvide Svane", "Broloftet 11 8240 Risskov", 1050, 1250);
         Tillæg tillæg1 = Controller.createTillæg("WiFi", 50, hotel1);
 
-        Hotel hotel2 = Controller.createHotel("Hotel Phønix", 700, 800);
+        Hotel hotel2 = Controller.createHotel("Hotel Phønix", "Marianen 70, 5500 Middelfart", 700, 800);
         Tillæg tillæg2 = Controller.createTillæg("Bad", 200, hotel2);
         Tillæg tillæg3 = Controller.createTillæg("WiFi", 75, hotel2);
 
-        Hotel hotel3 = Controller.createHotel("Pension Tusindfryd", 500, 600);
+        Hotel hotel3 = Controller.createHotel("Pension Tusindfryd", "Gammel Strandvej 20, 8000 Aarhus C", 500, 600);
         Tillæg tillæg4 = Controller.createTillæg("Morgenmad", 100, hotel2);
 
         // Tilføjer hoteller til konferencen

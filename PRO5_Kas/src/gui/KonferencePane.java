@@ -50,7 +50,7 @@ public class KonferencePane extends GridPane {
         Label lblAddress = new Label("Adresse:");
         this.add(lblAddress, 1, 1);
 
-        Label lblDailyPrice = new Label("Dagspris:");
+        Label lblDailyPrice = new Label("Konference afgift:");
         this.add(lblDailyPrice, 1, 2);
 
         Label lblStartDate = new Label("Startdato og tid:");

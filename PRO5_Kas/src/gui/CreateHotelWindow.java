@@ -113,10 +113,11 @@ private TextField txfDoublePris, txfNavn, txfAdresse;
 
         if (this.hotel != null) {
             this.hotel.setName(name);
+            this.hotel.setAdresse(address);
             this.hotel.setSinglePris(singlePris);
             this.hotel.setDoublePris(doublePris);
         } else {
-            this.hotel = Controller.createHotel(name, singlePris, doublePris);
+            this.hotel = Controller.createHotel(name, address, singlePris, doublePris);
         }
 
         this.hide();

@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Udflugt {
@@ -10,11 +11,12 @@ public class Udflugt {
     private String destination;
     private LocalDate dato;
     private int pris;
-    private boolean frokost;
+    public boolean frokost;
 
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
 
-    public Udflugt(String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
+    public Udflugt(String navn, String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
+        this.navn = navn;
         this.destination = destination;
         this.dato = dato;
         this.pris = pris;
@@ -77,6 +79,7 @@ public class Udflugt {
     public String toString() {
         return getNavn();
     }
+
 }
 
 

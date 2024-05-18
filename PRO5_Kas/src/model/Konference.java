@@ -115,11 +115,23 @@ public class Konference {
     public ArrayList<Hotel> getHoteller() {
         return new ArrayList<>(this.hoteller);
     }
-    public void addHotel(Hotel hotel){
-        hoteller.add(hotel);
+//    public void addHotel(Hotel hotel){
+//        hoteller.add(hotel);
+//    }
+
+
+    public void addHotel (Hotel hotel) {
+        if (!this.hoteller.contains(hotel)) {
+            this.hoteller.add(hotel);
+            hotel.addKonference(this);
+        }
     }
-    public void removeHotel(Hotel hotel){
-        hoteller.remove(hotel);
+
+    public void removeHotel (Hotel hotel) {
+        if (this.hoteller.contains(hotel)) {
+            this.hoteller.remove(hotel);
+            hotel.removeKonference(this);
+        }
     }
 
     //Udflugt
