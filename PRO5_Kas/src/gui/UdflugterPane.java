@@ -191,16 +191,15 @@ public class UdflugterPane extends GridPane {
     }
 
     private void deleteAction () {
-
-        Controller.removeUdflugt(this.udflugt);
+        for (Konference konference : Controller.getKonferencer()) {
+            Controller.removeUdflugt(konference, this.udflugt);
+        }
+        //Controller.removeUdflugt(this.udflugt);
 
         this.udflugt = null;
         this.clearControls();
         this.opdaterUdflugter();
 
     }
-
-
-
 }
 

@@ -237,9 +237,10 @@ public abstract class Controller {
             Storage.removeUdflugt(udflugt);
         }
     }
-    public static void removeUdflugt (Udflugt udflugt) {
-        Storage.removeUdflugt(udflugt);
-    }
+
+//    public static void removeUdflugt (Udflugt udflugt) {
+//        Storage.removeUdflugt(udflugt);
+//    }
     /**
      * Returnerer en liste af udflugter fra storage
      */
