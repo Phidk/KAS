@@ -78,7 +78,7 @@ public class CreateUdflugterWindow extends Stage {
             pane.add(this.txfDestination,1,3);
             txfDestination.setPrefWidth(200);
 
-            Label lblDato = new Label("Dato (yyyy-mm-dd)");
+            Label lblDato = new Label("Dato:");
             pane.add(lblDato,0,4);
 
             this.dtpDato = new DatePicker();
@@ -130,7 +130,7 @@ public class CreateUdflugterWindow extends Stage {
         String destination = this.txfDestination.getText().trim();
         LocalDate dato = this.dtpDato.getValue();
         int pris = Integer.parseInt(txfPris.getText());
-        boolean Frokost = this.chbFrokost.isSelected();
+        boolean frokost = this.chbFrokost.isSelected();
 
         String strPris = this.txfPris.getText().trim();
 
@@ -146,11 +146,11 @@ public class CreateUdflugterWindow extends Stage {
             this.udflugter.setDestination(destination);
             this.udflugter.setDato(dato);
             this.udflugter.setPris(pris);
-            this.udflugter.setFrokost(Frokost);
+            this.udflugter.setFrokost(frokost);
         }else {
 
             Konference konference = null;
-            this.udflugter = Controller.createUdflugt(navn, destination,dato, pris, Frokost, konference);
+            this.udflugter = Controller.createUdflugt(navn, destination,dato, pris,frokost, konference);
         }
 
         this.hide();
