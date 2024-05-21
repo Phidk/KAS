@@ -188,13 +188,11 @@ public abstract class Controller {
      * note: nullable param hotel.
      */
     public static void removeHotel(Hotel hotel) {
-        for (Konference konference : hotel.getKonferencer()) {
-            if (hotel.getKonferencer().contains(konference)) {
-                konference.removeHotel(hotel);
-                hotel.removeKonference(konference);
-            }
-            Storage.removeHotel(hotel);
+        ArrayList<Konference> konferencer = new ArrayList<>(hotel.getKonferencer()); // Lav en kopi af listen
+        for (Konference konference : konferencer) {
+            removeHotelFromKonference(konference, hotel);
         }
+        Storage.removeHotel(hotel);
     }
 
     /**
@@ -223,19 +221,16 @@ public abstract class Controller {
      * Fjerner en udflugt fra storage
      * Note: nullable param konference.
      */
-//    public static void removeUdflugt(Konference konference, Udflugt udflugt) {
-//        if (konference.getUdflugter().contains(udflugt)) {
-//            konference.removeUdflugt(udflugt);
-//
-//            Storage.removeUdflugt(udflugt);
-//        }
-//    }
+    public static void removeUdflugt(Konference konference, Udflugt udflugt) {
+        if (konference.getUdflugter().contains(udflugt)) {
+            konference.removeUdflugt(udflugt);
+
+            Storage.removeUdflugt(udflugt);
+        }
+    }
     public static void removeUdflugt (Udflugt udflugt) {
         Storage.removeUdflugt(udflugt);
     }
-
-
-
     /**
      * Returnerer en liste af udflugter fra storage
      */
