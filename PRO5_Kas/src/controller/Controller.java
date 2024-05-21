@@ -194,7 +194,6 @@ public abstract class Controller {
         }
         Storage.removeHotel(hotel);
     }
-
     /**
      * Returnerer en liste af hoteller fra storage
      */
@@ -295,6 +294,14 @@ public abstract class Controller {
      */
     public static ArrayList<Registration> getRegistrationer() {
         return Storage.getRegistrationer();
+    }
+
+    /**
+     * Gemmer en ny registration i storage
+     * @param registration
+     */
+    public static void addRegistration (Registration registration) {
+        Storage.addRegistration(registration);
     }
 
     // ----------------------------- HotelVærelser -----------------------------
