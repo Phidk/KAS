@@ -191,15 +191,25 @@ public class UdflugterPane extends GridPane {
     }
 
     private void deleteAction () {
+        boolean udflugtExistsInAnyKonference = false;
+
         for (Konference konference : Controller.getKonferencer()) {
-            Controller.removeUdflugt(konference, this.udflugt);
+            if (konference.getUdflugter().contains(this.udflugt)) {
+                udflugtExistsInAnyKonference = true;
+            }
         }
-        //Controller.removeUdflugt(this.udflugt);
+
+        if (udflugtExistsInAnyKonference) {
+            for (Konference konference : Controller.getKonferencer()) {
+                Controller.removeUdflugt(konference, this.udflugt);
+            }
+        } else {
+            Controller.removeUdflugt(this.udflugt);
+        }
 
         this.udflugt = null;
         this.clearControls();
         this.opdaterUdflugter();
-
     }
 }
 

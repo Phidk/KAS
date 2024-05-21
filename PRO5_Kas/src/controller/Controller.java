@@ -24,8 +24,11 @@ public abstract class Controller {
 
         // Create udflugter
         Udflugt udflugt1 = Controller.createUdflugt("Byrundtur", "Odense", LocalDate.of(2024, 5, 18), 125, true, konference1);
+        Controller.addUdflugtToKonfernece(konference1, udflugt1);
         Udflugt udflugt2 = Controller.createUdflugt("Egeskov", "Egeskov" , LocalDate.of(2024, 5, 19), 75, false, konference1);
+        Controller.addUdflugtToKonfernece(konference1, udflugt2);
         Udflugt udflugt3 = Controller.createUdflugt("Trapholt Museum" ,"Kolding", LocalDate.of(2024, 5, 20), 200, false, konference1);
+        Controller.addUdflugtToKonfernece(konference1, udflugt3);
 
         // Create af hoteller og tillæg
         Hotel hotel1 = Controller.createHotel("Den Hvide Svane", "Broloftet 11, 8240 Risskov", 1050, 1250);
@@ -153,7 +156,6 @@ public abstract class Controller {
      * Hotel tilføjes til en konference
      * Note: nullable params konference, hotel
      */
-    // temp change
     public static void addHotelToKonference(Konference konference, Hotel hotel) {
         if (!hotel.getKonferencer().contains(konference)) {
             hotel.addKonference(konference);
@@ -175,23 +177,6 @@ public abstract class Controller {
             konference.removeHotel(hotel);
         }
     }
-//    public static void addHotelToKonference(Konference konference, Hotel hotel) {
-//        if (!hotel.getKonferencer().contains(konference)) {
-//            hotel.addKonference(konference);
-//        }
-//        if (!konference.getHoteller().contains(hotel)) {
-//            konference.addHotel(hotel);
-//        }
-//    }
-//
-//    /**
-
-//    public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
-//        if (hotel.getKonferencer().contains(konference)) {
-//            konference.removeHotel(hotel);
-//            hotel.removeKonference(konference);
-//        }
-//    }
 
     /**
      * Fjerner hotel fra alle konferencer og storage
@@ -221,9 +206,19 @@ public abstract class Controller {
      */
     public static Udflugt createUdflugt(String navn, String destination, LocalDate dato, int pris, Boolean frokost, Konference konference) {
          Udflugt udflugt = new Udflugt(navn, destination, dato, pris, frokost, konference);
-         konference.addUdflugt(udflugt);
+         // konference.addUdflugt(udflugt);
          Storage.addUdflugt(udflugt);
          return udflugt;
+    }
+
+    /**
+     * Tilføjer en udflugt til en given konference
+     * Note: nullable param konference, udflugt
+     */
+    public static void addUdflugtToKonfernece(Konference konference, Udflugt udflugt) {
+        if (!konference.getUdflugter().contains(udflugt)) {
+            konference.addUdflugt(udflugt);
+        }
     }
 
     /**
@@ -238,9 +233,14 @@ public abstract class Controller {
         }
     }
 
-//    public static void removeUdflugt (Udflugt udflugt) {
-//        Storage.removeUdflugt(udflugt);
-//    }
+    /**
+     * Fjerner også udflugt fra storage, anvendt hvis udflugten ikke er sat til en konference
+     * Note: nullable param konference.
+     */
+    public static void removeUdflugt (Udflugt udflugt) {
+        Storage.removeUdflugt(udflugt);
+    }
+
     /**
      * Returnerer en liste af udflugter fra storage
      */

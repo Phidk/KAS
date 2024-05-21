@@ -78,7 +78,8 @@ public class AddUdflugtTilKonferenceWindow extends Stage{
 
     private void addAction () {
         for (Udflugt udflugt : this.lvwUdflugter.getSelectionModel().getSelectedItems()) {
-            this.konference.addUdflugt(udflugt);
+            Controller.addUdflugtToKonfernece(this.konference, udflugt);
+            //this.konference.addUdflugt(udflugt);
         }
 
         this.hide();
