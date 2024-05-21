@@ -161,10 +161,9 @@ public abstract class Controller {
      * Hotel tilføjes til en konference
      * Note: nullable params konference, hotel
      */
+    // temp change
     public static void addHotelToKonference(Konference konference, Hotel hotel) {
-//        konference.addHotel(hotel);
-//        hotel.addKonference(konference);
-        if(!hotel.getKonferencer().contains(konference)) {
+        if (!hotel.getKonferencer().contains(konference)) {
             hotel.addKonference(konference);
         }
         if (!konference.getHoteller().contains(hotel)) {
@@ -178,10 +177,29 @@ public abstract class Controller {
      */
     public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
         if (hotel.getKonferencer().contains(konference)) {
-            konference.removeHotel(hotel);
             hotel.removeKonference(konference);
         }
+        if (konference.getHoteller().contains(hotel)) {
+            konference.removeHotel(hotel);
+        }
     }
+//    public static void addHotelToKonference(Konference konference, Hotel hotel) {
+//        if (!hotel.getKonferencer().contains(konference)) {
+//            hotel.addKonference(konference);
+//        }
+//        if (!konference.getHoteller().contains(hotel)) {
+//            konference.addHotel(hotel);
+//        }
+//    }
+//
+//    /**
+
+//    public static void removeHotelFromKonference(Konference konference, Hotel hotel) {
+//        if (hotel.getKonferencer().contains(konference)) {
+//            konference.removeHotel(hotel);
+//            hotel.removeKonference(konference);
+//        }
+//    }
 
     /**
      * Fjerner hotel fra alle konferencer og storage

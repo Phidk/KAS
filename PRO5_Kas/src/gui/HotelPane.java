@@ -160,9 +160,14 @@ HotelPane(){
 
             this.lvwTillæg.getItems().setAll(this.hotel.getTillæg());
 
+
             StringBuilder hotelBookinger = new StringBuilder();
             for (HotelBooking hotelBooking: this.hotel.getHotelBookinger()) {
-                hotelBookinger.append(hotelBooking.getNummer()).append(" ").append((true) ? "Enkeltværelse " : "Doubleværelse ");
+
+                boolean isDoubleRoom = hotelBooking.getVærelseType() == EnumVærelser.Værelser.DOUBLE;
+                String roomType = isDoubleRoom ? "Doubleværelse " : "Enkeltværelse ";
+                hotelBookinger.append(hotelBooking.getNummer()).append(" ").append(roomType);
+                // hotelBookinger.append(hotelBooking.getNummer()).append(" ").append((true) ? "Enkeltværelse " : "Doubleværelse ");
 
                 ArrayList<String> tillægsNavne = new ArrayList<>();
                 for (Tillæg tillæg : hotelBooking.getTillæg()) {
