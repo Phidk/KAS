@@ -108,8 +108,8 @@ public abstract class Controller {
             hotel.removeKonference(konference);
             konference.removeHotel(hotel);
         }
-    }
 
+    }
     /**
      * Fjerner en konference fra storage
      * Note: nullable param konference
@@ -120,6 +120,7 @@ public abstract class Controller {
         }
         Storage.removeKonference(konference);
     }
+
 
     /**
      * Returnerer en liste af konferencer fra storage
@@ -299,7 +300,7 @@ public abstract class Controller {
 
     /**
      * Gemmer en ny registration i storage
-     * @param registration
+     *
      */
     public static void addRegistration (Registration registration) {
         Storage.addRegistration(registration);

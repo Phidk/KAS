@@ -51,7 +51,7 @@ public class DeltagerPane extends GridPane {
         Label lblTlfNr = new Label("TlfNr:");
         this.add(lblTlfNr,1,4);
 
-        Label lblRegistrationer = new Label("Registrationer:");
+        Label lblRegistrationer = new Label("Konferencer:");
         this.add(lblRegistrationer,1,5);
 
         this.txfNavn = new TextField();

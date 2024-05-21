@@ -53,10 +53,10 @@ public class KonferencePane extends GridPane {
         Label lblDailyPrice = new Label("Konference afgift:");
         this.add(lblDailyPrice, 1, 2);
 
-        Label lblStartDate = new Label("Startdato og tid:");
+        Label lblStartDate = new Label("Startdato:");
         this.add(lblStartDate, 1, 3);
 
-        Label lblEndDate = new Label("Slutdato og tid:");
+        Label lblEndDate = new Label("Slutdato:");
         this.add(lblEndDate, 1, 4);
 
         Label lblHotels = new Label("Hoteller:");
@@ -221,7 +221,6 @@ public class KonferencePane extends GridPane {
         this.txfDagligpris.clear();
         this.txfStartDato.clear();
         this.txfSlutDato.clear();
-        this.txfDeadline.clear();
         this.lvwHoteller.getItems().clear();
         this.lvwUdflugter.getItems().clear();
         this.txaRegistrationer.clear();
