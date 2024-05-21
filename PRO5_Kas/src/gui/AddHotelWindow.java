@@ -80,7 +80,8 @@ public class AddHotelWindow extends Stage {
 
     private void addAction () {
         for (Hotel hotel : this.lvwHoteller.getSelectionModel().getSelectedItems()) {
-            this.konference.addHotel(hotel);
+            Controller.addHotelToKonference(this.konference, hotel);
+            //this.konference.addHotel(hotel);
         }
 
         this.hide();

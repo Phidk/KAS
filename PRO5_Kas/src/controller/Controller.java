@@ -91,15 +91,6 @@ public abstract class Controller {
     }
 
     /**
-     * Konference tilføjes til et hotel
-     * Note: Nullable params hotel, konference
-     */
-    public static void addHotelToKonference(Hotel hotel, Konference konference) {
-        hotel.addKonference(konference);
-        konference.addHotel(hotel);
-    }
-
-    /**
      * Fjerner en konference fra specifikt hotel
      * Note: Nullable params hotel, konference
      */
@@ -108,8 +99,8 @@ public abstract class Controller {
             hotel.removeKonference(konference);
             konference.removeHotel(hotel);
         }
-
     }
+
     /**
      * Fjerner en konference fra storage
      * Note: nullable param konference
